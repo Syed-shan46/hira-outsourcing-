@@ -6,13 +6,16 @@ import {
   ArrowRight, 
   ShieldCheck, 
   MessageSquareQuote,
-  PhoneCall
+  PhoneCall,
+  Search
 } from 'lucide-react';
 import { siteConfig } from '../config/site';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [quickTrackId, setQuickTrackId] = useState('');
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -38,12 +41,20 @@ export const Navbar: React.FC = () => {
     { name: 'How It Works', href: '/how-it-works' },
     { name: 'Products', href: '/products' },
     { name: 'About Us', href: '/about' },
+    { name: 'Track Order', href: '/tracking' },
     { name: 'Contact', href: '/contact' },
   ];
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
+  };
+
+  const handleTrackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (quickTrackId.trim()) {
+      window.location.href = `/${quickTrackId.trim()}`;
+    }
   };
 
   return (
@@ -91,6 +102,17 @@ export const Navbar: React.FC = () => {
 
             {/* Actions / Primary CTA */}
             <div className="hidden lg:flex items-center gap-4">
+              {/* Quick Order Lookup Button */}
+              <button
+                type="button"
+                onClick={() => setShowSearchModal(true)}
+                className="text-xs text-[#EEF1F4]/80 hover:text-[#C7A56A] flex items-center gap-1.5 transition-colors px-2.5 py-1.5 rounded-md hover:bg-[#FFFFFF]/5 border border-[#EEF1F4]/15"
+                title="Track by Order ID"
+              >
+                <Search className="w-3.5 h-3.5 text-[#C7A56A]" />
+                <span>Track ID</span>
+              </button>
+
               <a
                 href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
                 target="_blank"
@@ -113,6 +135,12 @@ export const Navbar: React.FC = () => {
 
             {/* Mobile Hamburger Button */}
             <div className="flex items-center gap-2 lg:hidden">
+              <Link
+                to="/tracking"
+                className="text-xs border border-[#C7A56A]/60 text-[#C7A56A] px-2.5 py-1.5 rounded font-medium"
+              >
+                Track
+              </Link>
               <Link
                 to="/contact"
                 className="text-xs bg-[#C7A56A] text-[#10243A] px-3 py-1.5 rounded font-semibold"
@@ -153,6 +181,22 @@ export const Navbar: React.FC = () => {
             </div>
 
             <div className="pt-4 border-t border-[#202833]/80 space-y-3">
+              <form onSubmit={handleTrackSubmit} className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Enter Order ID (e.g. HIRA-1001)"
+                  value={quickTrackId}
+                  onChange={(e) => setQuickTrackId(e.target.value)}
+                  className="flex-1 bg-[#0c1b2c] border border-[#202833] rounded-lg px-3 py-2 text-xs text-white placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-[#C7A56A]"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#C7A56A] text-[#10243A] px-3 py-2 rounded-lg text-xs font-bold"
+                >
+                  Track
+                </button>
+              </form>
+
               <Link
                 to="/contact"
                 onClick={() => setMobileMenuOpen(false)}
@@ -171,6 +215,57 @@ export const Navbar: React.FC = () => {
                 <PhoneCall className="w-3.5 h-3.5 text-[#C7A56A]" />
                 <span>WhatsApp Sourcing Desk: {siteConfig.whatsapp.displayNumber}</span>
               </a>
+            </div>
+          </div>
+        )}
+
+        {/* Quick Search Modal on Desktop */}
+        {showSearchModal && (
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-[#10243A] border border-[#C7A56A]/40 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-[#202833] pb-3">
+                <div className="flex items-center gap-2 text-sm font-bold text-white">
+                  <Search className="w-4 h-4 text-[#C7A56A]" />
+                  <span>Track Live Order Status</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowSearchModal(false)}
+                  className="text-stone-400 hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <p className="text-xs text-stone-300">
+                Enter your HIRA Order ID or tracking token to view real-time factory progress, dispatch, and port arrival updates:
+              </p>
+
+              <form onSubmit={handleTrackSubmit} className="space-y-3">
+                <input
+                  type="text"
+                  autoFocus
+                  placeholder="e.g. HIRA-839201 or 839201"
+                  value={quickTrackId}
+                  onChange={(e) => setQuickTrackId(e.target.value)}
+                  className="w-full bg-[#0c1b2c] border border-[#202833] rounded-xl px-4 py-3 text-sm text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#C7A56A]"
+                />
+                <div className="flex justify-end gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowSearchModal(false)}
+                    className="px-4 py-2 text-xs font-medium text-stone-300 hover:text-white"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-[#C7A56A] hover:bg-[#d8b87d] text-[#10243A] px-5 py-2 rounded-xl text-xs font-bold transition-all"
+                  >
+                    Track Order
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

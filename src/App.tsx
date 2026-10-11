@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { WhatsAppButton } from './components/WhatsAppButton';
@@ -11,6 +11,21 @@ import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
+import CustomerTrackingPage from './pages/CustomerTrackingPage';
+
+// Helper component to cleanly distinguish direct Order IDs from corporate routes
+function TrackingOrNotFound() {
+  const { id } = useParams<{ id: string }>();
+  const staticRoutes = new Set([
+    'services', 'how-it-works', 'products', 'about', 'contact', 'privacy-policy', 'terms', 'tracking'
+  ]);
+
+  if (!id || staticRoutes.has(id.toLowerCase())) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <CustomerTrackingPage />;
+}
 
 export function App() {
   return (
@@ -30,6 +45,14 @@ export function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
+
+            {/* Direct Order Tracking Routes */}
+            {/* e.g. hiraoutsourcing.com/tracking/HIRA-1234 or hiraoutsourcing.com/HIRA-1234 */}
+            <Route path="/tracking/:token" element={<CustomerTrackingPage />} />
+            <Route path="/tracking" element={<CustomerTrackingPage />} />
+            <Route path="/:id" element={<TrackingOrNotFound />} />
+
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
 
