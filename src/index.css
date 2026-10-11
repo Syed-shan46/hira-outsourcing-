@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-navy: #10243A;
+    --color-warm-white: #FAFAF7;
+    --color-charcoal: #202833;
+    --color-gold: #C7A56A;
+    --color-light-grey: #EEF1F4;
+    --color-white: #FFFFFF;
+  }
+
+  * {
+    border-color: #EEF1F4;
+  }
+
+  body {
+    background-color: #FAFAF7;
+    color: #202833;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom luxury subtle utility classes */
+.bg-navy { background-color: #10243A; }
+.text-navy { color: #10243A; }
+.border-navy { border-color: #10243A; }
+
+.bg-gold { background-color: #C7A56A; }
+.text-gold { color: #C7A56A; }
+.border-gold { border-color: #C7A56A; }
+
+.bg-warm-white { background-color: #FAFAF7; }
+.bg-light-grey { background-color: #EEF1F4; }
+.text-charcoal { color: #202833; }
+
+/* Subtle glass & borders */
+.border-gold-subtle {
+  border-color: rgba(199, 165, 106, 0.25);
+}
+
+.gold-glow {
+  box-shadow: 0 4px 20px -2px rgba(199, 165, 106, 0.2);
+}
+
+.navy-card-shadow {
+  box-shadow: 0 10px 30px -10px rgba(16, 36, 58, 0.08);
+}
