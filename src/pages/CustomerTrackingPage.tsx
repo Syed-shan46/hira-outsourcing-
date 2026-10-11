@@ -165,16 +165,47 @@ export default function CustomerTrackingPage() {
   }
 
   if (error || !data) {
+    const handleInputSubmit = (e) => {
+      e.preventDefault();
+      const val = e.target.elements.lookupId.value.trim();
+      if (val) {
+        navigate(`/${val}`);
+      }
+    };
+
     return (
       <div 
-        className="min-h-screen bg-[#FAF8F5] text-stone-900 flex flex-col items-center justify-center p-4 text-center"
+        className="min-h-[80vh] bg-[#FAF8F5] text-stone-900 flex flex-col items-center justify-center p-4 text-center"
         style={{ colorScheme: 'only light' }}
       >
         <div className="w-16 h-16 mx-auto rounded-2xl bg-[#F6ECE0] border border-[#ECDDC9] flex items-center justify-center mb-5 text-[#8C5921] shadow-sm">
           <Package size={30} />
         </div>
         <h1 className="text-2xl font-black text-stone-900 tracking-tight">{error ? 'Order Not Found' : 'Track Your Shipment'}</h1>
-        <p className="text-stone-600 text-xs mt-2 max-w-sm">Enter a valid Order ID (e.g. HIRA-839201) to view real-time shipment status & milestones.</p>
+        <p className="text-stone-600 text-xs mt-2 max-w-sm">
+          {error 
+            ? `We could not find tracking details for "${trackingParam}". Please check your Order ID or try below.`
+            : 'Enter a valid Order ID (e.g. HIRA-100087) to view real-time shipment status & milestones.'
+          }
+        </p>
+
+        {/* Interactive Search Bar */}
+        <form onSubmit={handleInputSubmit} className="mt-6 max-w-sm w-full flex items-center gap-2 bg-white p-1.5 rounded-2xl border border-stone-200 shadow-sm focus-within:border-[#8C5921] focus-within:ring-2 focus-within:ring-[#8C5921]/10">
+          <input 
+            type="text" 
+            name="lookupId" 
+            defaultValue={trackingParam}
+            placeholder="e.g. HIRA-100087" 
+            className="flex-1 px-3 py-2 text-sm bg-transparent outline-none font-mono text-stone-800 placeholder-stone-400"
+            autoFocus
+          />
+          <button 
+            type="submit" 
+            className="bg-[#8C5921] hover:bg-[#73491b] text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors shadow-sm"
+          >
+            Track
+          </button>
+        </form>
       </div>
     );
   }

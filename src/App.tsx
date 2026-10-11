@@ -13,14 +13,14 @@ import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
 import CustomerTrackingPage from './pages/CustomerTrackingPage';
 
-// Helper component to cleanly distinguish direct Order IDs from corporate routes
-function TrackingOrNotFound() {
-  const { id } = useParams<{ id: string }>();
+// Helper component that forwards the URL param directly as orderId
+function DirectOrderTrackingRoute() {
+  const { orderId } = useParams<{ orderId: string }>();
   const staticRoutes = new Set([
     'services', 'how-it-works', 'products', 'about', 'contact', 'privacy-policy', 'terms', 'tracking'
   ]);
 
-  if (!id || staticRoutes.has(id.toLowerCase())) {
+  if (!orderId || staticRoutes.has(orderId.toLowerCase())) {
     return <Navigate to="/" replace />;
   }
 
@@ -47,10 +47,10 @@ export function App() {
             <Route path="/terms" element={<Terms />} />
 
             {/* Direct Order Tracking Routes */}
-            {/* e.g. hiraoutsourcing.com/tracking/HIRA-1234 or hiraoutsourcing.com/HIRA-1234 */}
-            <Route path="/tracking/:token" element={<CustomerTrackingPage />} />
+            {/* Matches both hiraoutsourcing.com/tracking/HIRA-100087 and hiraoutsourcing.com/HIRA-100087 */}
+            <Route path="/tracking/:orderId" element={<CustomerTrackingPage />} />
             <Route path="/tracking" element={<CustomerTrackingPage />} />
-            <Route path="/:id" element={<TrackingOrNotFound />} />
+            <Route path="/:orderId" element={<DirectOrderTrackingRoute />} />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
