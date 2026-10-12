@@ -6,11 +6,11 @@ export const siteConfig = {
     "Your trusted China sourcing partner for finding products, connecting with suppliers, coordinating bulk orders, and managing the import process into India.",
   url: "https://hiraoutsourcing.com",
   
-  // WhatsApp Configuration - Clearly documented placeholder for real business number
-  // Format without '+' or spaces for wa.me API link (e.g. "919876543210")
+  // WhatsApp Configuration - Real Business WhatsApp Number
+  // India country code +91 with number 9072014777 -> "919072014777" for wa.me API link
   whatsapp: {
-    number: "919876543210", // Configured via siteConfig or VITE_WHATSAPP_NUMBER
-    displayNumber: "+91 98765 43210 (Enquiries)",
+    number: "919072014777",
+    displayNumber: "+91 90720 14777",
     defaultMessage:
       "Hello Hira Outsourcing, I am interested in sourcing products from China. I would like to discuss my requirements.",
   },
