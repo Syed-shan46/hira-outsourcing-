@@ -101,39 +101,40 @@ export const Navbar: React.FC = () => {
               ))}
             </nav>
 
-            {/* Action Bar (Track Button + Quote CTA) */}
-            <div className="hidden lg:flex items-center gap-3 shrink-0">
-              {/* Refined Track Order Pill Button */}
+            {/* Action Bar (Prominent Track Shipment Button + Sourcing Quote) */}
+            <div className="hidden lg:flex items-center gap-2.5 shrink-0">
+              {/* Prominent High-End Track Order Button */}
               <button
                 type="button"
                 onClick={() => setShowSearchModal(true)}
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-[#EEF1F4]/90 hover:text-white bg-white/5 hover:bg-white/10 border border-[#EEF1F4]/15 hover:border-[#C7A56A]/50 rounded-lg transition-all shadow-sm"
-                title="Search live shipment status"
+                className="inline-flex items-center justify-center gap-2 bg-[#C7A56A] hover:bg-[#d8b87d] text-[#10243A] px-4.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold tracking-wide transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap group"
+                title="Track Live Cargo & Shipment Progress"
               >
-                <Package className="w-3.5 h-3.5 text-[#C7A56A]" />
+                <Package className="w-4 h-4 text-[#10243A] transition-transform group-hover:scale-110" />
                 <span>Track Order</span>
+                <Search className="w-3.5 h-3.5 opacity-70" />
               </button>
+
+              {/* Sourcing Request Button */}
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-white/90 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#C7A56A]/60 rounded-xl transition-all shadow-sm whitespace-nowrap"
+              >
+                <span>Sourcing Request</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C7A56A]" />
+              </Link>
 
               {/* WhatsApp Quick Icon */}
               <a
                 href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden 2xl:inline-flex items-center gap-1.5 text-xs font-medium text-[#EEF1F4]/75 hover:text-[#25D366] px-2.5 py-2 rounded-lg hover:bg-white/5 transition-colors"
+                className="hidden 2xl:inline-flex items-center gap-1.5 text-xs font-medium text-[#EEF1F4]/75 hover:text-[#25D366] px-2.5 py-2 rounded-xl hover:bg-white/5 transition-colors"
                 title="WhatsApp Quick Desk"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>WhatsApp</span>
               </a>
-
-              {/* Request a Quote CTA Button - Clean, single-line, elegant */}
-              <Link
-                to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-[#C7A56A] hover:bg-[#d8b87d] text-[#10243A] px-5 py-2 rounded-lg text-xs sm:text-sm font-bold tracking-wide transition-all shadow hover:shadow-md hover:-translate-y-0.5 whitespace-nowrap"
-              >
-                <span>Request a Quote</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
             </div>
 
             {/* Mobile Controls */}
@@ -141,11 +142,11 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowSearchModal(true)}
-                className="p-2 text-[#C7A56A] bg-white/5 border border-[#EEF1F4]/15 rounded-lg text-xs font-semibold flex items-center gap-1"
+                className="px-3 py-1.5 bg-[#C7A56A] text-[#10243A] rounded-lg text-xs font-bold flex items-center gap-1.5 shadow"
                 title="Track Shipment"
               >
-                <Package className="w-4 h-4" />
-                <span className="text-[11px]">Track</span>
+                <Package className="w-3.5 h-3.5" />
+                <span>Track</span>
               </button>
 
               <button

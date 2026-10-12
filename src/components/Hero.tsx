@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   ShieldCheck, 
-  Ship, 
+  Ship,
+  Package, 
   Factory, 
   FileCheck,
   CheckCircle2,
@@ -62,18 +63,19 @@ export const Hero: React.FC = () => {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
               <Link
-                to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-[#C7A56A] hover:bg-[#d8b87d] text-[#10243A] px-7 py-3.5 rounded-lg text-sm sm:text-base font-semibold tracking-wide transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                to="/tracking"
+                className="inline-flex items-center justify-center gap-2.5 bg-[#C7A56A] hover:bg-[#d8b87d] text-[#10243A] px-7 py-3.5 rounded-xl text-sm sm:text-base font-extrabold tracking-wide transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
-                <span>Start Your Sourcing Request</span>
+                <Package className="w-5 h-5 text-[#10243A]" />
+                <span>Track Live Shipment</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
-                to="/services"
-                className="inline-flex items-center justify-center gap-2 bg-[#FFFFFF]/5 hover:bg-[#FFFFFF]/10 border border-[#EEF1F4]/20 hover:border-[#C7A56A]/50 text-[#FAFAF7] px-6 py-3.5 rounded-lg text-sm sm:text-base font-medium transition-all duration-200"
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-[#C7A56A]/40 hover:border-[#C7A56A] text-white px-6 py-3.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-200 backdrop-blur-sm"
               >
-                <span>Explore Our Services</span>
+                <span>Start Sourcing Request</span>
               </Link>
             </div>
 
