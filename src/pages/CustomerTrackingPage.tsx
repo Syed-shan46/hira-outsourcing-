@@ -45,6 +45,7 @@ export default function CustomerTrackingPage() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('My Orders');
   const [expandedOrders, setExpandedOrders] = useState({});
+  const [selectedProductByOrder, setSelectedProductByOrder] = useState<Record<string, number | 'all'>>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleCopyOrderId = (e: React.MouseEvent, idToCopy: string) => {
@@ -160,17 +161,29 @@ const isConfirmedOrder = (order: any) => {
   // Customer Profile Stats (calculated strictly from confirmed orders)
   const profileStats = useMemo(() => {
     if (!data) return { totalOrders: 0, totalSpend: 0, inTransit: 0, delivered: 0 };
-    let totalOrders = allOrders.length;
+    let totalOrders = 0;
     let totalSpend = 0;
     let inTransit = 0;
     let delivered = 0;
 
     allOrders.forEach(o => {
       totalSpend += parseFloat(o.value) || 0;
-      if (o.orderStatus === 'Delivered' || o.deliveryStatus === 'Delivered') {
-        delivered += 1;
+      if (Array.isArray(o.products) && o.products.length > 1) {
+        totalOrders += o.products.length;
+        o.products.forEach(p => {
+          if (p.delivered || p.orderStatus === 'Delivered') {
+            delivered += 1;
+          } else {
+            inTransit += 1;
+          }
+        });
       } else {
-        inTransit += 1;
+        totalOrders += 1;
+        if (o.orderStatus === 'Delivered' || o.deliveryStatus === 'Delivered') {
+          delivered += 1;
+        } else {
+          inTransit += 1;
+        }
       }
     });
 
@@ -182,24 +195,91 @@ const isConfirmedOrder = (order: any) => {
     return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   };
 
-  const getProgressSteps = (order) => {
-    const isDelivered = Boolean(order.delivered || order.orderStatus === 'Delivered' || order.deliveryStatus === 'Delivered');
-    const isOutForDelivery = Boolean(order.outForDelivery);
-    const isArrivedIndia = Boolean(order.arrivedIndia);
-    const isCustomsCleared = Boolean(order.underCustomClearance);
-    const isArrivedDest = Boolean(order.arrivedDestinationCountry);
-    const isDispatched = Boolean(order.dispatchedFromChina);
-    const isReadyToDispatch = Boolean(order.readyToDispatch);
+  const getProgressSteps = (item, parentOrder = {}) => {
+    const isDelivered = Boolean(
+      item?.delivered || 
+      item?.orderStatus === 'Delivered' || 
+      item?.deliveryStatus === 'Delivered' ||
+      parentOrder?.delivered ||
+      parentOrder?.deliveryStatus === 'Delivered'
+    );
+    const isOutForDelivery = Boolean(item?.outForDelivery || parentOrder?.outForDelivery);
+    const isArrivedIndia = Boolean(item?.arrivedIndia || parentOrder?.arrivedIndia);
+    const isCustomsCleared = Boolean(item?.underCustomClearance || parentOrder?.underCustomClearance);
+    const isArrivedDest = Boolean(item?.arrivedDestinationCountry || parentOrder?.arrivedDestinationCountry);
+    const isDispatched = Boolean(item?.dispatchedFromChina || parentOrder?.dispatchedFromChina);
+    const isReadyToDispatch = Boolean(
+      item?.readyToDispatch || 
+      item?.supplierPaymentDone ||
+      item?.warehouseStatus === 'ready to dispatch' ||
+      parentOrder?.readyToDispatch
+    );
 
     const steps = [
-      { id: 'confirmed', label: 'Order Confirmed', completed: true, date: order.createdAt, icon: FileText, desc: 'Purchase confirmed & consignment prepared' },
-      { id: 'ready', label: 'Ready to Dispatch', completed: isReadyToDispatch || isDispatched || isArrivedDest || isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, date: order.chinaLoadingDate || null, icon: Box, desc: order.readyToDispatchMessage || 'Packed, inspected and scheduled for pickup' },
-      { id: 'dispatched', label: 'Dispatched from China', completed: isDispatched || isArrivedDest || isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, date: null, icon: Truck, desc: order.dispatchedFromChinaMessage || 'Cargo dispatched from origin facility' },
-      { id: 'arrived_dest', label: 'Arrived at Destination', completed: isArrivedDest || isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, date: null, icon: Plane, desc: 'Touched down at national logistics terminal' },
-      { id: 'customs', label: 'Customs Clearance', completed: isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, date: order.indiaArrivalDate || null, icon: ShieldCheck, desc: order.underCustomClearanceMessage || 'Under customs clearance & inspection' },
-      { id: 'hub', label: 'Arrived at Local Hub', completed: isArrivedIndia || isOutForDelivery || isDelivered, date: null, icon: Warehouse, desc: order.arrivedIndiaMessage || 'Sorted & received at regional delivery depot' },
-      { id: 'out', label: 'Out for Delivery', completed: isOutForDelivery || isDelivered, date: null, icon: Truck, desc: order.outForDeliveryMessage || (order.deliveryCourier ? `Handed over to ${order.deliveryCourier}` : 'Dispatched with final mile courier') },
-      { id: 'delivered', label: 'Delivered', completed: isDelivered, date: order.deliveryDate || null, icon: Home, desc: order.deliveredMessage || 'Successfully received by consignee' }
+      { 
+        id: 'confirmed', 
+        label: 'Order Confirmed', 
+        completed: true, 
+        date: item?.createdAt || parentOrder?.createdAt, 
+        icon: FileText, 
+        desc: 'Purchase confirmed & consignment prepared' 
+      },
+      { 
+        id: 'ready', 
+        label: 'Ready to Dispatch', 
+        completed: isReadyToDispatch || isDispatched || isArrivedDest || isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, 
+        date: item?.chinaLoadingDate || parentOrder?.chinaLoadingDate || null, 
+        icon: Box, 
+        desc: item?.readyToDispatchMessage || parentOrder?.readyToDispatchMessage || (item?.warehouseName ? `Stored at ${item.warehouseName} warehouse` : 'Packed, inspected and scheduled for pickup') 
+      },
+      { 
+        id: 'dispatched', 
+        label: 'Dispatched from China', 
+        completed: isDispatched || isArrivedDest || isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, 
+        date: null, 
+        icon: Truck, 
+        desc: item?.dispatchedFromChinaMessage || parentOrder?.dispatchedFromChinaMessage || 'Cargo dispatched from origin facility' 
+      },
+      { 
+        id: 'arrived_dest', 
+        label: 'Arrived at Destination', 
+        completed: isArrivedDest || isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, 
+        date: null, 
+        icon: Plane, 
+        desc: item?.arrivedDestinationCountryMessage || parentOrder?.arrivedDestinationCountryMessage || 'Touched down at national logistics terminal' 
+      },
+      { 
+        id: 'customs', 
+        label: 'Customs Clearance', 
+        completed: isCustomsCleared || isArrivedIndia || isOutForDelivery || isDelivered, 
+        date: item?.indiaArrivalDate || parentOrder?.indiaArrivalDate || null, 
+        icon: ShieldCheck, 
+        desc: item?.underCustomClearanceMessage || parentOrder?.underCustomClearanceMessage || 'Under customs clearance & inspection' 
+      },
+      { 
+        id: 'hub', 
+        label: 'Arrived at Local Hub', 
+        completed: isArrivedIndia || isOutForDelivery || isDelivered, 
+        date: null, 
+        icon: Warehouse, 
+        desc: item?.arrivedIndiaMessage || parentOrder?.arrivedIndiaMessage || 'Sorted & received at regional delivery depot' 
+      },
+      { 
+        id: 'out', 
+        label: 'Out for Delivery', 
+        completed: isOutForDelivery || isDelivered, 
+        date: null, 
+        icon: Truck, 
+        desc: item?.outForDeliveryMessage || parentOrder?.outForDeliveryMessage || ((item?.deliveryCourier || parentOrder?.deliveryCourier) ? `Handed over to ${item?.deliveryCourier || parentOrder?.deliveryCourier}` : 'Dispatched with final mile courier') 
+      },
+      { 
+        id: 'delivered', 
+        label: 'Delivered', 
+        completed: isDelivered, 
+        date: item?.deliveryDate || parentOrder?.deliveryDate || null, 
+        icon: Home, 
+        desc: item?.deliveredMessage || parentOrder?.deliveredMessage || 'Successfully received by consignee' 
+      }
     ];
 
     // Determine current active step (the last completed one)
@@ -208,6 +288,52 @@ const isConfirmedOrder = (order: any) => {
 
     return { steps, activeIndex };
   };
+
+  const renderMilestoneTimeline = (steps, activeIndex) => (
+    <div className="relative pl-5 space-y-4 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[1.5px] before:bg-[#EAE5DC]">
+      {steps.map((step, sIdx) => {
+        const isCompleted = step.completed;
+        const isCurrent = sIdx === activeIndex;
+
+        return (
+          <div key={step.id} className="relative group">
+            {/* Dot */}
+            <div className={`absolute -left-5 top-0.5 w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center transition-all
+              ${isCompleted 
+                ? 'bg-[#8C5921] border-[#8C5921] text-white shadow-xs' 
+                : 'bg-white border-[#D6D0C4] text-transparent'}`}
+            >
+              {isCompleted && <Check size={7} strokeWidth={4} />}
+            </div>
+
+            <div className="bg-[#FAF8F5] rounded-xl p-2.5 border border-[#EAE5DC]/80 space-y-1">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5">
+                  <step.icon size={12} className={isCompleted ? 'text-[#8C5921]' : 'text-stone-400'} />
+                  <span className={`text-[11px] font-black ${isCompleted ? 'text-stone-900' : 'text-stone-400'}`}>
+                    {step.label}
+                  </span>
+                  {isCurrent && (
+                    <span className="px-1.5 py-0.2 rounded bg-[#8C5921] text-white text-[8px] font-black uppercase tracking-wider">
+                      Current Status
+                    </span>
+                  )}
+                </div>
+                {step.date && (
+                  <span className="text-[9.5px] font-bold text-stone-500 font-mono">
+                    {new Date(step.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </span>
+                )}
+              </div>
+              <p className={`text-[10px] leading-relaxed ${isCompleted ? 'text-stone-600' : 'text-stone-400 italic'}`}>
+                {step.desc}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 
   const toggleOrderExpanded = (orderId) => {
     setExpandedOrders(prev => ({
@@ -436,6 +562,7 @@ const isConfirmedOrder = (order: any) => {
               </div>
             ) : (
               allOrders.map((order) => {
+              const hasMultipleProducts = Array.isArray(order.products) && order.products.length > 1;
               const { steps, activeIndex } = getProgressSteps(order);
               const productName = order.product?.trim() || 'Commercial Goods';
               const isDelivered = order.orderStatus === 'Delivered';
@@ -448,19 +575,15 @@ const isConfirmedOrder = (order: any) => {
               else if (order.orderStatus === 'At Clearance') badgeColor = 'bg-[#FDF6ED] text-[#D97706] border-[#FDE6D5]';
               else badgeColor = 'bg-[#F6ECE0] text-[#8C5921] border-[#E8D9C8]';
 
-              // Has custom messages
-              const hasCustomNotes = Boolean(
-                order.outForDeliveryMessage ||
-                order.arrivedIndiaMessage ||
-                order.underCustomClearanceMessage ||
-                order.dispatchedFromChinaMessage ||
-                order.readyToDispatchMessage ||
-                order.deliveredMessage ||
-                order.deliveryCourier
-              );
-
               const rawId = order.orderId || (order._id ? `HIRA-${order._id.slice(-6).toUpperCase()}` : '');
               const formattedOrderId = rawId ? (rawId.startsWith('#') ? rawId : `#${rawId}`) : '#N/A';
+
+              const activeFilter = selectedProductByOrder[order._id] ?? 'all';
+              const productsToRender = hasMultipleProducts
+                ? (activeFilter === 'all'
+                    ? order.products.map((p, i) => ({ ...p, originalIndex: i }))
+                    : (order.products[activeFilter] ? [{ ...order.products[activeFilter], originalIndex: activeFilter }] : []))
+                : [];
 
               return (
                 <div 
@@ -488,9 +611,16 @@ const isConfirmedOrder = (order: any) => {
                           {copiedId === formattedOrderId ? <Check size={12} className="text-teal-600" /> : <Copy size={12} />}
                         </button>
                       </div>
-                      <span className={`px-2.5 py-0.5 rounded-md border text-[9px] font-extrabold uppercase tracking-wider shrink-0 shadow-2xs ${badgeColor}`}>
-                        {order.orderStatus}
-                      </span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {hasMultipleProducts && (
+                          <span className="px-2 py-0.5 rounded-md bg-[#FAF4ED] text-[#8C5921] border border-[#E8D9C8] text-[9px] font-extrabold uppercase tracking-wider">
+                            {order.products.length} Products
+                          </span>
+                        )}
+                        <span className={`px-2.5 py-0.5 rounded-md border text-[9px] font-extrabold uppercase tracking-wider shrink-0 shadow-2xs ${badgeColor}`}>
+                          {order.orderStatus}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Product Summary Row */}
@@ -504,11 +634,28 @@ const isConfirmedOrder = (order: any) => {
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="text-[12px] font-black text-stone-900 uppercase tracking-wider truncate">{productName}</p>
-                          <p className="text-[10px] text-stone-500 font-medium mt-0.5 truncate">
-                            {order.quantity || 1} Unit • {order.shippingMethod || 'Express Freight'}
-                            {order.createdAt && ` • ${new Date(order.createdAt).toLocaleDateString('en-GB')}`}
-                          </p>
+                          {hasMultipleProducts ? (
+                            <div>
+                              <p className="text-[12px] font-black text-stone-900 uppercase tracking-wider truncate">
+                                {order.products.length} Products in Consignment
+                              </p>
+                              <p className="text-[10px] text-stone-600 font-bold mt-0.5 truncate">
+                                {order.products.map(p => p.name).join(' • ')}
+                              </p>
+                              <p className="text-[9.5px] text-stone-500 font-medium mt-0.5 truncate">
+                                Total: {order.quantity || order.products.reduce((s, p) => s + (p.quantity || 1), 0)} Units • {order.weight || order.products.reduce((s, p) => s + (p.weight || 0), 0)} kg • {order.shippingMethod || 'Sea'} Freight
+                                {order.createdAt && ` • ${new Date(order.createdAt).toLocaleDateString('en-GB')}`}
+                              </p>
+                            </div>
+                          ) : (
+                            <div>
+                              <p className="text-[12px] font-black text-stone-900 uppercase tracking-wider truncate">{productName}</p>
+                              <p className="text-[10px] text-stone-500 font-medium mt-0.5 truncate">
+                                {order.quantity || 1} Unit • {order.shippingMethod || 'Express Freight'}
+                                {order.createdAt && ` • ${new Date(order.createdAt).toLocaleDateString('en-GB')}`}
+                              </p>
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -525,7 +672,7 @@ const isConfirmedOrder = (order: any) => {
 
                   {/* Detailed Vertical Milestones Section (Expanded on click) */}
                   {isExpanded && (
-                    <div className="mt-4 pt-3 border-t border-[#EAE5DC] space-y-3 animate-fadeIn">
+                    <div className="mt-4 pt-3 border-t border-[#EAE5DC] space-y-4 animate-fadeIn">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
                         <span className="text-[11px] font-black uppercase tracking-wider text-stone-700 flex items-center gap-1.5">
                           <Clock size={12} className="text-[#8C5921]" /> Shipment Journey & Milestones
@@ -542,81 +689,146 @@ const isConfirmedOrder = (order: any) => {
                         </div>
                       </div>
 
-                      {/* Milestone timeline list */}
-                      <div className="relative pl-5 space-y-4 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[1.5px] before:bg-[#EAE5DC]">
-                        {steps.map((step, sIdx) => {
-                          const isCompleted = step.completed;
-                          const isCurrent = sIdx === activeIndex;
-
-                          return (
-                            <div key={step.id} className="relative group">
-                              {/* Dot */}
-                              <div className={`absolute -left-5 top-0.5 w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center transition-all
-                                ${isCompleted 
-                                  ? 'bg-[#8C5921] border-[#8C5921] text-white shadow-xs' 
-                                  : 'bg-white border-[#D6D0C4] text-transparent'}`}
+                      {/* MULTI-PRODUCT CONSIGNMENT TRACKING */}
+                      {hasMultipleProducts ? (
+                        <div className="space-y-4">
+                          {/* Product Selector Bar */}
+                          <div className="bg-[#FAF7F2] p-3 rounded-2xl border border-[#EAE5DC] space-y-2.5">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-black uppercase tracking-wider text-stone-600 flex items-center gap-1.5">
+                                <Package size={13} className="text-[#8C5921]" /> Select Product to View Tracking ({order.products.length} Products):
+                              </span>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedProductByOrder(prev => ({ ...prev, [order._id]: 'all' }));
+                                }}
+                                className={`px-2.5 py-1 rounded-lg text-[9.5px] font-extrabold transition-all cursor-pointer ${
+                                  (selectedProductByOrder[order._id] === 'all' || selectedProductByOrder[order._id] === undefined)
+                                    ? 'bg-[#8C5921] text-white shadow-xs'
+                                    : 'bg-white text-stone-600 hover:bg-[#FAF4ED] border border-[#EAE5DC]'
+                                }`}
                               >
-                                {isCompleted && <Check size={7} strokeWidth={4} />}
-                              </div>
-
-                              <div className="bg-[#FAF8F5] rounded-xl p-2.5 border border-[#EAE5DC]/80 space-y-1">
-                                <div className="flex items-center justify-between gap-2 flex-wrap">
-                                  <div className="flex items-center gap-1.5">
-                                    <step.icon size={12} className={isCompleted ? 'text-[#8C5921]' : 'text-stone-400'} />
-                                    <span className={`text-[11px] font-black ${isCompleted ? 'text-stone-900' : 'text-stone-400'}`}>
-                                      {step.label}
-                                    </span>
-                                    {isCurrent && (
-                                      <span className="px-1.5 py-0.2 rounded bg-[#8C5921] text-white text-[8px] font-black uppercase tracking-wider">
-                                        Current Status
-                                      </span>
-                                    )}
-                                  </div>
-                                  {step.date && (
-                                    <span className="text-[9.5px] font-bold text-stone-500 font-mono">
-                                      {new Date(step.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                    </span>
-                                  )}
-                                </div>
-                                <p className={`text-[10px] leading-relaxed ${isCompleted ? 'text-stone-600' : 'text-stone-400 italic'}`}>
-                                  {step.desc}
-                                </p>
-                              </div>
+                                View Both ({order.products.length})
+                              </button>
                             </div>
-                          );
-                        })}
-                      </div>
 
-                      {/* Itemized breakdown if multi-product order */}
-                      {Array.isArray(order.products) && order.products.length > 1 && (
-                        <div className="pt-3 border-t border-[#EAE5DC]/80 space-y-2">
-                          <p className="text-[10px] font-black uppercase tracking-wider text-stone-500">
-                            Itemized Products in this Consignment ({order.products.length}):
-                          </p>
-                          <div className="space-y-2">
-                            {order.products.map((prod, pIdx) => (
-                              <div key={prod._id || pIdx} className="p-2.5 rounded-xl bg-white border border-[#EAE5DC] flex items-center justify-between gap-2">
-                                <div className="min-w-0">
-                                  <div className="flex items-center gap-1.5">
-                                    <span className="text-xs font-bold text-stone-900 truncate">{prod.name}</span>
+                            <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                              {order.products.map((prod, pIdx) => {
+                                const isSelected = selectedProductByOrder[order._id] === pIdx;
+                                return (
+                                  <button
+                                    key={prod._id || pIdx}
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedProductByOrder(prev => ({ ...prev, [order._id]: pIdx }));
+                                    }}
+                                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 border cursor-pointer ${
+                                      isSelected
+                                        ? 'bg-[#8C5921] text-white border-[#8C5921] shadow-xs'
+                                        : 'bg-white text-stone-700 border-[#EAE5DC] hover:border-[#8C5921]/50'
+                                    }`}
+                                  >
+                                    <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-black ${
+                                      isSelected ? 'bg-white/20 text-white' : 'bg-stone-100 text-stone-600'
+                                    }`}>
+                                      {pIdx + 1}
+                                    </span>
+                                    <span className="max-w-[130px] truncate">{prod.name}</span>
                                     {prod.shippingMark && (
-                                      <span className="px-1.5 py-0.2 rounded text-[8.5px] font-mono bg-[#F6ECE0] text-[#8C5921] font-bold">
+                                      <span className={`text-[8.5px] px-1.5 py-0.2 rounded font-mono font-bold ${
+                                        isSelected ? 'bg-black/20 text-white' : 'bg-[#FAF4ED] text-[#8C5921]'
+                                      }`}>
                                         {prod.shippingMark}
                                       </span>
                                     )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Render Individual Product Cards */}
+                          <div className="space-y-4">
+                            {productsToRender.map(({ originalIndex: pIdx, ...prod }) => {
+                              const { steps: prodSteps, activeIndex: prodActiveIndex } = getProgressSteps(prod, order);
+                              const prodIsDelivered = Boolean(prod.delivered || prod.orderStatus === 'Delivered');
+
+                              let prodBadgeColor = 'bg-stone-100 text-stone-600 border-stone-200';
+                              if (prodIsDelivered) prodBadgeColor = 'bg-teal-50 text-teal-700 border-teal-200';
+                              else if (prod.orderStatus === 'In Transit') prodBadgeColor = 'bg-blue-50 text-blue-700 border-blue-200';
+                              else if (prod.orderStatus === 'At Clearance') prodBadgeColor = 'bg-[#FDF6ED] text-[#D97706] border-[#FDE6D5]';
+                              else prodBadgeColor = 'bg-[#F6ECE0] text-[#8C5921] border-[#E8D9C8]';
+
+                              return (
+                                <div key={prod._id || pIdx} className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#EAE5DC] space-y-3 shadow-2xs">
+                                  {/* Product Header */}
+                                  <div className="flex items-start justify-between gap-2 pb-2.5 border-b border-[#EAE5DC]/80">
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex items-center gap-2 flex-wrap">
+                                        <span className="w-5 h-5 rounded-md bg-[#8C5921] text-white flex items-center justify-center text-[10px] font-black">
+                                          {pIdx + 1}
+                                        </span>
+                                        <h4 className="text-xs sm:text-[13px] font-black text-stone-900 uppercase tracking-tight">
+                                          {prod.name}
+                                        </h4>
+                                        {prod.shippingMark && (
+                                          <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#FAF4ED] text-[#8C5921] border border-[#E8D9C8]">
+                                            {prod.shippingMark}
+                                          </span>
+                                        )}
+                                      </div>
+
+                                      {/* Cargo Specifications Pills */}
+                                      <div className="flex items-center gap-1.5 flex-wrap mt-2">
+                                        <span className="px-2 py-0.5 rounded-md bg-white border border-[#EAE5DC] text-stone-700 text-[9.5px] font-bold">
+                                          Qty: {prod.quantity || 1} Units
+                                        </span>
+                                        {prod.weight ? (
+                                          <span className="px-2 py-0.5 rounded-md bg-white border border-[#EAE5DC] text-stone-700 text-[9.5px] font-bold">
+                                            {prod.weight} kg
+                                          </span>
+                                        ) : null}
+                                        {prod.cbm ? (
+                                          <span className="px-2 py-0.5 rounded-md bg-white border border-[#EAE5DC] text-stone-700 text-[9.5px] font-bold">
+                                            {prod.cbm} CBM
+                                          </span>
+                                        ) : null}
+                                        <span className="px-2 py-0.5 rounded-md bg-white border border-[#EAE5DC] text-stone-700 text-[9.5px] font-bold flex items-center gap-1">
+                                          {(prod.shippingMethod || order.shippingMethod) === 'Air' ? <Plane size={10} /> : <Ship size={10} />}
+                                          {prod.shippingMethod || order.shippingMethod || 'Sea'} Freight
+                                        </span>
+                                        {(prod.warehouseName || order.warehouseName) && (
+                                          <span className="px-2 py-0.5 rounded-md bg-white border border-[#EAE5DC] text-stone-700 text-[9.5px] font-bold flex items-center gap-1">
+                                            <Warehouse size={10} /> {prod.warehouseName || order.warehouseName}
+                                          </span>
+                                        )}
+                                      </div>
+                                    </div>
+
+                                    <span className={`px-2 py-0.5 rounded text-[8.5px] font-extrabold uppercase shrink-0 border ${prodBadgeColor}`}>
+                                      {prod.delivered ? 'Delivered' : prod.orderStatus || 'Order Confirmed'}
+                                    </span>
                                   </div>
-                                  <div className="text-[9.5px] text-stone-500 mt-0.5">
-                                    Qty: {prod.quantity || 1} {prod.weight ? `• ${prod.weight} kg` : ''} {prod.cbm ? `• ${prod.cbm} CBM` : ''}
+
+                                  {/* Dedicated Product Milestones Timeline */}
+                                  <div className="pt-1">
+                                    <p className="text-[10px] font-black uppercase tracking-wider text-stone-500 mb-2.5 flex items-center gap-1">
+                                      <Clock size={11} className="text-[#8C5921]" /> Logistics Journey for {prod.name}:
+                                    </p>
+                                    {renderMilestoneTimeline(prodSteps, prodActiveIndex)}
                                   </div>
                                 </div>
-                                <span className={`px-2 py-0.5 rounded text-[8.5px] font-extrabold uppercase shrink-0 ${
-                                  prod.delivered ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-stone-100 text-stone-600'
-                                }`}>
-                                  {prod.delivered ? 'Delivered' : prod.orderStatus || 'In Progress'}
-                                </span>
-                              </div>
-                            ))}
+                              );
+                            })}
                           </div>
+                        </div>
+                      ) : (
+                        /* Single Product Order Timeline */
+                        <div className="space-y-3">
+                          {renderMilestoneTimeline(steps, activeIndex)}
                         </div>
                       )}
                     </div>
