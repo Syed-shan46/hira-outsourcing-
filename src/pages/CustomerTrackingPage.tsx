@@ -93,17 +93,71 @@ export default function CustomerTrackingPage() {
     };
   }, [trackingParam]);
 
-  // Combine current order and related orders
+// Helper to identify strictly confirmed orders (excluding pre-sales / discussion leads)
+const isConfirmedOrder = (order: any) => {
+  if (!order || !order.orderStatus) return false;
+  const status = String(order.orderStatus).trim().toLowerCase();
+
+  // Explicitly excluded pre-order / negotiation / inquiry statuses
+  const excluded = [
+    'live',
+    'in discussion',
+    'price given',
+    'shipping charge given',
+    'interested',
+    'not now',
+    'not interested',
+    'price high',
+    'no response',
+    'lost',
+    'cancelled'
+  ];
+  if (excluded.includes(status)) {
+    return false;
+  }
+
+  // Accepted confirmed logistics & order statuses
+  const confirmed = [
+    'order confirmed',
+    'processing',
+    'loaded from warehouse',
+    'at clearance',
+    'in transit',
+    'delivered',
+    'ready to dispatch',
+    'dispatched from china',
+    'arrived in india',
+    'out for delivery'
+  ];
+
+  return confirmed.includes(status) || Boolean(order.delivered || order.deliveryStatus === 'Delivered');
+};
+
+  // Combine current order and related orders, filtered strictly to confirmed orders
   const allOrders = useMemo(() => {
     if (!data) return [];
     const orders = [data, ...(data.relatedOrders || [])];
     // Deduplicate by _id just in case
     const unique = Array.from(new Map(orders.map(o => [o._id, o])).values());
-    unique.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    return unique;
+    const confirmedOnly = unique.filter(isConfirmedOrder);
+    confirmedOnly.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return confirmedOnly;
   }, [data]);
 
-  // Customer Profile Stats
+  // Expand the first confirmed order by default
+  useEffect(() => {
+    if (allOrders.length > 0) {
+      setExpandedOrders(prev => {
+        const hasAnyExpanded = Object.values(prev).some(Boolean);
+        if (!hasAnyExpanded && allOrders[0]?._id) {
+          return { [allOrders[0]._id]: true };
+        }
+        return prev;
+      });
+    }
+  }, [allOrders]);
+
+  // Customer Profile Stats (calculated strictly from confirmed orders)
   const profileStats = useMemo(() => {
     if (!data) return { totalOrders: 0, totalSpend: 0, inTransit: 0, delivered: 0 };
     let totalOrders = allOrders.length;
@@ -115,7 +169,7 @@ export default function CustomerTrackingPage() {
       totalSpend += parseFloat(o.value) || 0;
       if (o.orderStatus === 'Delivered' || o.deliveryStatus === 'Delivered') {
         delivered += 1;
-      } else if (!['Cancelled', 'Lost', 'Not Interested'].includes(o.orderStatus)) {
+      } else {
         inTransit += 1;
       }
     });
@@ -360,7 +414,28 @@ export default function CustomerTrackingPage() {
         {/* Orders List */}
         {activeTab === 'My Orders' && (
           <div className="space-y-4 pt-1">
-            {allOrders.map((order) => {
+            {allOrders.length === 0 ? (
+              <div className="py-12 bg-white rounded-3xl border border-[#EAE5DC] text-center p-6 space-y-3 shadow-sm">
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-[#F6ECE0] border border-[#ECDDC9] flex items-center justify-center text-[#8C5921]">
+                  <Box size={26} />
+                </div>
+                <h4 className="text-base font-black text-stone-900 tracking-tight">No Confirmed Orders in Tracking</h4>
+                <p className="text-stone-500 text-xs max-w-sm mx-auto leading-relaxed">
+                  Only confirmed consignments appear in live shipment tracking. Once your quotation is confirmed, its full journey and milestones will be visible here.
+                </p>
+                <div className="pt-2">
+                  <a 
+                    href="https://wa.me/919072014777" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 bg-[#8C5921] hover:bg-[#73491b] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm transition-colors"
+                  >
+                    Contact Sourcing Team
+                  </a>
+                </div>
+              </div>
+            ) : (
+              allOrders.map((order) => {
               const { steps, activeIndex } = getProgressSteps(order);
               const productName = order.product?.trim() || 'Commercial Goods';
               const isDelivered = order.orderStatus === 'Delivered';
@@ -548,7 +623,8 @@ export default function CustomerTrackingPage() {
                   )}
                 </div>
               );
-            })}
+            })
+          )}
           </div>
         )}
 
