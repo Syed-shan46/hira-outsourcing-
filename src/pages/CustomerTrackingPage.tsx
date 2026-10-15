@@ -45,6 +45,16 @@ export default function CustomerTrackingPage() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('My Orders');
   const [expandedOrders, setExpandedOrders] = useState({});
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopyOrderId = (e: React.MouseEvent, idToCopy: string) => {
+    e.stopPropagation();
+    if (!idToCopy) return;
+    const cleanId = idToCopy.replace(/^#/, '');
+    navigator.clipboard.writeText(cleanId);
+    setCopiedId(idToCopy);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   useEffect(() => {
     if (!trackingParam) {
@@ -374,6 +384,9 @@ export default function CustomerTrackingPage() {
                 order.deliveryCourier
               );
 
+              const rawId = order.orderId || (order._id ? `HIRA-${order._id.slice(-6).toUpperCase()}` : '');
+              const formattedOrderId = rawId ? (rawId.startsWith('#') ? rawId : `#${rawId}`) : '#N/A';
+
               return (
                 <div 
                   key={order._id} 
@@ -381,56 +394,77 @@ export default function CustomerTrackingPage() {
                 >
                   {/* Order Card Header */}
                   <div 
-                    className="flex items-start justify-between gap-3 cursor-pointer group"
+                    className="cursor-pointer group space-y-3"
                     onClick={() => toggleOrderExpanded(order._id)}
                   >
-                    <div className="flex items-start gap-3 min-w-0 flex-1">
-                      <div className="w-13 h-13 rounded-2xl bg-[#0F1E36] shrink-0 flex items-center justify-center overflow-hidden border border-[#233858] shadow-sm">
-                        {order.productImage ? (
-                          <img src={order.productImage} alt={productName} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = '/images/tracking-preview.jpg'; }} />
-                        ) : (
-                          <Box size={22} className="text-white opacity-60" />
-                        )}
+                    {/* Top Row: Prominent Order ID & Status Badge */}
+                    <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-[#EAE5DC]/70">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-stone-400">Order ID:</span>
+                        <span className="text-xs sm:text-[13px] font-black text-stone-900 font-mono tracking-tight select-all">
+                          {formattedOrderId}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={(e) => handleCopyOrderId(e, formattedOrderId)}
+                          className="p-1 rounded-md text-stone-400 hover:text-[#8C5921] hover:bg-[#F6ECE0]/60 transition-colors shrink-0"
+                          title="Copy Order ID"
+                        >
+                          {copiedId === formattedOrderId ? <Check size={12} className="text-teal-600" /> : <Copy size={12} />}
+                        </button>
                       </div>
-                      <div className="pt-0.5 min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-[13px] font-black text-stone-900 tracking-tight leading-tight truncate">Order #{order.orderId}</h3>
-                        </div>
-                        <p className="text-[11px] font-bold text-stone-700 uppercase tracking-wider truncate mt-0.5">{productName}</p>
-                        <p className="text-[10px] text-stone-500 font-medium mt-1 truncate">
-                          {order.quantity || 1} Unit • {order.shippingMethod || 'Express Freight'}
-                          {order.createdAt && ` • ${new Date(order.createdAt).toLocaleDateString('en-GB')}`}
-                        </p>
-                      </div>
+                      <span className={`px-2.5 py-0.5 rounded-md border text-[9px] font-extrabold uppercase tracking-wider shrink-0 shadow-2xs ${badgeColor}`}>
+                        {order.orderStatus}
+                      </span>
                     </div>
 
-                    <div className="flex flex-col items-end gap-1.5 shrink-0 max-w-[42%]">
-                      <div className="flex items-center gap-1.5">
-                        <span className={`px-2 py-0.5 rounded-md border text-[9px] font-extrabold uppercase tracking-wider truncate shadow-2xs ${badgeColor}`}>
-                          {order.orderStatus}
+                    {/* Product Summary Row */}
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="w-12 h-12 rounded-2xl bg-[#0F1E36] shrink-0 flex items-center justify-center overflow-hidden border border-[#233858] shadow-sm">
+                          {order.productImage ? (
+                            <img src={order.productImage} alt={productName} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = '/images/tracking-preview.jpg'; }} />
+                          ) : (
+                            <Box size={20} className="text-white opacity-60" />
+                          )}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[12px] font-black text-stone-900 uppercase tracking-wider truncate">{productName}</p>
+                          <p className="text-[10px] text-stone-500 font-medium mt-0.5 truncate">
+                            {order.quantity || 1} Unit • {order.shippingMethod || 'Express Freight'}
+                            {order.createdAt && ` • ${new Date(order.createdAt).toLocaleDateString('en-GB')}`}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 text-[9.5px] text-[#8C5921] font-bold shrink-0">
+                        <span className="group-hover:underline">
+                          {isExpanded ? 'Hide Milestones' : 'View Milestones'}
                         </span>
                         <div className="w-6 h-6 rounded-full bg-stone-100 group-hover:bg-[#F6ECE0] group-hover:text-[#8C5921] flex items-center justify-center text-stone-400 transition-colors">
                           <ChevronDown size={14} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180 text-[#8C5921]' : ''}`} />
                         </div>
                       </div>
-                      <span className="text-[9px] text-[#8C5921] font-semibold group-hover:underline">
-                        {isExpanded ? 'Hide Milestones' : 'View Milestones'}
-                      </span>
                     </div>
                   </div>
 
                   {/* Detailed Vertical Milestones Section (Expanded on click) */}
                   {isExpanded && (
                     <div className="mt-4 pt-3 border-t border-[#EAE5DC] space-y-3 animate-fadeIn">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
                         <span className="text-[11px] font-black uppercase tracking-wider text-stone-700 flex items-center gap-1.5">
                           <Clock size={12} className="text-[#8C5921]" /> Shipment Journey & Milestones
                         </span>
-                        {order.deliveryCourier && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1">
-                            <Truck size={10} /> {order.deliveryCourier}
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-mono font-bold text-stone-600 bg-[#FAF4ED] px-2 py-0.5 rounded border border-[#E8D9C8]">
+                            {formattedOrderId}
                           </span>
-                        )}
+                          {order.deliveryCourier && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1">
+                              <Truck size={10} /> {order.deliveryCourier}
+                            </span>
+                          )}
+                        </div>
                       </div>
 
                       {/* Milestone timeline list */}
