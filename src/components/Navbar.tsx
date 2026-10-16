@@ -64,21 +64,21 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-3">
             
             {/* Brand Logo & Brand Mark */}
             <Link 
               to="/" 
-              className="flex items-center gap-3 shrink-0 group focus:outline-none"
+              className="flex items-center gap-2.5 sm:gap-3 shrink-0 group focus:outline-none"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D8B87D] to-[#C7A56A] flex items-center justify-center font-extrabold text-[#10243A] text-lg tracking-wider shadow-sm transition-transform duration-300 group-hover:scale-105">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#D8B87D] to-[#C7A56A] flex items-center justify-center font-extrabold text-[#10243A] text-base sm:text-lg tracking-wider shadow-sm transition-transform duration-300 group-hover:scale-105">
                 H
               </div>
               <div className="flex flex-col">
-                <span className="text-lg sm:text-xl font-bold tracking-tight text-white leading-tight">
+                <span className="text-base sm:text-xl font-bold tracking-tight text-white leading-tight">
                   HIRA <span className="text-[#C7A56A] font-semibold">OUTSOURCING</span>
                 </span>
-                <span className="text-[10px] tracking-widest text-[#EEF1F4]/70 uppercase font-medium">
+                <span className="text-[9px] sm:text-[10px] tracking-widest text-[#EEF1F4]/70 uppercase font-medium">
                   China Sourcing Partner
                 </span>
               </div>
@@ -137,22 +137,12 @@ export const Navbar: React.FC = () => {
               </a>
             </div>
 
-            {/* Mobile Controls */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <button
-                type="button"
-                onClick={() => setShowSearchModal(true)}
-                className="px-3 py-1.5 bg-[#C7A56A] text-[#10243A] rounded-lg text-xs font-bold flex items-center gap-1.5 shadow"
-                title="Track Shipment"
-              >
-                <Package className="w-3.5 h-3.5" />
-                <span>Track</span>
-              </button>
-
+            {/* Mobile Controls - Clean Hamburger Only (Track is in Hero & Drawer) */}
+            <div className="flex items-center lg:hidden">
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-white hover:text-[#C7A56A] bg-white/5 rounded-lg border border-[#EEF1F4]/15"
+                className="p-2 text-white hover:text-[#C7A56A] bg-white/5 hover:bg-white/10 rounded-lg border border-[#EEF1F4]/15 transition-colors focus:outline-none"
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
