@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { trackingAPI } from '../services/trackingApi';
 import {
   Package, Truck, Warehouse,
@@ -412,15 +412,13 @@ const isConfirmedOrder = (order: any) => {
       {/* Top Navigation Bar */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAEAEA]">
         <div className="max-w-md sm:max-w-xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-md bg-[#111111] text-white flex items-center justify-center">
-              <Package size={16} strokeWidth={2} />
-            </div>
-            <div className="flex flex-col justify-center">
-              <span className="text-xs font-semibold tracking-wider text-[#111111] uppercase leading-none mb-1">HIRA TRACKING</span>
-              <span className="text-[9px] font-medium text-[#888888] uppercase tracking-widest leading-none">Global Sourcing Partner</span>
-            </div>
-          </div>
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/images/hira_logo_white_to_black_precise.png" 
+              alt="Hira Outsourcing" 
+              className="h-8 w-auto object-contain"
+            />
+          </Link>
           <div className="flex items-center gap-4">
             <div className="w-8 h-8 rounded-full bg-[#111111] text-white flex items-center justify-center font-medium text-xs">
               {getInitials(data.customerName)}

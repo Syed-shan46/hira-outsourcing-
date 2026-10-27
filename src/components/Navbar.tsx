@@ -64,19 +64,13 @@ export const Navbar: React.FC = () => {
             {/* Brand Logo */}
             <Link 
               to="/" 
-              className="flex items-center gap-3 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-md"
+              className="flex items-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-md py-1"
             >
-              <div className="w-8 h-8 rounded-md bg-[#111111] text-white flex items-center justify-center font-semibold text-sm tracking-tight transition-transform duration-200 group-hover:scale-95">
-                H
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[15px] font-semibold tracking-tight text-[#111111] leading-none">
-                  HIRA <span className="font-normal text-[#666666]">OUTSOURCING</span>
-                </span>
-                <span className="text-[10px] tracking-widest text-[#888888] uppercase font-medium mt-1">
-                  China Sourcing Partner
-                </span>
-              </div>
+              <img 
+                src="/images/hira_logo_white_to_black_precise.png" 
+                alt="Hira Outsourcing Services Pvt Ltd" 
+                className="h-8 sm:h-9 w-auto object-contain transition-opacity hover:opacity-90"
+              />
             </Link>
 
             {/* Desktop Navigation Links */}
