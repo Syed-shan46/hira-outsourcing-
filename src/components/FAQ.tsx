@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, ShieldCheck } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { FAQItem } from '../types';
 
 export const faqData: FAQItem[] = [
@@ -45,53 +45,47 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq-section" className="py-20 bg-[#FAFAF7] border-t border-[#EEF1F4]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq-section" className="py-20 sm:py-28 lg:py-32 bg-white border-t border-[#EAEAEA]">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
+        
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#C7A56A] mb-2.5">
-            <HelpCircle className="w-4 h-4" />
-            <span>Answers &amp; Clarity</span>
+        <div className="text-left mb-16 sm:mb-20">
+          <div className="text-xs uppercase tracking-widest text-[#888888] font-medium mb-3">
+            Common Questions
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#10243A] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal sm:font-medium tracking-tight text-[#111111] leading-tight">
             Frequently Asked Questions
           </h2>
-          <p className="mt-3 text-sm text-[#202833]/75 leading-relaxed">
-            Clear, qualified answers on bilateral trade, factory minimums, logistics timelines, and import documentation into India.
+          <p className="mt-4 text-base text-[#666666] leading-relaxed">
+            Direct, qualified answers on bilateral trade, factory minimums, logistics timelines, and customs documentation into India.
           </p>
         </div>
 
-        {/* Accordion Container */}
-        <div className="space-y-4">
+        {/* Clean Accordion List */}
+        <div className="border-t border-[#EAEAEA]">
           {faqData.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <div
                 key={index}
-                className={`border rounded-xl transition-all duration-200 overflow-hidden ${
-                  isOpen 
-                    ? 'bg-[#FFFFFF] border-[#C7A56A]/60 shadow-md' 
-                    : 'bg-[#FFFFFF] border-[#EEF1F4] hover:border-[#C7A56A]/30'
-                }`}
+                className="border-b border-[#EAEAEA]"
               >
                 <button
                   type="button"
                   onClick={() => toggleAccordion(index)}
-                  className="w-full py-4.5 px-6 text-left flex items-center justify-between gap-4 focus:outline-none focus:ring-2 focus:ring-[#C7A56A]"
+                  className="w-full py-5 text-left flex items-center justify-between gap-6 focus:outline-none focus-visible:ring-1 focus-visible:ring-black cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-bold text-sm sm:text-base text-[#10243A] leading-snug">
+                  <span className="font-normal sm:font-medium text-base text-[#111111] leading-snug">
                     {item.question}
                   </span>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 bg-[#10243A] text-[#C7A56A]' : 'bg-[#EEF1F4] text-[#10243A]'
-                  }`}>
+                  <div className={`shrink-0 text-[#888888] transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#111111]' : ''}`}>
                     <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-sm text-[#202833]/80 leading-relaxed border-t border-[#EEF1F4]/70">
+                  <div className="pb-6 text-sm text-[#666666] leading-relaxed animate-fadeIn">
                     <p>{item.answer}</p>
                   </div>
                 )}
@@ -100,13 +94,14 @@ export const FAQ: React.FC = () => {
           })}
         </div>
 
-        {/* Qualified Note */}
-        <div className="mt-10 p-4 rounded-xl bg-[#EEF1F4] border border-[#EEF1F4] text-center text-xs text-[#202833]/70">
-          Have an unlisted question regarding specific HS codes or regulatory certifications (BIS, WPC, etc.)?{' '}
-          <a href="#enquiry-form" className="text-[#10243A] font-semibold underline hover:text-[#C7A56A]">
-            Contact our trade desk
+        {/* Bottom Note */}
+        <div className="mt-12 text-xs text-[#666666]">
+          Have an unlisted inquiry regarding specific HS codes or mandatory regulatory standards (BIS, WPC, EPR)?{' '}
+          <a href="#enquiry-form" className="text-[#111111] font-medium underline">
+            Submit a direct request to our trade desk &rarr;
           </a>
         </div>
+
       </div>
     </section>
   );

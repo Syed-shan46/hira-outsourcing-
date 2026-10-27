@@ -4,9 +4,6 @@ import {
   Menu, 
   X, 
   ArrowRight, 
-  MessageSquareQuote,
-  PhoneCall,
-  Search,
   Package
 } from 'lucide-react';
 import { siteConfig } from '../config/site';
@@ -21,7 +18,7 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -57,43 +54,41 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-[#10243A]/95 backdrop-blur-md shadow-lg py-3 border-b border-[#202833]'
-            : 'bg-[#10243A] py-4 border-b border-[#202833]/80'
+        className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-200 border-b ${
+          isScrolled ? 'border-[#EAEAEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)]' : 'border-[#EAEAEA]'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
             
-            {/* Brand Logo & Brand Mark */}
+            {/* Brand Logo */}
             <Link 
               to="/" 
-              className="flex items-center gap-2.5 sm:gap-3 shrink-0 group focus:outline-none"
+              className="flex items-center gap-3 shrink-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-md"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#D8B87D] to-[#C7A56A] flex items-center justify-center font-extrabold text-[#10243A] text-base sm:text-lg tracking-wider shadow-sm transition-transform duration-300 group-hover:scale-105">
+              <div className="w-8 h-8 rounded-md bg-[#111111] text-white flex items-center justify-center font-semibold text-sm tracking-tight transition-transform duration-200 group-hover:scale-95">
                 H
               </div>
               <div className="flex flex-col">
-                <span className="text-base sm:text-xl font-bold tracking-tight text-white leading-tight">
-                  HIRA <span className="text-[#C7A56A] font-semibold">OUTSOURCING</span>
+                <span className="text-[15px] font-semibold tracking-tight text-[#111111] leading-none">
+                  HIRA <span className="font-normal text-[#666666]">OUTSOURCING</span>
                 </span>
-                <span className="text-[9px] sm:text-[10px] tracking-widest text-[#EEF1F4]/70 uppercase font-medium">
+                <span className="text-[10px] tracking-widest text-[#888888] uppercase font-medium mt-1">
                   China Sourcing Partner
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden xl:flex items-center space-x-1" aria-label="Main Navigation">
+            <nav className="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-all ${
+                  className={`text-[13px] tracking-tight transition-colors duration-150 ${
                     isActive(link.href)
-                      ? 'text-[#C7A56A] bg-white/10 font-semibold'
-                      : 'text-[#EEF1F4]/80 hover:text-white hover:bg-white/5'
+                      ? 'text-[#111111] font-semibold'
+                      : 'text-[#666666] hover:text-[#111111] font-normal'
                   }`}
                 >
                   {link.name}
@@ -101,70 +96,65 @@ export const Navbar: React.FC = () => {
               ))}
             </nav>
 
-            {/* Action Bar (Prominent Track Shipment Button + Sourcing Quote) */}
-            <div className="hidden lg:flex items-center gap-2.5 shrink-0">
-              {/* Prominent High-End Track Order Button */}
+            {/* Action Buttons */}
+            <div className="hidden sm:flex items-center gap-3 shrink-0">
+              {/* Track Order Quick Trigger */}
               <button
                 type="button"
                 onClick={() => setShowSearchModal(true)}
-                className="inline-flex items-center justify-center gap-2 bg-[#C7A56A] hover:bg-[#d8b87d] text-[#10243A] px-4.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold tracking-wide transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap group"
+                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#111111] hover:text-black px-3.5 py-2 rounded-md border border-[#EAEAEA] hover:border-[#111111] bg-white transition-colors duration-150 cursor-pointer"
                 title="Track Live Cargo & Shipment Progress"
               >
-                <Package className="w-4 h-4 text-[#10243A] transition-transform group-hover:scale-110" />
+                <Package className="w-3.5 h-3.5 text-[#666666]" />
                 <span>Track Order</span>
-                <Search className="w-3.5 h-3.5 opacity-70" />
               </button>
 
-              {/* Sourcing Request Button */}
+              {/* Primary Black Action CTA */}
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-white/90 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#C7A56A]/60 rounded-xl transition-all shadow-sm whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 bg-[#111111] hover:bg-black text-white text-[13px] font-medium px-4 py-2 rounded-md transition-colors duration-150"
               >
                 <span>Sourcing Request</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#C7A56A]" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-
-              {/* WhatsApp Quick Icon */}
-              <a
-                href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden 2xl:inline-flex items-center gap-1.5 text-xs font-medium text-[#EEF1F4]/75 hover:text-[#25D366] px-2.5 py-2 rounded-xl hover:bg-white/5 transition-colors"
-                title="WhatsApp Quick Desk"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>WhatsApp</span>
-              </a>
             </div>
 
-            {/* Mobile Controls - Clean Hamburger Only (Track is in Hero & Drawer) */}
-            <div className="flex items-center lg:hidden">
+            {/* Mobile Controls */}
+            <div className="flex items-center sm:hidden gap-2">
+              <button
+                type="button"
+                onClick={() => setShowSearchModal(true)}
+                className="p-2 text-[#111111] rounded-md border border-[#EAEAEA]"
+                aria-label="Track order"
+              >
+                <Package className="w-4 h-4" />
+              </button>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-white hover:text-[#C7A56A] bg-white/5 hover:bg-white/10 rounded-lg border border-[#EEF1F4]/15 transition-colors focus:outline-none"
+                className="p-2 text-[#111111] rounded-md border border-[#EAEAEA] focus:outline-none"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </button>
             </div>
 
           </div>
         </div>
 
-        {/* Mobile Slide-down Drawer */}
+        {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#10243A] border-t border-[#202833] px-5 pt-4 pb-6 space-y-4 animate-fadeIn">
-            <div className="flex flex-col space-y-1">
+          <div className="lg:hidden bg-white border-t border-[#EAEAEA] px-6 py-6 space-y-5 animate-fadeIn">
+            <div className="flex flex-col space-y-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`text-sm py-1.5 tracking-tight transition-colors ${
                     isActive(link.href)
-                      ? 'text-[#C7A56A] bg-white/10 font-semibold'
-                      : 'text-white/85 hover:text-white hover:bg-white/5'
+                      ? 'text-[#111111] font-semibold'
+                      : 'text-[#666666] hover:text-[#111111]'
                   }`}
                 >
                   {link.name}
@@ -173,31 +163,30 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/tracking"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 rounded-lg text-sm font-medium text-[#C7A56A] hover:bg-white/5 flex items-center justify-between"
+                className="text-sm py-1.5 tracking-tight text-[#111111] font-medium flex items-center justify-between border-t border-[#EAEAEA] pt-3"
               >
                 <span>Live Order Tracking</span>
-                <Package className="w-4 h-4" />
+                <Package className="w-4 h-4 text-[#666666]" />
               </Link>
             </div>
 
-            <div className="pt-3 border-t border-[#202833] space-y-3">
+            <div className="pt-3 border-t border-[#EAEAEA] space-y-2">
               <Link
                 to="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 bg-[#C7A56A] text-[#10243A] py-3 rounded-xl font-bold text-sm shadow"
+                className="w-full flex items-center justify-center gap-2 bg-[#111111] text-white py-2.5 rounded-md text-sm font-medium"
               >
-                <MessageSquareQuote className="w-4 h-4" />
-                <span>Request a Quote</span>
+                <span>Start Sourcing Request</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
 
               <a
                 href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 border border-white/20 text-[#EEF1F4] py-2.5 rounded-xl text-xs font-medium hover:bg-white/5"
+                className="w-full flex items-center justify-center gap-2 text-xs font-medium text-[#666666] py-2 hover:text-[#111111]"
               >
-                <PhoneCall className="w-3.5 h-3.5 text-[#C7A56A]" />
-                <span>WhatsApp Desk ({siteConfig.whatsapp.displayNumber})</span>
+                <span>WhatsApp: {siteConfig.whatsapp.displayNumber}</span>
               </a>
             </div>
           </div>
@@ -205,24 +194,24 @@ export const Navbar: React.FC = () => {
 
         {/* Interactive Order Search Modal */}
         {showSearchModal && (
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-[#10243A] border border-[#C7A56A]/40 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4">
-              <div className="flex items-center justify-between border-b border-[#202833] pb-3">
-                <div className="flex items-center gap-2 text-sm font-bold text-white">
-                  <Package className="w-4 h-4 text-[#C7A56A]" />
-                  <span>Track Live Order Status</span>
+          <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white border border-[#EAEAEA] rounded-lg p-6 max-w-md w-full shadow-xl space-y-4 animate-fadeIn">
+              <div className="flex items-center justify-between border-b border-[#EAEAEA] pb-3">
+                <div className="flex items-center gap-2 text-sm font-semibold text-[#111111]">
+                  <Package className="w-4 h-4 text-[#111111]" />
+                  <span>Track Live Order</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowSearchModal(false)}
-                  className="text-stone-400 hover:text-white p-1 rounded-md"
+                  className="text-[#666666] hover:text-[#111111] p-1 rounded-md"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              <p className="text-xs text-stone-300 leading-relaxed">
-                Enter your HIRA Order ID to view real-time factory progress, dispatch, and port arrival updates:
+              <p className="text-xs text-[#666666] leading-relaxed">
+                Enter your HIRA Order ID to inspect production milestones, customs status, and port arrival updates:
               </p>
 
               <form onSubmit={handleTrackSubmit} className="space-y-3">
@@ -232,21 +221,21 @@ export const Navbar: React.FC = () => {
                   placeholder="e.g. HIRA-100087"
                   value={quickTrackId}
                   onChange={(e) => setQuickTrackId(e.target.value)}
-                  className="w-full bg-[#0c1b2c] border border-[#202833] rounded-xl px-4 py-3 text-sm text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#C7A56A] font-mono"
+                  className="w-full bg-[#F8F8F8] border border-[#EAEAEA] rounded-md px-3.5 py-2.5 text-sm text-[#111111] placeholder-[#888888] focus:outline-none focus:border-[#111111] focus:bg-white font-mono transition-colors"
                 />
                 <div className="flex justify-end gap-2 pt-1">
                   <button
                     type="button"
                     onClick={() => setShowSearchModal(false)}
-                    className="px-4 py-2 text-xs font-medium text-stone-300 hover:text-white"
+                    className="px-3.5 py-2 text-xs font-medium text-[#666666] hover:text-[#111111]"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="bg-[#C7A56A] hover:bg-[#d8b87d] text-[#10243A] px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow"
+                    className="bg-[#111111] hover:bg-black text-white px-4 py-2 rounded-md text-xs font-medium transition-colors"
                   >
-                    Track Order
+                    Track Status
                   </button>
                 </div>
               </form>

@@ -30,8 +30,8 @@ function DirectOrderTrackingRoute() {
 export function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-[#FAFAF7] text-[#202833] font-sans antialiased selection:bg-[#C7A56A]/20 selection:text-[#10243A]">
-        {/* Persistent Luxury Navigation Header */}
+      <div className="min-h-screen flex flex-col bg-white text-[#111111] font-sans antialiased selection:bg-[#111111] selection:text-white">
+        {/* Minimalist Corporate Navigation */}
         <Navbar />
 
         {/* Dynamic Page Views */}

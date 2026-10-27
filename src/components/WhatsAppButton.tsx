@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { MessageSquare, X } from 'lucide-react';
 import { siteConfig } from '../config/site';
 
 interface WhatsAppButtonProps {
@@ -14,39 +14,40 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ customMessage })
 
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end print:hidden">
-      {/* Interactive Tooltip Callout */}
+      {/* Minimalist Tooltip Callout */}
       {showTooltip && (
-        <div className="mb-3 max-w-xs bg-[#10243A] text-[#FAFAF7] border border-[#C7A56A]/40 rounded-xl p-3.5 shadow-xl text-xs space-y-1 relative animate-fadeIn">
+        <div className="mb-3 max-w-xs bg-white text-[#111111] border border-[#EAEAEA] rounded-md p-3.5 shadow-lg text-xs space-y-1 relative animate-fadeIn">
           <button
             onClick={() => setShowTooltip(false)}
-            className="absolute top-2 right-2 text-[#EEF1F4]/60 hover:text-[#FAFAF7]"
+            className="absolute top-2 right-2 text-[#888888] hover:text-[#111111]"
             aria-label="Close tooltip"
           >
             <X className="w-3.5 h-3.5" />
           </button>
-          <div className="flex items-center gap-1.5 font-semibold text-[#C7A56A]">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <div className="flex items-center gap-1.5 font-medium text-[#111111]">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span>China Sourcing Coordinator</span>
           </div>
-          <p className="text-[#EEF1F4]/80 leading-relaxed text-[11px]">
-            Direct WhatsApp coordination for MOQ queries, supplier discovery, and factory enquiries.
+          <p className="text-[#666666] leading-relaxed text-[11px]">
+            Direct WhatsApp desk for MOQ questions, factory queries, and order milestones.
           </p>
         </div>
       )}
 
-      {/* Floating Button */}
+      {/* Floating Action Button */}
       <div className="relative group">
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           onMouseEnter={() => setShowTooltip(true)}
-          className="flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#25D366]/40"
+          className="flex items-center gap-2 bg-white hover:bg-[#F8F8F8] text-[#111111] border border-[#EAEAEA] hover:border-[#111111] px-4 py-2.5 rounded-full shadow-sm transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-black"
           aria-label="Chat with Hira Outsourcing on WhatsApp"
         >
-          <MessageCircle className="w-6 h-6 fill-white text-[#25D366]" />
-          <span className="font-semibold text-sm tracking-wide hidden sm:inline-block">
-            Chat on WhatsApp
+          <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+          <MessageSquare className="w-4 h-4 text-[#111111]" />
+          <span className="font-medium text-xs tracking-tight hidden sm:inline-block">
+            WhatsApp Desk
           </span>
         </a>
       </div>

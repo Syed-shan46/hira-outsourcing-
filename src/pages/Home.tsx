@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
       {/* 1. Hero Section */}
       <Hero />
 
@@ -40,17 +40,17 @@ export const Home: React.FC = () => {
       <AboutSection />
 
       {/* 8. Lead Generation Enquiry Form */}
-      <section className="py-20 bg-[#EEF1F4]/50 border-t border-[#EEF1F4]" id="quote">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-semibold uppercase tracking-widest text-[#C7A56A]">
-              Direct Inquiry
+      <section className="py-20 sm:py-28 lg:py-32 bg-white border-t border-[#EAEAEA]" id="quote">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <span className="text-xs uppercase tracking-widest text-[#888888] font-medium block mb-2">
+              Direct Sourcing Inquiry
             </span>
-            <h2 className="text-3xl font-extrabold text-[#10243A] mt-1">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal sm:font-medium text-[#111111] tracking-tight">
               Start Your Sourcing Request
             </h2>
-            <p className="text-sm text-[#202833]/70 mt-2">
-              Fill in your specifications and order volumes to receive an authentic feasibility assessment.
+            <p className="text-base text-[#666666] mt-4 leading-relaxed">
+              Fill in your specifications and order volumes to receive an authentic feasibility assessment and landed cost guidance.
             </p>
           </div>
 

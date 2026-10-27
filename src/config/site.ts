@@ -29,13 +29,12 @@ export const siteConfig = {
     enquiryEndpoint: import.meta.env.VITE_ENQUIRY_API_ENDPOINT || "/api/enquiry",
   },
 
-  // Brand colors reference
+  // Brand colors reference (Apple Minimalist Palette)
   colors: {
-    navy: "#10243A",
-    warmWhite: "#FAFAF7",
-    charcoal: "#202833",
-    gold: "#C7A56A",
-    lightGrey: "#EEF1F4",
+    black: "#111111",
+    secondary: "#666666",
+    border: "#EAEAEA",
     white: "#FFFFFF",
+    subtle: "#F8F8F8",
   },
 };

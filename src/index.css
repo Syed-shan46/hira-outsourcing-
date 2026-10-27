@@ -2,59 +2,54 @@
 
 @layer base {
   :root {
-    --color-navy: #10243A;
-    --color-warm-white: #FAFAF7;
-    --color-charcoal: #202833;
-    --color-gold: #C7A56A;
-    --color-light-grey: #EEF1F4;
     --color-white: #FFFFFF;
+    --color-black: #111111;
+    --color-secondary: #666666;
+    --color-border: #EAEAEA;
+    --color-subtle: #F8F8F8;
   }
 
   * {
-    border-color: #EEF1F4;
+    border-color: #EAEAEA;
   }
 
   body {
-    background-color: #FAFAF7;
-    color: #202833;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #FFFFFF;
+    color: #111111;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif;
     overflow-x: hidden;
     max-width: 100vw;
     width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
   }
 
-  /* Smooth scroll behavior */
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     overflow-x: hidden;
     max-width: 100vw;
+    background-color: #FFFFFF;
   }
 }
 
-/* Custom luxury subtle utility classes */
-.bg-navy { background-color: #10243A; }
-.text-navy { color: #10243A; }
-.border-navy { border-color: #10243A; }
-
-.bg-gold { background-color: #C7A56A; }
-.text-gold { color: #C7A56A; }
-.border-gold { border-color: #C7A56A; }
-
-.bg-warm-white { background-color: #FAFAF7; }
-.bg-light-grey { background-color: #EEF1F4; }
-.text-charcoal { color: #202833; }
-
-/* Subtle glass & borders */
-.border-gold-subtle {
-  border-color: rgba(199, 165, 106, 0.25);
+/* Subtle editorial utility classes */
+.hairline-border {
+  border-width: 1px;
+  border-color: #EAEAEA;
 }
 
-.gold-glow {
-  box-shadow: 0 4px 20px -2px rgba(199, 165, 106, 0.2);
+.subtle-border-b {
+  border-bottom: 1px solid #EAEAEA;
 }
 
-.navy-card-shadow {
-  box-shadow: 0 10px 30px -10px rgba(16, 36, 58, 0.08);
+.subtle-border-t {
+  border-top: 1px solid #EAEAEA;
+}
+
+/* Smooth restrained hover */
+.transition-subtle {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
