@@ -9,7 +9,8 @@ import {
   ShieldCheck, Plane, Ship,
   ArrowRight, Box, Clock,
   Headphones, CreditCard, CheckCircle,
-  Info, Building2
+  Info, Building2,
+  FileText, Home, Search, X
 } from 'lucide-react';
 // toast optional
 
@@ -129,7 +130,12 @@ const isConfirmedOrder = (order: any) => {
     'ready to dispatch',
     'dispatched from china',
     'arrived in india',
-    'out for delivery'
+    'out for delivery',
+    'confirmed',
+    'completed',
+    'pending',
+    'waiting list',
+    'shipping cost pending'
   ];
 
   return confirmed.includes(status) || Boolean(order.delivered || order.deliveryStatus === 'Delivered');
@@ -141,7 +147,13 @@ const isConfirmedOrder = (order: any) => {
     const orders = [data, ...(data.relatedOrders || [])];
     // Deduplicate by _id just in case
     const unique = Array.from(new Map(orders.map(o => [o._id, o])).values());
+    if (!data.isProfileView) {
+      return [data];
+    }
     const confirmedOnly = unique.filter(isConfirmedOrder);
+    if (confirmedOnly.length === 0) {
+      return [data];
+    }
     confirmedOnly.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     return confirmedOnly;
   }, [data]);
@@ -197,12 +209,16 @@ const isConfirmedOrder = (order: any) => {
   };
 
   const getProgressSteps = (item, parentOrder = {}) => {
+    const status = String(item?.orderStatus || parentOrder?.orderStatus || '').trim().toLowerCase();
+    const delStatus = String(item?.deliveryStatus || parentOrder?.deliveryStatus || '').trim().toLowerCase();
+    const whStatus = String(item?.warehouseStatus || parentOrder?.warehouseStatus || '').trim().toLowerCase();
+
     const isDelivered = Boolean(
       item?.delivered || 
-      item?.orderStatus === 'Delivered' || 
-      item?.deliveryStatus === 'Delivered' ||
       parentOrder?.delivered ||
-      parentOrder?.deliveryStatus === 'Delivered'
+      status === 'delivered' || 
+      status === 'completed' ||
+      delStatus === 'delivered'
     );
     const isOutForDelivery = Boolean(item?.outForDelivery || parentOrder?.outForDelivery);
     const isArrivedIndia = Boolean(item?.arrivedIndia || parentOrder?.arrivedIndia);
