@@ -29,29 +29,31 @@ export const ProcessSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8">
 
         {/* Compact Black Container Card */}
-        <div className="relative rounded-2xl bg-[#141416] text-white px-3.5 py-3 sm:px-6 sm:py-5 overflow-hidden shadow-xs">
+        <div className="relative rounded-2xl bg-[#141416] text-white px-3.5 py-3.5 sm:px-6 sm:py-5 overflow-hidden shadow-xs">
 
-          {/* Top Half: Headline & Subtitle on Left, Container Card on Right (Exact Match to Reference Mockup) */}
-          <div className="flex items-center justify-between gap-3 mb-3.5 sm:mb-5 relative z-10">
-            <div className="max-w-[55%] sm:max-w-[58%]">
-              <h2 className="text-[13.5px] sm:text-lg md:text-xl font-bold tracking-tight text-white leading-tight">
-                From China to<br />
-                your Business
-              </h2>
-              <p className="text-[8.5px] sm:text-[11px] text-[#A0A0A0] mt-1 leading-snug">
-                A simple, reliable import process built for Indian businesses.
-              </p>
-            </div>
+          {/* Full-Height Background Container Graphic on Right (Matching Reference Mockup) */}
+          <div className="absolute top-0 right-0 w-[55%] sm:w-[50%] h-full pointer-events-none z-0 overflow-hidden">
+            <img
+              src="/images/container_img.png"
+              alt="Hira Outsourcing branded shipping container"
+              className="w-full h-full object-cover object-right"
+              loading="lazy"
+            />
+            {/* Soft left gradient fade into black card background */}
+            <div className="absolute inset-y-0 left-0 w-20 sm:w-28 bg-gradient-to-r from-[#141416] to-transparent pointer-events-none" />
+            {/* Soft bottom gradient fade to protect step node legibility */}
+            <div className="absolute inset-x-0 bottom-0 h-10 sm:h-14 bg-gradient-to-t from-[#141416] to-transparent pointer-events-none" />
+          </div>
 
-            {/* Branded Shipping Container Card */}
-            <div className="w-[42%] max-w-[190px] sm:max-w-[220px] shrink-0 rounded-xl overflow-hidden shadow-sm">
-              <img
-                src="/images/container_img.png"
-                alt="Hira Outsourcing branded shipping container"
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
-            </div>
+          {/* Top Half: Headline & Subtitle on Left */}
+          <div className="relative z-10 max-w-[55%] sm:max-w-[58%] mb-4 sm:mb-6">
+            <h2 className="text-[13.5px] sm:text-lg md:text-xl font-bold tracking-tight text-white leading-tight">
+              From China to<br />
+              your Business
+            </h2>
+            <p className="text-[8.5px] sm:text-[11px] text-[#A0A0A0] mt-1 leading-snug">
+              A simple, reliable import process built for Indian businesses.
+            </p>
           </div>
 
           {/* Bottom Half: 4 Connected Steps with Progress Line (Compact Height) */}
