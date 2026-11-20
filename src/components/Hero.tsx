@@ -12,8 +12,11 @@ export const Hero: React.FC = () => {
           className="w-full h-full object-cover object-right"
           loading="eager"
         />
-        {/* Pure white overlay for the text section, smoothly feathering towards the ship and sky */}
-        <div className="absolute inset-y-0 left-0 w-[68%] sm:w-[56%] md:w-[50%] bg-gradient-to-r from-white via-white to-transparent pointer-events-none" />
+        {/* Right section image fill: slight black tint instead of original color */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+
+        {/* Pure white overlay on text section, extending more to the right side */}
+        <div className="absolute inset-y-0 left-0 w-[82%] sm:w-[72%] md:w-[64%] bg-gradient-to-r from-white via-white to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
