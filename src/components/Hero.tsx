@@ -4,11 +4,11 @@ import { Play } from 'lucide-react';
 export const Hero: React.FC = () => {
   return (
     <section className="relative bg-white text-[#111111] overflow-hidden border-b border-[#F0F0F0] pt-4 sm:pt-6">
-      
+
       {/* 1. Full-Width Background: Plain White on Left, Highlight Vessel/Flight on Right with natural top sky */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <img
-          src="/images/hero_seamless_banner.png"
+          src="/images/hero_original.png"
           alt="China to India maritime logistics and air freight"
           className="w-full h-full object-cover object-right"
           loading="eager"
@@ -16,7 +16,7 @@ export const Hero: React.FC = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* 2. Top Label: Strictly ONE line */}
         <div className="mb-2 sm:mb-2.5">
           <p className="text-[9px] sm:text-[10px] md:text-[11px] font-semibold uppercase tracking-wider text-[#444444] whitespace-nowrap">
