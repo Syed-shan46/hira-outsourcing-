@@ -1,6 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 export const Hero: React.FC = () => {
+  const dynamicWords = useMemo(
+    () => [
+      'Grow Locally.',
+      'Import Directly.',
+      'Scale Faster.',
+      'Maximize Profits.',
+    ],
+    []
+  );
+
+  const [wordIdx, setWordIdx] = useState(0);
+  const [displayText, setDisplayText] = useState('Grow Locally.');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const fullWord = dynamicWords[wordIdx];
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (!isDeleting) {
+      if (displayText === fullWord) {
+        // Pause at full word before deleting
+        timer = setTimeout(() => setIsDeleting(true), 2200);
+      } else {
+        // Typing forward
+        timer = setTimeout(() => {
+          setDisplayText(fullWord.slice(0, displayText.length + 1));
+        }, 100);
+      }
+    } else {
+      if (displayText === '') {
+        // Move to next word and start typing
+        setIsDeleting(false);
+        setWordIdx((prev) => (prev + 1) % dynamicWords.length);
+      } else {
+        // Backspacing backward
+        timer = setTimeout(() => {
+          setDisplayText(fullWord.slice(0, displayText.length - 1));
+        }, 50);
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, wordIdx, dynamicWords]);
   return (
     <section className="relative bg-white text-[#111111] overflow-hidden pt-4 sm:pt-6">
 
@@ -35,7 +78,10 @@ export const Hero: React.FC = () => {
         <div className="max-w-[58%] sm:max-w-[55%] space-y-2 sm:space-y-2.5">
           <h1 className="text-[21px] sm:text-3xl md:text-5xl font-black tracking-tight text-[#111111] leading-[1.12]">
             <span className="whitespace-nowrap block">Source Globally,</span>
-            <span className="whitespace-nowrap block">Grow Locally.</span>
+            <span className="whitespace-nowrap flex items-center min-h-[1.15em]">
+              <span>{displayText}</span>
+              <span className="inline-block w-[2px] sm:w-[3px] h-[0.85em] bg-[#111111] ml-0.5 sm:ml-1 animate-pulse" />
+            </span>
           </h1>
 
           {/* 4. Subtitle: Exactly 2 lines */}
