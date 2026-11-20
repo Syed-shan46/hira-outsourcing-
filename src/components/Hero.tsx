@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative bg-white text-[#111111] overflow-hidden border-b border-[#F0F0F0] pt-4 sm:pt-6">
+    <section className="relative bg-white text-[#111111] overflow-hidden pt-4 sm:pt-6">
 
       {/* 1. Full-Width Background: Plain White on Left, Highlight Vessel/Flight on Right with natural top sky */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">

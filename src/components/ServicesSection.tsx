@@ -31,7 +31,7 @@ export const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-5 sm:py-7 bg-white border-b border-[#EAEAEA]" id="services">
+    <section className="py-5 sm:py-7 bg-white" id="services">
       <div className="max-w-6xl mx-auto px-2.5 sm:px-6 lg:px-8">
         
         {/* 5 Minimal Cards in a 5-column grid */}
