@@ -3,21 +3,21 @@ import { Play } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative bg-white text-[#111111] pt-5 pb-6 px-4 sm:px-6 lg:px-8 border-b border-[#F0F0F0] overflow-hidden">
+    <section className="relative bg-white text-[#111111] pt-5 pb-5 px-4 sm:px-6 lg:px-8 border-b border-[#F0F0F0] overflow-hidden">
       <div className="max-w-5xl mx-auto relative">
         
         {/* Floating Ship, Crane & Plane Illustration on the Right */}
-        <div className="absolute -right-2 sm:right-0 -top-3 bottom-0 w-[44%] sm:w-[42%] max-w-[270px] pointer-events-none flex items-center justify-end z-0">
+        <div className="absolute -right-2 sm:right-0 -top-4 bottom-7 sm:bottom-8 w-[46%] sm:w-[42%] max-w-[280px] pointer-events-none flex items-end justify-end z-0">
           <img
             src="/images/mockup_hero_ship_clean.png"
             alt="Cargo container vessel loading and airplane in flight"
-            className="w-full h-auto object-contain object-right filter contrast-[1.03]"
+            className="w-full h-auto object-contain object-bottom filter contrast-[1.03]"
             loading="eager"
           />
         </div>
 
-        {/* Content on the Left (constrained to avoid any overlap with ship) */}
-        <div className="relative z-10 max-w-[62%] sm:max-w-[58%] space-y-3 sm:space-y-4">
+        {/* Content on the Left (constrained to avoid overlap with ship graphic) */}
+        <div className="relative z-10 max-w-[60%] sm:max-w-[56%] space-y-3 sm:space-y-4 mb-2">
           
           {/* Top Label */}
           <div>
@@ -58,13 +58,22 @@ export const Hero: React.FC = () => {
             </a>
           </div>
 
-          {/* Reassurance Checklist */}
-          <div className="pt-2 flex items-center gap-2 sm:gap-4 text-[9px] sm:text-[11px] text-[#333333] font-medium flex-nowrap whitespace-nowrap overflow-x-hidden">
-            <span>✓ Verified Suppliers</span>
-            <span>✓ Secure Import</span>
-            <span>✓ Doorstep Delivery</span>
-          </div>
+        </div>
 
+        {/* Reassurance Checklist: Full-width container spanning horizontally across the bottom */}
+        <div className="relative z-10 w-full pt-3 flex items-center justify-between sm:justify-start gap-2 sm:gap-6 text-[10px] sm:text-[11.5px] text-[#222222] font-medium">
+          <div className="flex items-center gap-1 shrink-0">
+            <span className="text-[#111111] font-bold">✓</span>
+            <span>Verified Suppliers</span>
+          </div>
+          <div className="flex items-center gap-1 shrink-0">
+            <span className="text-[#111111] font-bold">✓</span>
+            <span>Secure Import</span>
+          </div>
+          <div className="flex items-center gap-1 shrink-0">
+            <span className="text-[#111111] font-bold">✓</span>
+            <span>Doorstep Delivery</span>
+          </div>
         </div>
 
       </div>
