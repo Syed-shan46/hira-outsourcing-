@@ -13,6 +13,8 @@ export const Hero: React.FC = () => {
           className="w-full h-full object-cover object-right"
           loading="eager"
         />
+        {/* Soft organic overlay gradient to dissolve any square edge completely into white */}
+        <div className="absolute inset-y-0 left-0 w-[55%] sm:w-[50%] bg-gradient-to-r from-white via-white/80 via-white/30 to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
