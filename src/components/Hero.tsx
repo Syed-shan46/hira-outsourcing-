@@ -24,11 +24,11 @@ export const Hero: React.FC = () => {
           </p>
         </div>
 
-        {/* 3. Headline: Exactly 2 lines */}
-        <div className="max-w-[58%] sm:max-w-[55%] space-y-2 sm:space-y-2.5">
-          <h1 className="text-[26px] sm:text-3xl md:text-5xl font-black tracking-tight text-[#111111] leading-[1.08]">
-            Source Globally,<br />
-            Grow Locally.
+        {/* 3. Headline: 'Source Globally,' strictly on ONE line, and 'Grow Locally.' on line 2 */}
+        <div className="max-w-[62%] sm:max-w-[55%] space-y-2 sm:space-y-2.5">
+          <h1 className="text-[21px] sm:text-3xl md:text-5xl font-black tracking-tight text-[#111111] leading-[1.12]">
+            <span className="whitespace-nowrap block">Source Globally,</span>
+            <span className="whitespace-nowrap block">Grow Locally.</span>
           </h1>
 
           {/* 4. Subtitle: Exactly 2 lines */}
