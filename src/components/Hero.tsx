@@ -5,12 +5,12 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative bg-white text-[#111111] overflow-hidden border-b border-[#F0F0F0] pt-4 sm:pt-6">
       
-      {/* 1. Flush Bleed Hero Ship Image: Extends top-to-bottom so the checklist sits IN the bottom of the image */}
-      <div className="absolute top-0 right-0 bottom-0 w-[50%] sm:w-[44%] max-w-[340px] pointer-events-none flex items-end justify-end z-0">
+      {/* 1. Full-Width Background: Plain White on Left, Highlight Vessel/Flight on Right */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <img
-          src="/images/mockup_hero_ship_clean.png"
-          alt="Cargo container vessel loading and airplane in flight"
-          className="w-full h-full object-contain object-bottom filter contrast-[1.03]"
+          src="/images/hero_seamless_banner.png"
+          alt="China to India maritime logistics and air freight"
+          className="w-full h-full object-cover object-right"
           loading="eager"
         />
       </div>
@@ -24,20 +24,20 @@ export const Hero: React.FC = () => {
           </p>
         </div>
 
-        {/* 3. Headline: 'Source Globally,' strictly on ONE line, and 'Grow Locally.' on line 2 */}
-        <div className="max-w-[62%] sm:max-w-[55%] space-y-2 sm:space-y-2.5">
+        {/* 3. Headline: Exactly 2 lines ('Source Globally,' / 'Grow Locally.') */}
+        <div className="max-w-[58%] sm:max-w-[55%] space-y-2 sm:space-y-2.5">
           <h1 className="text-[21px] sm:text-3xl md:text-5xl font-black tracking-tight text-[#111111] leading-[1.12]">
             <span className="whitespace-nowrap block">Source Globally,</span>
             <span className="whitespace-nowrap block">Grow Locally.</span>
           </h1>
 
           {/* 4. Subtitle: Exactly 2 lines */}
-          <p className="text-[10.5px] sm:text-xs md:text-sm text-[#555555] font-normal leading-snug max-w-[240px] sm:max-w-md">
+          <p className="text-[10px] sm:text-xs md:text-sm text-[#555555] font-normal leading-snug max-w-[240px] sm:max-w-md">
             We help businesses and startups in India find, verify,<br />
             and import high-quality products from China &mdash; end to end.
           </p>
 
-          {/* 5. Sleek, Small Buttons */}
+          {/* 5. Small, Sleek Buttons */}
           <div className="flex items-center gap-2 pt-1 pb-1">
             <a
               href="#quote"
@@ -59,8 +59,8 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* 6. Reassurance Checklist: Located IN the bottom of the image area with good padding */}
-        <div className="w-full pt-5 sm:pt-7 pb-3 sm:pb-4 flex items-center justify-between sm:justify-start gap-2 sm:gap-6 text-[9.5px] sm:text-[11px] text-[#222222] font-medium">
+        {/* 6. Reassurance Checklist: Positioned IN the bottom of the image area with good padding */}
+        <div className="w-full pt-6 sm:pt-8 pb-3 sm:pb-4 flex items-center justify-between sm:justify-start gap-2 sm:gap-6 text-[9.5px] sm:text-[11px] text-[#111111] font-semibold">
           <div className="flex items-center gap-1 shrink-0">
             <span className="text-[#111111] font-bold">✓</span>
             <span>Verified Suppliers</span>
