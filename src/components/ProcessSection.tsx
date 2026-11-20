@@ -34,7 +34,7 @@ export const ProcessSection: React.FC = () => {
           {/* Full-Height Background Container Graphic on Right Half (Matching Mockup) */}
           <div className="absolute top-0 right-0 bottom-0 w-[58%] sm:w-[50%] pointer-events-none z-0 overflow-hidden">
             <img
-              src="/images/mockup_container_only.png"
+              src="/images/mockup_container_generated.png"
               alt="Hira Outsourcing branded shipping container"
               className="w-full h-full object-cover object-right"
               loading="lazy"
