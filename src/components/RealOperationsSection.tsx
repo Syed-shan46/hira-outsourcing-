@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Truck, Warehouse, CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const RealOperationsSection: React.FC = () => {

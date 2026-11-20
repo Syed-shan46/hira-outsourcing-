@@ -10,7 +10,7 @@ import {
   ArrowRight, Box, Clock,
   Headphones, CreditCard, CheckCircle,
   Info, Building2,
-  FileText, Home, Search, X
+  FileText, Home
 } from 'lucide-react';
 // toast optional
 
@@ -21,14 +21,6 @@ const RESERVED_ROUTES = new Set([
   'feedback', 'tracking', 'team-report', 'staff-report'
 ]);
 
-const formatDateTime = (dateInput) => {
-  if (!dateInput) return null;
-  const d = new Date(dateInput);
-  if (isNaN(d.getTime())) return null;
-  const day = d.toLocaleDateString('en-GB', { day: 'numeric' });
-  const month = d.toLocaleDateString('en-GB', { month: 'short' });
-  return `${day} ${month}`;
-};
 
 export default function CustomerTrackingPage() {
   const { token, orderId } = useParams();
@@ -201,7 +193,7 @@ const isConfirmedOrder = (order: any) => {
     });
 
     return { totalOrders, totalSpend, inTransit, delivered };
-  }, [allOrders]);
+  }, [allOrders, data]);
 
   const getInitials = (name) => {
     if (!name) return 'CU';
@@ -211,7 +203,6 @@ const isConfirmedOrder = (order: any) => {
   const getProgressSteps = (item, parentOrder = {}) => {
     const status = String(item?.orderStatus || parentOrder?.orderStatus || '').trim().toLowerCase();
     const delStatus = String(item?.deliveryStatus || parentOrder?.deliveryStatus || '').trim().toLowerCase();
-    const whStatus = String(item?.warehouseStatus || parentOrder?.warehouseStatus || '').trim().toLowerCase();
 
     const isDelivered = Boolean(
       item?.delivered || 

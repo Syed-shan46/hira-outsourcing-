@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { AboutSection } from '../components/AboutSection';
 import { WhyHira } from '../components/WhyHira';
 import { FinalCta } from '../components/FinalCta';
-import { Check } from 'lucide-react';
 
 export const About: React.FC = () => {
   useEffect(() => {
