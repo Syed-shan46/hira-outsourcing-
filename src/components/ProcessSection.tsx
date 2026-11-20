@@ -1,127 +1,98 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const ProcessSection: React.FC = () => {
   const steps = [
     {
-      num: "01",
-      title: "Share Your Requirements",
-      subtitle: "Technical & Commercial Brief",
-      description: "Specify your desired product, estimated order quantity, target price point, technical parameters, and delivery timeline.",
-      deliverables: [
-        "Product specification sheet or reference sample",
-        "Estimated order quantity & target landing budget",
-        "Target timelines and packaging requirements"
-      ]
+      step: "01",
+      title: "Share Your Requirement",
+      desc: "Provide your target product specs, reference photos, technical criteria, target budget, and estimated order quantities."
     },
     {
-      num: "02",
-      title: "Sourcing & Supplier Search",
-      subtitle: "Discovery & Screening",
-      description: "We identify and screen suitable manufacturers across Chinese industrial clusters, comparing capabilities, factory MOQs, and preliminary costs.",
-      deliverables: [
-        "Supplier longlist & background review",
-        "Preliminary unit price indications & factory MOQs",
-        "Sample acquisition coordination for your sign-off"
-      ]
+      step: "02",
+      title: "We Source & Verify",
+      desc: "Our bilingual team in Yiwu & Shenzhen screens manufacturers, reviews business licenses, validates production capacity, and acquires golden samples."
     },
     {
-      num: "03",
-      title: "Review & Confirm",
-      subtitle: "Commercial Validation",
-      description: "Review detailed quotations, factory specifications, sample quality, and applicable freight and customs duty estimates before committing capital.",
-      deliverables: [
-        "Transparent price breakdown without hidden fees",
-        "Proforma invoice & production schedule review",
-        "Milestone-based payment schedule agreement"
-      ]
+      step: "03",
+      title: "Import & Handle Logistics",
+      desc: "Upon commercial approval, we manage ocean/air freight booking, Bill of Lading, export compliance, and Indian customs port handoff."
     },
     {
-      num: "04",
-      title: "Order & Import Coordination",
-      subtitle: "Production to Delivery",
-      description: "Upon approval, we coordinate purchasing milestones, accredited quality inspections, export dispatch from China, and import handoffs into India.",
-      deliverables: [
-        "Production tracking & QA inspection coordination",
-        "Bill of Lading, Packing List & Invoice generation",
-        "Handoff to customs clearing agents at Indian ports"
-      ]
+      step: "04",
+      title: "You Receive Your Products",
+      desc: "Customs-cleared cargo arrives safely at your warehouse, factory, or commercial address with complete transparent documentation."
     }
   ];
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-white border-t border-[#EAEAEA]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="py-20 sm:py-28 lg:py-32 bg-[#111111] text-white relative overflow-hidden" id="process">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 sm:mb-20">
-          <div className="text-xs uppercase tracking-widest text-[#888888] font-medium mb-3">
-            Workflow &amp; Lifecycle
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal sm:font-medium tracking-tight text-[#111111] leading-tight">
-            How It Works: Clear 4-Step Process
+        <div className="max-w-3xl mb-12 sm:mb-16">
+          <span className="text-xs uppercase tracking-widest text-[#888888] font-semibold block mb-2">
+            Structured Import Workflow
+          </span>
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-white">
+            From China to Your Business.
           </h2>
-          <p className="mt-5 text-base sm:text-lg text-[#666666] leading-relaxed">
-            A methodical, transparent sourcing journey designed to eliminate uncertainties and safeguard your capital at every stage.
+          <p className="text-base sm:text-lg text-[#999999] mt-4 leading-relaxed">
+            A clear, four-stage protocol engineered to safeguard your capital and ensure seamless delivery into India.
           </p>
         </div>
 
-        {/* 4-Step Grid with Minimal Hairline Dividers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-          {steps.map((item) => (
+        {/* Real Shipping Container Image Showcase */}
+        <div className="mb-14 rounded-2xl overflow-hidden border border-white/10 relative">
+          <div className="aspect-[21/9] sm:aspect-[24/9] w-full overflow-hidden bg-[#1E1E1E]">
+            <img 
+              src="/images/cargo_ship_hero.jpg" 
+              alt="Real shipping containers on ocean freight vessel" 
+              className="w-full h-full object-cover filter contrast-[1.1] brightness-[0.9]"
+              loading="lazy"
+            />
+          </div>
+          <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-white/10 text-[11px] sm:text-xs text-[#EAEAEA] font-mono">
+            Direct Trade Lane &bull; China (Ningbo/Shenzhen) &rarr; India (Nhava Sheva/Chennai)
+          </div>
+        </div>
+
+        {/* Four Connected Steps Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative">
+          {steps.map((st, i) => (
             <div 
-              key={item.num}
-              className="border-t border-[#EAEAEA] pt-6 flex flex-col justify-between"
+              key={i} 
+              className="relative p-6 sm:p-7 rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/30 transition-colors flex flex-col justify-between"
             >
               <div>
-                <div className="text-xs font-mono text-[#888888] mb-4">
-                  {item.num}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-mono font-bold text-[#888888]">STEP {st.step}</span>
+                  <CheckCircle2 className="w-4 h-4 text-white/40" />
                 </div>
-                <div className="text-[11px] uppercase tracking-wider text-[#888888] font-medium mb-1">
-                  {item.subtitle}
-                </div>
-                <h3 className="text-xl font-medium tracking-tight text-[#111111] mb-3">
-                  {item.title}
+                <h3 className="text-lg font-medium text-white mb-2 tracking-tight">
+                  {st.title}
                 </h3>
-                <p className="text-sm text-[#666666] leading-relaxed mb-6">
-                  {item.description}
+                <p className="text-xs sm:text-sm text-[#999999] leading-relaxed">
+                  {st.desc}
                 </p>
               </div>
 
-              {/* Milestone Deliverables */}
-              <div className="pt-4 border-t border-[#EAEAEA]">
-                <div className="text-[10px] uppercase tracking-wider font-medium text-[#888888] mb-2.5">
-                  Milestone Outputs
+              {i < 3 && (
+                <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 z-10 text-white/30">
+                  &rarr;
                 </div>
-                <ul className="space-y-1.5 text-xs text-[#666666]">
-                  {item.deliverables.map((del, dIdx) => (
-                    <li key={dIdx} className="flex items-start gap-1.5">
-                      <span className="text-[#111111] font-bold mt-0.5">&bull;</span>
-                      <span className="leading-relaxed">{del}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Minimal Action Strip */}
-        <div className="mt-16 sm:mt-20 pt-8 border-t border-[#EAEAEA] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div>
-            <h4 className="text-sm font-medium text-[#111111]">Ready to initiate Step 01?</h4>
-            <p className="text-xs text-[#666666] mt-0.5">
-              Submit your product specifications. Preliminary feasibility reviews are completed within 24 to 48 business hours.
-            </p>
-          </div>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 bg-[#111111] hover:bg-black text-white px-5 py-2.5 rounded-md text-xs font-medium transition-colors shrink-0"
-          >
-            <span>Submit Sourcing Requirement</span>
+        {/* Bottom Reassurance */}
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#888888]">
+          <span>Full transparency at every milestone &bull; Real-time tracking notifications</span>
+          <a href="#quote" className="inline-flex items-center gap-1.5 text-white hover:underline font-medium">
+            <span>Start Step 01 Today</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          </a>
         </div>
 
       </div>

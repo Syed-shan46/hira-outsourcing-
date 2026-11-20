@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Menu, 
   X, 
-  ArrowRight, 
-  Package
+  Globe,
+  ChevronDown,
+  ArrowRight
 } from 'lucide-react';
 import { siteConfig } from '../config/site';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [quickTrackId, setQuickTrackId] = useState('');
-  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [currentLang, setCurrentLang] = useState('EN');
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,15 +26,22 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     setMobileMenuOpen(false);
+    setLangMenuOpen(false);
   }, [location]);
 
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Services', href: '/services' },
-    { name: 'How It Works', href: '/how-it-works' },
+    { name: 'Import Process', href: '/how-it-works' },
     { name: 'Products', href: '/products' },
-    { name: 'About', href: '/about' },
+    { name: 'Operations', href: '/about' },
     { name: 'Contact', href: '/contact' },
+  ];
+
+  const languages = [
+    { code: 'EN', label: 'English' },
+    { code: '中文', label: '中文 (Mandarin)' },
+    { code: 'हिन्दी', label: 'हिन्दी (Hindi)' },
   ];
 
   const isActive = (path: string) => {
@@ -42,39 +49,30 @@ export const Navbar: React.FC = () => {
     return location.pathname.startsWith(path);
   };
 
-  const handleTrackSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (quickTrackId.trim()) {
-      setShowSearchModal(false);
-      navigate(`/${quickTrackId.trim()}`);
-      setQuickTrackId('');
-    }
-  };
-
   return (
     <>
       <header
-        className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-200 border-b ${
-          isScrolled ? 'border-[#EAEAEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)]' : 'border-[#EAEAEA]'
+        className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-200 border-b ${
+          isScrolled ? 'border-[#EAEAEA] shadow-[0_1px_3px_rgba(0,0,0,0.03)]' : 'border-[#EAEAEA]'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20 gap-3">
             
-            {/* Brand Logo */}
+            {/* Hira Outsourcing Logo */}
             <Link 
               to="/" 
               className="flex items-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-md py-1"
             >
               <img 
-                src="/images/hira_logo_white_to_black_precise.png" 
+                src="/images/hira_logo_official_original.png" 
                 alt="Hira Outsourcing Services Pvt Ltd" 
-                className="h-8 sm:h-9 w-auto object-contain transition-opacity hover:opacity-90"
+                className="h-8 sm:h-9 w-auto object-contain"
               />
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
+            <nav className="hidden lg:flex items-center space-x-7" aria-label="Main Navigation">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -90,149 +88,103 @@ export const Navbar: React.FC = () => {
               ))}
             </nav>
 
-            {/* Action Buttons */}
-            <div className="hidden sm:flex items-center gap-3 shrink-0">
-              {/* Track Order Quick Trigger */}
-              <button
-                type="button"
-                onClick={() => setShowSearchModal(true)}
-                className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#111111] hover:text-black px-3.5 py-2 rounded-md border border-[#EAEAEA] hover:border-[#111111] bg-white transition-colors duration-150 cursor-pointer"
-                title="Track Live Cargo & Shipment Progress"
-              >
-                <Package className="w-3.5 h-3.5 text-[#666666]" />
-                <span>Track Order</span>
-              </button>
+            {/* Right Controls: Language Selector + Primary CTA + Mobile Hamburger */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              {/* Language Selector Dropdown */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setLangMenuOpen(!langMenuOpen)}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[#111111] hover:bg-[#F5F5F5] rounded-md transition-colors border border-[#EAEAEA]"
+                  aria-label="Select Language"
+                >
+                  <Globe className="w-3.5 h-3.5 text-[#666666]" />
+                  <span className="font-medium">{currentLang}</span>
+                  <ChevronDown className="w-3 h-3 text-[#666666]" />
+                </button>
 
-              {/* Primary Black Action CTA */}
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-1.5 bg-[#111111] hover:bg-black text-white text-[13px] font-medium px-4 py-2 rounded-md transition-colors duration-150"
+                {langMenuOpen && (
+                  <div className="absolute right-0 mt-1.5 w-40 bg-white border border-[#EAEAEA] rounded-lg shadow-lg py-1 z-50">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          setCurrentLang(lang.code);
+                          setLangMenuOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-[#F5F5F5] ${
+                          currentLang === lang.code ? 'font-semibold text-[#111111] bg-[#FAFAFA]' : 'text-[#666666]'
+                        }`}
+                      >
+                        <span>{lang.label}</span>
+                        {currentLang === lang.code && <span className="w-1.5 h-1.5 rounded-full bg-[#111111]" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Desktop Quick Quote CTA */}
+              <a
+                href="#quote"
+                className="hidden sm:inline-flex items-center gap-1.5 bg-[#111111] hover:bg-black text-white text-xs font-medium px-4 py-2 rounded-md transition-colors"
               >
-                <span>Sourcing Request</span>
+                <span>Get a Quote</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+              </a>
 
-            {/* Mobile Controls */}
-            <div className="flex items-center sm:hidden gap-2">
-              <button
-                type="button"
-                onClick={() => setShowSearchModal(true)}
-                className="p-2 text-[#111111] rounded-md border border-[#EAEAEA]"
-                aria-label="Track order"
-              >
-                <Package className="w-4 h-4" />
-              </button>
+              {/* Minimal Hamburger Menu */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-[#111111] rounded-md border border-[#EAEAEA] focus:outline-none"
+                className="lg:hidden p-2 text-[#111111] hover:bg-[#F5F5F5] rounded-md transition-colors focus:outline-none"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </button>
             </div>
 
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Minimal Mobile Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-[#EAEAEA] px-6 py-6 space-y-5 animate-fadeIn">
-            <div className="flex flex-col space-y-3">
+          <div className="lg:hidden bg-white border-b border-[#EAEAEA] px-5 py-5 space-y-4 animate-in slide-in-from-top-2 duration-150">
+            <div className="space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm py-1.5 tracking-tight transition-colors ${
-                    isActive(link.href)
-                      ? 'text-[#111111] font-semibold'
-                      : 'text-[#666666] hover:text-[#111111]'
+                  className={`block py-2.5 text-sm font-medium transition-colors ${
+                    isActive(link.href) ? 'text-[#111111] font-semibold' : 'text-[#666666]'
                   }`}
                 >
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to="/tracking"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm py-1.5 tracking-tight text-[#111111] font-medium flex items-center justify-between border-t border-[#EAEAEA] pt-3"
-              >
-                <span>Live Order Tracking</span>
-                <Package className="w-4 h-4 text-[#666666]" />
-              </Link>
             </div>
 
-            <div className="pt-3 border-t border-[#EAEAEA] space-y-2">
-              <Link
-                to="/contact"
+            <div className="pt-4 border-t border-[#EAEAEA] space-y-2.5">
+              <a
+                href="#quote"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 bg-[#111111] text-white py-2.5 rounded-md text-sm font-medium"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#111111] text-white py-3 rounded-lg text-sm font-medium"
               >
-                <span>Start Sourcing Request</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-
+                <span>Get a Free Quote</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
               <a
                 href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 text-xs font-medium text-[#666666] py-2 hover:text-[#111111]"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#F5F5F5] text-[#111111] border border-[#EAEAEA] py-3 rounded-lg text-sm font-medium"
               >
-                <span>WhatsApp: {siteConfig.whatsapp.displayNumber}</span>
+                <span>Chat on WhatsApp</span>
               </a>
-            </div>
-          </div>
-        )}
-
-        {/* Interactive Order Search Modal */}
-        {showSearchModal && (
-          <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white border border-[#EAEAEA] rounded-lg p-6 max-w-md w-full shadow-xl space-y-4 animate-fadeIn">
-              <div className="flex items-center justify-between border-b border-[#EAEAEA] pb-3">
-                <div className="flex items-center gap-2 text-sm font-semibold text-[#111111]">
-                  <Package className="w-4 h-4 text-[#111111]" />
-                  <span>Track Live Order</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setShowSearchModal(false)}
-                  className="text-[#666666] hover:text-[#111111] p-1 rounded-md"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              <p className="text-xs text-[#666666] leading-relaxed">
-                Enter your HIRA Order ID to inspect production milestones, customs status, and port arrival updates:
-              </p>
-
-              <form onSubmit={handleTrackSubmit} className="space-y-3">
-                <input
-                  type="text"
-                  autoFocus
-                  placeholder="e.g. HIRA-100087"
-                  value={quickTrackId}
-                  onChange={(e) => setQuickTrackId(e.target.value)}
-                  className="w-full bg-[#F8F8F8] border border-[#EAEAEA] rounded-md px-3.5 py-2.5 text-sm text-[#111111] placeholder-[#888888] focus:outline-none focus:border-[#111111] focus:bg-white font-mono transition-colors"
-                />
-                <div className="flex justify-end gap-2 pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setShowSearchModal(false)}
-                    className="px-3.5 py-2 text-xs font-medium text-[#666666] hover:text-[#111111]"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="bg-[#111111] hover:bg-black text-white px-4 py-2 rounded-md text-xs font-medium transition-colors"
-                  >
-                    Track Status
-                  </button>
-                </div>
-              </form>
             </div>
           </div>
         )}

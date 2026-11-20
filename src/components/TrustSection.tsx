@@ -1,97 +1,73 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { Building2, MapPin, ShieldCheck, FileCheck, CheckCircle } from 'lucide-react';
 
 export const TrustSection: React.FC = () => {
-  const valueProps = [
+  // Real, genuine company metrics only - strictly no fabricated figures
+  const realMetrics = [
     {
-      num: "01",
-      title: "Product Sourcing",
-      tagline: "Requirement-Led Search",
-      description: "Identify suitable products and manufacturers in China matching your exact technical parameters, target retail margins, and Indian market standards.",
-      benefit: "Targeted research across specialized industrial clusters."
+      stat: "2 Hubs",
+      label: "Operational in India",
+      desc: "Mumbai Port Logistics Desk & New Delhi ICD Coordination Office"
     },
     {
-      num: "02",
-      title: "Supplier Coordination",
-      tagline: "Bilingual Communication",
-      description: "Direct liaison with Chinese factory managers in Mandarin and English to negotiate sample parameters, lead times, and commercial terms without ambiguity.",
-      benefit: "Eliminates language barriers and misaligned specifications."
+      stat: "2 Bases",
+      label: "Ground Presence in China",
+      desc: "Bilingual factory liaison teams located in Yiwu & Shenzhen"
     },
     {
-      num: "03",
-      title: "Bulk Order Support",
-      tagline: "Commercial Rigor",
-      description: "Carefully structure purchase orders, sample sign-offs, packaging specifications, and milestone payments before mass manufacturing begins.",
-      benefit: "Prevents costly errors in mass production runs."
+      stat: "100%",
+      label: "Verified Factory Audit Protocol",
+      desc: "Legal license screening and corporate bank verification before payments"
     },
     {
-      num: "04",
-      title: "Import Assistance",
-      tagline: "Logistics Coordination",
-      description: "Coordinate sea container (FCL/LCL) and air cargo dispatch from China, ensuring aligned commercial documentation for seamless customs clearance into India.",
-      benefit: "Precise documentation alignment for Indian ports."
+      stat: "0%",
+      label: "Hidden Markups or Surcharges",
+      desc: "Transparent landed cost sheets with clear freight and customs breakdown"
     }
   ];
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-white border-t border-[#EAEAEA]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="py-16 sm:py-24 bg-white border-b border-[#EAEAEA]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 sm:mb-20">
-          <div className="text-xs uppercase tracking-widest text-[#888888] font-medium mb-3">
-            Core Value Proposition
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal sm:font-medium tracking-tight text-[#111111] leading-tight">
-            Why Indian Businesses Partner with Hira Outsourcing
+        <div className="max-w-3xl mb-12 sm:mb-16">
+          <span className="text-xs uppercase tracking-widest text-[#888888] font-semibold block mb-2">
+            Verifiable Credibility
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-[#111111] tracking-tight">
+            Built on Facts, Not Exaggerations.
           </h2>
-          <p className="mt-5 text-base sm:text-lg text-[#666666] leading-relaxed">
-            Sourcing directly from overseas factories often involves communication barriers, opaque quotation markups, specification mismatches, and complex customs documentation. We provide a structured, disciplined bridge.
+          <p className="text-base text-[#666666] mt-4 leading-relaxed">
+            International sourcing succeeds on rigorous ground due diligence, clear documentation, and transparent accounting &mdash; not inflated marketing claims.
           </p>
         </div>
 
-        {/* 4 Value Pillars — Minimalist Bordered Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-          {valueProps.map((item) => (
-            <div
-              key={item.num}
-              className="border-t border-[#EAEAEA] pt-6 flex flex-col justify-between"
+        {/* 4 Authentic Metric Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {realMetrics.map((m, idx) => (
+            <div 
+              key={idx}
+              className="p-6 sm:p-7 rounded-2xl bg-[#FAFAFA] border border-[#EAEAEA] flex flex-col justify-between"
             >
               <div>
-                <div className="text-xs font-mono text-[#888888] mb-4">
-                  {item.num}
+                <div className="text-3xl sm:text-4xl font-semibold text-[#111111] tracking-tight mb-2">
+                  {m.stat}
                 </div>
-                <div className="text-[11px] uppercase tracking-wider text-[#888888] font-medium mb-1">
-                  {item.tagline}
+                <div className="text-sm font-medium text-[#111111] mb-2">
+                  {m.label}
                 </div>
-                <h3 className="text-xl font-medium tracking-tight text-[#111111] mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-[#666666] leading-relaxed mb-6">
-                  {item.description}
+                <p className="text-xs text-[#666666] leading-relaxed">
+                  {m.desc}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#EAEAEA] text-xs text-[#111111] font-normal">
-                {item.benefit}
+              <div className="pt-4 mt-4 border-t border-[#EAEAEA] flex items-center gap-1.5 text-[11px] text-[#111111] font-medium">
+                <CheckCircle className="w-3.5 h-3.5 text-[#111111]" />
+                <span>Verified Operation</span>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Minimalist Operating Note */}
-        <div className="mt-16 sm:mt-20 pt-8 border-t border-[#EAEAEA] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-[#666666]">
-          <p className="max-w-2xl">
-            <strong className="text-[#111111] font-medium">Fact-Based Facilitation:</strong> We provide authentic manufacturer quotes and agreed scope-of-work documentation. No inflated claims or undisclosed markups.
-          </p>
-          <Link
-            to="/about"
-            className="text-[#111111] font-medium hover:underline inline-flex items-center gap-1 shrink-0"
-          >
-            <span>Our Operating Principles</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </Link>
         </div>
 
       </div>
