@@ -7,11 +7,13 @@ export const Hero: React.FC = () => {
       {/* 1. Full-Width Background: Plain White on Left, Highlight Vessel/Flight on Right with natural top sky */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <img
-          src="/images/hero_original.png"
+          src="/images/hero_final1.png"
           alt="China to India maritime logistics and air freight"
           className="w-full h-full object-cover object-right"
           loading="eager"
         />
+        {/* Pure white overlay for the text section, smoothly feathering towards the ship and sky */}
+        <div className="absolute inset-y-0 left-0 w-[68%] sm:w-[56%] md:w-[50%] bg-gradient-to-r from-white via-white to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
