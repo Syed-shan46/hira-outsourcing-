@@ -12,8 +12,11 @@ export const Hero: React.FC = () => {
           className="w-full h-full object-cover object-right"
           loading="eager"
         />
-        {/* Right section image fill: slight black tint instead of original color */}
-        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+        {/* Base dark tint layer */}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+
+        {/* Right side extra black tint & shading */}
+        <div className="absolute inset-y-0 right-0 w-[60%] sm:w-[50%] bg-gradient-to-l from-black/40 via-black/20 to-transparent pointer-events-none" />
 
         {/* Pure white overlay on text section, extending more to the right side */}
         <div className="absolute inset-y-0 left-0 w-[82%] sm:w-[72%] md:w-[64%] bg-gradient-to-r from-white via-white to-transparent pointer-events-none" />
