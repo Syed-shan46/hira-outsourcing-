@@ -3,21 +3,21 @@ import { Play } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative bg-white text-[#111111] pt-5 pb-5 px-4 sm:px-6 lg:px-8 border-b border-[#F0F0F0] overflow-hidden">
+    <section className="relative bg-white text-[#111111] pt-5 pb-4 px-4 sm:px-6 lg:px-8 border-b border-[#F0F0F0] overflow-hidden">
       <div className="max-w-5xl mx-auto relative">
         
-        {/* Floating Ship, Crane & Plane Illustration on the Right */}
-        <div className="absolute -right-2 sm:right-0 -top-4 bottom-7 sm:bottom-8 w-[46%] sm:w-[42%] max-w-[280px] pointer-events-none flex items-end justify-end z-0">
+        {/* Full-Height Ship, Crane & Water Illustration on the Right */}
+        <div className="absolute right-0 top-0 bottom-0 w-[48%] sm:w-[44%] max-w-[300px] pointer-events-none flex items-end justify-end z-0">
           <img
-            src="/images/mockup_hero_ship_clean.png"
+            src="/images/mockup_hero_full_clean.png"
             alt="Cargo container vessel loading and airplane in flight"
-            className="w-full h-auto object-contain object-bottom filter contrast-[1.03]"
+            className="w-full h-full object-cover object-bottom filter contrast-[1.03]"
             loading="eager"
           />
         </div>
 
-        {/* Content on the Left (constrained to avoid overlap with ship graphic) */}
-        <div className="relative z-10 max-w-[60%] sm:max-w-[56%] space-y-3 sm:space-y-4 mb-2">
+        {/* Content on the Left */}
+        <div className="relative z-10 max-w-[60%] sm:max-w-[56%] space-y-3 sm:space-y-4 mb-3 sm:mb-4">
           
           {/* Top Label */}
           <div>
@@ -60,8 +60,8 @@ export const Hero: React.FC = () => {
 
         </div>
 
-        {/* Reassurance Checklist: Full-width container spanning horizontally across the bottom */}
-        <div className="relative z-10 w-full pt-3 flex items-center justify-between sm:justify-start gap-2 sm:gap-6 text-[10px] sm:text-[11.5px] text-[#222222] font-medium">
+        {/* Reassurance Checklist: Spanning horizontally across the bottom edge, overlaying the water on the right */}
+        <div className="relative z-10 w-full pt-2 flex items-center justify-between sm:justify-start gap-2 sm:gap-6 text-[10px] sm:text-[11.5px] text-[#111111] font-medium">
           <div className="flex items-center gap-1 shrink-0">
             <span className="text-[#111111] font-bold">✓</span>
             <span>Verified Suppliers</span>
