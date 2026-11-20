@@ -6,15 +6,16 @@ export const Hero: React.FC = () => {
     <section className="relative bg-white text-[#111111] overflow-hidden border-b border-[#F0F0F0] pt-4 sm:pt-6">
       
       {/* 1. Full-Width Background: Plain White on Left, Highlight Vessel/Flight on Right */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <img
           src="/images/hero_original.png"
           alt="China to India maritime logistics and air freight"
-          className="w-full h-full object-cover object-right"
+          className="w-full h-full object-cover object-right transform scale-[0.76] sm:scale-[0.84] md:scale-90 lg:scale-95 origin-bottom-right"
           loading="eager"
         />
         {/* Soft organic overlay gradient to dissolve any square edge completely into white */}
         <div className="absolute inset-y-0 left-0 w-[55%] sm:w-[50%] bg-gradient-to-r from-white via-white/80 via-white/30 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white via-white/60 to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
