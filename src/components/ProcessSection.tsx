@@ -46,7 +46,7 @@ export const ProcessSection: React.FC = () => {
             {/* Branded Shipping Container Card */}
             <div className="w-[42%] max-w-[190px] sm:max-w-[220px] shrink-0 rounded-xl overflow-hidden shadow-sm">
               <img
-                src="/images/mockup_container_exact_attached.png"
+                src="/images/container_img.png"
                 alt="Hira Outsourcing branded shipping container"
                 className="w-full h-auto object-cover"
                 loading="lazy"
