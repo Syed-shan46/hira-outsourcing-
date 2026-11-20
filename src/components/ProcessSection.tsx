@@ -25,12 +25,12 @@ export const ProcessSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-2.5 sm:py-4 bg-white border-b border-[#EAEAEA]" id="process">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+    <section className="py-2 sm:py-3.5 bg-white border-b border-[#EAEAEA]" id="process">
+      <div className="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8">
+
         {/* Compact Black Container Card */}
-        <div className="relative rounded-2xl bg-[#141416] text-white px-4 py-3.5 sm:px-6 sm:py-5 overflow-hidden shadow-xs">
-          
+        <div className="relative rounded-2xl bg-[#141416] text-white px-3.5 py-3 sm:px-6 sm:py-4 overflow-hidden shadow-xs">
+
           {/* Full-Height Background Container Graphic on Right Half (Matching Mockup) */}
           <div className="absolute top-0 right-0 bottom-0 w-[58%] sm:w-[50%] pointer-events-none z-0 overflow-hidden">
             <img
@@ -44,34 +44,34 @@ export const ProcessSection: React.FC = () => {
           </div>
 
           {/* Top Half: Headline & Subtitle on Left */}
-          <div className="relative z-10 max-w-[58%] sm:max-w-[60%] mb-3 sm:mb-4">
-            <h2 className="text-[15px] sm:text-xl font-bold tracking-tight text-white leading-tight">
+          <div className="relative z-10 max-w-[58%] sm:max-w-[60%] mb-2.5 sm:mb-3.5">
+            <h2 className="text-[13.5px] sm:text-lg font-bold tracking-tight text-white leading-tight">
               From China to<br />
               your Business
             </h2>
-            <p className="text-[9.5px] sm:text-xs text-[#A0A0A0] mt-1 leading-snug">
+            <p className="text-[8.5px] sm:text-[11px] text-[#A0A0A0] mt-0.5 leading-snug">
               A simple, reliable import process built for Indian businesses.
             </p>
           </div>
 
           {/* Bottom Half: 4 Connected Steps with Progress Line (Compact Height) */}
-          <div className="relative z-10 pt-1 sm:pt-2">
-            
+          <div className="relative z-10 pt-0.5 sm:pt-1.5">
+
             {/* Connecting Horizontal Line passing through node centers */}
-            <div className="absolute top-[8px] sm:top-[10px] left-[10%] right-[10%] h-[1px] bg-white/35 z-0"></div>
+            <div className="absolute top-[7px] sm:top-[9px] left-[10%] right-[10%] h-[1px] bg-white/35 z-0"></div>
 
             {/* 4 Step Nodes */}
             <div className="grid grid-cols-4 gap-1 relative z-10">
               {steps.map((st, i) => (
                 <div key={i} className="flex flex-col items-center text-center">
-                  
+
                   {/* Step Circle with Number */}
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white text-[#111111] font-bold text-[8.5px] sm:text-[10px] flex items-center justify-center shadow-xs mb-1">
+                  <div className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full bg-white text-[#111111] font-bold text-[7.5px] sm:text-[9px] flex items-center justify-center shadow-xs mb-1">
                     {st.num}
                   </div>
 
                   {/* Step Label in 2 lines */}
-                  <span className="text-[7.5px] sm:text-[9.5px] font-medium text-white/90 leading-tight">
+                  <span className="text-[7px] sm:text-[8.5px] font-medium text-white/90 leading-tight">
                     <span>{st.line1}</span>
                     <br />
                     <span>{st.line2}</span>
@@ -79,9 +79,7 @@ export const ProcessSection: React.FC = () => {
                 </div>
               ))}
             </div>
-
           </div>
-
         </div>
 
       </div>

@@ -31,23 +31,23 @@ export const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-4 sm:py-6 bg-white border-b border-[#EAEAEA]" id="services">
-      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
+    <section className="py-2 sm:py-3 bg-white border-b border-[#EAEAEA]" id="services">
+      <div className="max-w-6xl mx-auto px-2.5 sm:px-6 lg:px-8">
         
         {/* 5 Minimal Cards in a 5-column grid */}
-        <div className="grid grid-cols-5 gap-1.5 sm:gap-3">
+        <div className="grid grid-cols-5 gap-1 sm:gap-2.5">
           {services.map((srv, idx) => {
             const Icon = srv.icon;
             return (
               <div 
                 key={idx}
-                className="p-2 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F7F7F8] hover:bg-[#EFEFF1] border border-transparent hover:border-[#EAEAEA] transition-all duration-150 flex flex-col items-center justify-center text-center cursor-pointer group"
+                className="py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl bg-[#F6F6F8] hover:bg-[#EFEFF1] border border-transparent hover:border-[#EAEAEA] transition-all duration-150 flex flex-col items-center justify-center text-center cursor-pointer group"
               >
-                <div className="mb-1.5 sm:mb-2 text-[#111111]">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.6]" />
+                <div className="mb-1 sm:mb-1.5 text-[#111111]">
+                  <Icon className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 stroke-[1.4]" />
                 </div>
 
-                <div className="text-[10px] sm:text-xs font-semibold text-[#111111] leading-tight group-hover:text-black">
+                <div className="text-[8px] sm:text-[9.5px] md:text-[10px] font-medium text-[#111111] leading-[1.15] tracking-tight group-hover:text-black">
                   <span>{srv.titleLine1}</span>
                   <br />
                   <span>{srv.titleLine2}</span>

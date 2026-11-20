@@ -30,7 +30,7 @@ export const TrustSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-3 sm:py-5 bg-white border-b border-[#F0F0F0]" id="stats">
+    <section className="py-2.5 sm:py-3.5 bg-white border-b border-[#F0F0F0]" id="stats">
       <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
         
         {/* 4-column row with vertical hairline dividers */}
@@ -40,15 +40,15 @@ export const TrustSection: React.FC = () => {
             return (
               <div 
                 key={idx} 
-                className="px-1 sm:px-3 py-1 flex flex-col items-center text-center first:pl-0 last:pr-0"
+                className="px-1 sm:px-3 py-0.5 flex flex-col items-center text-center first:pl-0 last:pr-0"
               >
                 <div className="mb-0.5 text-[#111111]">
-                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.5]" />
+                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.4]" />
                 </div>
-                <div className="text-sm sm:text-2xl font-extrabold text-[#111111] tracking-tight leading-none mb-0.5">
+                <div className="text-[12.5px] sm:text-xl font-extrabold text-[#111111] tracking-tight leading-none mb-0.5">
                   {item.value}
                 </div>
-                <div className="text-[8px] sm:text-[11px] font-medium text-[#666666] leading-tight">
+                <div className="text-[7.5px] sm:text-[9.5px] font-medium text-[#666666] leading-tight">
                   <span>{item.line1}</span>
                   <br />
                   <span>{item.line2}</span>
