@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  Menu, 
-  X, 
   Globe,
   ChevronDown,
-  ArrowRight
+  Menu,
+  X,
+  ArrowRight,
+  MessageSquare
 } from 'lucide-react';
 import { siteConfig } from '../config/site';
 
@@ -31,80 +32,77 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Import Process', href: '/how-it-works' },
-    { name: 'Products', href: '/products' },
-    { name: 'Operations', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Services', href: '#services' },
+    { name: 'How It Works', href: '#process' },
+    { name: 'Stats', href: '#stats' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'FAQ', href: '#faq' },
   ];
 
   const languages = [
-    { code: 'EN', label: 'English' },
+    { code: 'EN', label: 'EN (English)' },
     { code: '中文', label: '中文 (Mandarin)' },
     { code: 'हिन्दी', label: 'हिन्दी (Hindi)' },
   ];
-
-  const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname.startsWith(path);
-  };
 
   return (
     <>
       <header
         className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-200 border-b ${
-          isScrolled ? 'border-[#EAEAEA] shadow-[0_1px_3px_rgba(0,0,0,0.03)]' : 'border-[#EAEAEA]'
+          isScrolled ? 'border-[#EAEAEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)]' : 'border-[#EAEAEA]'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20 gap-3">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
             
-            {/* Hira Outsourcing Logo */}
+            {/* Hira Outsourcing Logo: Italic H + Stacked Hira Outsourcing */}
             <Link 
               to="/" 
-              className="flex items-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-md py-1"
+              className="flex items-center gap-2.5 focus:outline-none rounded-md py-1"
             >
-              <img 
-                src="/images/hira_logo_official_original.png" 
-                alt="Hira Outsourcing Services Pvt Ltd" 
-                className="h-8 sm:h-9 w-auto object-contain"
-              />
+              <div className="font-black italic text-2xl sm:text-3xl tracking-tighter text-[#111111] leading-none select-none">
+                H
+              </div>
+              <div className="flex flex-col text-left leading-none">
+                <span className="font-bold text-sm sm:text-base tracking-tight text-[#111111]">
+                  Hira
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-normal tracking-tight text-[#444444] mt-0.5">
+                  Outsourcing
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-7" aria-label="Main Navigation">
+            <nav className="hidden md:flex items-center space-x-6 lg:space-x-8" aria-label="Main Navigation">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.name}
-                  to={link.href}
-                  className={`text-[13px] tracking-tight transition-colors duration-150 ${
-                    isActive(link.href)
-                      ? 'text-[#111111] font-semibold'
-                      : 'text-[#666666] hover:text-[#111111] font-normal'
-                  }`}
+                  href={link.href}
+                  className="text-xs sm:text-sm font-medium text-[#555555] hover:text-[#111111] transition-colors"
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
             </nav>
 
-            {/* Right Controls: Language Selector + Primary CTA + Mobile Hamburger */}
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-              {/* Language Selector Dropdown */}
+            {/* Right Controls: Language Selector + Minimal Hamburger Menu */}
+            <div className="flex items-center gap-3 shrink-0">
+              {/* Language Selector */}
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[#111111] hover:bg-[#F5F5F5] rounded-md transition-colors border border-[#EAEAEA]"
+                  className="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-medium text-[#111111] hover:bg-[#F5F5F5] rounded transition-colors"
                   aria-label="Select Language"
                 >
-                  <Globe className="w-3.5 h-3.5 text-[#666666]" />
-                  <span className="font-medium">{currentLang}</span>
-                  <ChevronDown className="w-3 h-3 text-[#666666]" />
+                  <Globe className="w-3.5 h-3.5 text-[#111111]" />
+                  <span className="text-xs font-semibold">{currentLang}</span>
+                  <ChevronDown className="w-3 h-3 text-[#555555]" />
                 </button>
 
                 {langMenuOpen && (
-                  <div className="absolute right-0 mt-1.5 w-40 bg-white border border-[#EAEAEA] rounded-lg shadow-lg py-1 z-50">
+                  <div className="absolute right-0 mt-1.5 w-36 bg-white border border-[#EAEAEA] rounded-lg shadow-lg py-1 z-50">
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
@@ -124,26 +122,17 @@ export const Navbar: React.FC = () => {
                 )}
               </div>
 
-              {/* Desktop Quick Quote CTA */}
-              <a
-                href="#quote"
-                className="hidden sm:inline-flex items-center gap-1.5 bg-[#111111] hover:bg-black text-white text-xs font-medium px-4 py-2 rounded-md transition-colors"
-              >
-                <span>Get a Quote</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-
-              {/* Minimal Hamburger Menu */}
+              {/* Minimal Hamburger Menu Button */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-[#111111] hover:bg-[#F5F5F5] rounded-md transition-colors focus:outline-none"
+                className="p-1.5 text-[#111111] hover:bg-[#F5F5F5] rounded transition-colors focus:outline-none"
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? (
                   <X className="w-5 h-5" />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className="w-5 h-5 stroke-[2]" />
                 )}
               </button>
             </div>
@@ -153,36 +142,36 @@ export const Navbar: React.FC = () => {
 
         {/* Minimal Mobile Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-b border-[#EAEAEA] px-5 py-5 space-y-4 animate-in slide-in-from-top-2 duration-150">
+          <div className="md:hidden bg-white border-b border-[#EAEAEA] px-5 py-5 space-y-4 animate-in slide-in-from-top-2 duration-150">
             <div className="space-y-1">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.name}
-                  to={link.href}
-                  className={`block py-2.5 text-sm font-medium transition-colors ${
-                    isActive(link.href) ? 'text-[#111111] font-semibold' : 'text-[#666666]'
-                  }`}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 text-sm font-medium text-[#111111] hover:text-[#555555]"
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
             </div>
 
-            <div className="pt-4 border-t border-[#EAEAEA] space-y-2.5">
+            <div className="pt-4 border-t border-[#EAEAEA] space-y-2">
               <a
                 href="#quote"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#111111] text-white py-3 rounded-lg text-sm font-medium"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#111111] text-white py-3 rounded-lg text-xs font-semibold"
               >
-                <span>Get a Free Quote</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Get a Quote</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
               <a
                 href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#F5F5F5] text-[#111111] border border-[#EAEAEA] py-3 rounded-lg text-sm font-medium"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#F5F5F5] text-[#111111] py-2.5 rounded-lg text-xs font-medium border border-[#EAEAEA]"
               >
+                <MessageSquare className="w-3.5 h-3.5 text-[#111111]" />
                 <span>Chat on WhatsApp</span>
               </a>
             </div>

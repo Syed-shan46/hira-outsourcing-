@@ -1,79 +1,62 @@
 import React from 'react';
-import { Quote } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 export const CustomerTestimonials: React.FC = () => {
-  const testimonials = [
-    {
-      quote: "Hira verified the factory in Shenzhen before we transferred our tooling deposit. Their on-site check revealed the supplier was a 3rd-party reseller, saving us from a potential ₹12 Lakh dispute. They connected us directly with the actual OEM.",
-      name: "Rajesh S.",
-      role: "Founder, Consumer Hardware Brand",
-      city: "Bengaluru, India",
-      consignment: "Molded Electronics Enclosures (10,000 units)"
-    },
-    {
-      quote: "Importing seasonal home decor was always stressful with customs delays at Nhava Sheva. Hira took over documentation alignment, HS code classification, and port handoff. Every container arrived cleared without demurrages.",
-      name: "Ananya Mehta",
-      role: "Managing Director, Retail Import House",
-      city: "Mumbai, India",
-      consignment: "40ft High Cube Container"
-    },
-    {
-      quote: "As a D2C startup, our biggest challenge was meeting factory MOQs. Hira negotiated sample orders directly with Yiwu manufacturers in Mandarin and arranged sample consolidation to Delhi within 7 days.",
-      name: "Vikram Singhania",
-      role: "Co-Founder, Lifestyle Products",
-      city: "New Delhi, India",
-      consignment: "Consolidated Air Cargo Batch"
-    }
-  ];
-
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-white border-t border-[#EAEAEA]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section className="py-5 sm:py-8 bg-white border-b border-[#EAEAEA]" id="testimonials">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mb-12 sm:mb-16">
-          <span className="text-xs uppercase tracking-widest text-[#888888] font-medium block mb-2">
-            Client Experiences
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal sm:font-medium text-[#111111] tracking-tight">
-            Trusted by Indian Enterprises &amp; Startups
-          </h2>
-          <p className="text-base text-[#666666] mt-4 leading-relaxed">
-            Real feedback from commercial importers, founders, and supply chain heads managing direct cross-border procurement with Hira Outsourcing.
-          </p>
-        </div>
-
-        {/* 3 Minimal Editorial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {testimonials.map((t, idx) => (
-            <div 
-              key={idx}
-              className="p-7 sm:p-8 rounded-xl bg-[#FAFAFA] border border-[#EAEAEA] flex flex-col justify-between hover:border-[#111111] transition-colors duration-150"
-            >
-              <div>
-                <Quote className="w-6 h-6 text-[#111111]/20 mb-4" />
-                <p className="text-sm sm:text-base text-[#111111] leading-relaxed font-normal">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
+        {/* 2-column layout matching the mockup exactly */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+          
+          {/* Left Card: Customer Testimonial */}
+          <div className="p-5 sm:p-7 rounded-2xl bg-[#FAFAFA] border border-[#EAEAEA] flex flex-col justify-between">
+            <div>
+              <div className="text-2xl sm:text-3xl font-serif text-[#111111] leading-none mb-2">
+                &ldquo;
               </div>
+              <p className="text-xs sm:text-sm md:text-base text-[#111111] font-medium leading-relaxed">
+                Reliable, transparent, and hassle-free. Hira made our China sourcing simple.
+              </p>
+            </div>
 
-              <div className="pt-6 mt-6 border-t border-[#EAEAEA]">
-                <div className="font-medium text-sm text-[#111111]">
-                  {t.name}
-                </div>
-                <div className="text-xs text-[#666666]">
-                  {t.role} &bull; {t.city}
-                </div>
-                <div className="mt-2 text-[11px] font-mono text-[#888888]">
-                  Consignment: {t.consignment}
-                </div>
+            {/* Author info with avatar */}
+            <div className="pt-4 mt-4 border-t border-[#EAEAEA]/80 flex items-center gap-2.5">
+              <img
+                src="/images/mockup_avatar.png"
+                alt="Business Owner, Kerala"
+                className="w-7 h-7 rounded-full object-cover border border-[#EAEAEA]"
+              />
+              <span className="text-xs font-semibold text-[#111111]">
+                Business Owner, Kerala
+              </span>
+            </div>
+          </div>
+
+          {/* Right Card: Real Warehouse Video Thumbnail with Play Button */}
+          <div className="relative rounded-2xl overflow-hidden border border-[#EAEAEA] bg-[#111111] min-h-[140px] group cursor-pointer">
+            <img
+              src="/images/mockup_warehouse_video.png"
+              alt="Hira Outsourcing China Warehouse Operations"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            
+            {/* Center Play Button Overlay */}
+            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm text-[#111111] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current translate-x-[1px]" />
               </div>
             </div>
-          ))}
+
+            {/* Video Badge */}
+            <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] text-white font-medium">
+              Ground Warehouse Walkthrough &bull; 1:45
+            </div>
+          </div>
+
         </div>
 
       </div>
     </section>
   );
 };
-

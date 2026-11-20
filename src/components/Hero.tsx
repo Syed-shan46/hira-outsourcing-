@@ -1,95 +1,82 @@
 import React from 'react';
-import { ArrowRight, MessageSquare, ShieldCheck, Lock, Truck } from 'lucide-react';
-import { siteConfig } from '../config/site';
+import { ArrowRight, Play, Check } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative bg-white text-[#111111] pt-10 pb-16 sm:pt-16 sm:pb-24 lg:pt-24 lg:pb-32 border-b border-[#EAEAEA]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-white text-[#111111] pt-6 pb-10 sm:pt-10 sm:pb-14 overflow-hidden border-b border-[#EAEAEA]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top Minimal Editorial Label */}
-        <div className="mb-4 sm:mb-6">
-          <span className="inline-block text-[11px] sm:text-xs uppercase tracking-widest text-[#666666] font-semibold bg-[#F5F5F5] px-3 py-1 rounded-full border border-[#EAEAEA]">
-            GLOBAL SOURCING &amp; IMPORT SOLUTIONS
-          </span>
-        </div>
-
-        {/* Two-Column Responsive Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
           
           {/* Left Column: Headlines & High-Conversion CTAs */}
-          <div className="lg:col-span-7 space-y-6">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-[#111111] leading-[1.05]">
-              Source Globally. <br />
-              <span className="font-normal text-[#444444]">Grow Locally.</span>
+          <div className="md:col-span-7 z-10 space-y-4 sm:space-y-5">
+            
+            {/* Top Label */}
+            <div>
+              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-[#444444]">
+                GLOBAL SOURCING &amp; IMPORT SOLUTIONS
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tight text-[#111111] leading-[1.08]">
+              Source Globally,<br />
+              Grow Locally.
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-[#555555] font-normal leading-relaxed max-w-2xl">
+            {/* Supporting Copy */}
+            <p className="text-xs sm:text-sm md:text-base text-[#555555] font-normal leading-relaxed max-w-lg">
               We help businesses and startups in India find, verify, and import high-quality products from China &mdash; end to end.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            {/* Side-by-Side CTAs */}
+            <div className="flex items-center gap-2.5 sm:gap-3 pt-1">
               <a
                 href="#quote"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#111111] hover:bg-black text-white px-7 py-3.5 rounded-lg text-sm font-semibold tracking-tight transition-colors shadow-sm"
+                className="inline-flex items-center justify-center gap-1.5 bg-[#111111] hover:bg-black text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold tracking-tight transition-colors shadow-xs"
               >
                 <span>Get a Quote</span>
-                <ArrowRight className="w-4 h-4" />
+                <span className="text-xs">&rarr;</span>
               </a>
 
               <a
-                href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-[#F5F5F5] text-[#111111] border border-[#EAEAEA] hover:border-[#111111] px-6 py-3.5 rounded-lg text-sm font-medium transition-colors"
+                href="#process"
+                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[#F9F9FB] text-[#111111] border border-[#E5E5E7] hover:border-[#111111] px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-colors"
               >
-                <MessageSquare className="w-4 h-4 text-[#111111]" />
-                <span>Chat on WhatsApp</span>
+                <div className="w-4 h-4 rounded-full bg-[#111111] text-white flex items-center justify-center">
+                  <Play className="w-2 h-2 fill-current translate-x-[0.5px]" />
+                </div>
+                <span>How It Works</span>
               </a>
             </div>
 
-            {/* Below CTA: 3 Core Pillars */}
-            <div className="pt-6 border-t border-[#EAEAEA] grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs text-[#333333]">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#111111] shrink-0" />
-                <span className="font-medium">Verified Suppliers</span>
+            {/* Reassurance Checklist */}
+            <div className="pt-3 sm:pt-4 flex items-center gap-3 sm:gap-5 text-[11px] sm:text-xs text-[#333333] font-medium flex-wrap">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[#111111] font-bold">✓</span>
+                <span>Verified Suppliers</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4 text-[#111111] shrink-0" />
-                <span className="font-medium">Secure Import</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[#111111] font-bold">✓</span>
+                <span>Secure Import</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Truck className="w-4 h-4 text-[#111111] shrink-0" />
-                <span className="font-medium">Doorstep Delivery</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[#111111] font-bold">✓</span>
+                <span>Doorstep Delivery</span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Premium Shipping-Container Port Photography */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-2xl overflow-hidden border border-[#EAEAEA] bg-[#F5F5F5] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-              <div className="aspect-[4/3] w-full overflow-hidden">
-                <img
-                  src="/images/cargo_ship_hero.jpg"
-                  alt="International container port and cargo vessel operations"
-                  className="w-full h-full object-cover filter contrast-[1.05]"
-                  loading="eager"
-                />
-              </div>
-
-              {/* Minimal Corridor Strip */}
-              <div className="p-4 bg-white/95 backdrop-blur-sm border-t border-[#EAEAEA] flex items-center justify-between text-xs">
-                <div>
-                  <span className="text-[10px] uppercase tracking-wider text-[#888888] block">Origin Hubs</span>
-                  <span className="font-medium text-[#111111]">Shenzhen &bull; Yiwu &bull; Ningbo</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[10px] uppercase tracking-wider text-[#888888] block">Destination</span>
-                  <span className="font-medium text-[#111111]">Mumbai &bull; Delhi &bull; Chennai</span>
-                </div>
-              </div>
+          {/* Right Column: Exact Cargo Ship & Plane Graphic */}
+          <div className="md:col-span-5 relative mt-4 md:mt-0 flex justify-center md:justify-end">
+            <div className="relative w-full max-w-[340px] md:max-w-none rounded-2xl overflow-hidden">
+              <img
+                src="/images/mockup_hero_ship.png"
+                alt="Container ship loading at port with cargo airplane in flight"
+                className="w-full h-auto object-contain filter contrast-[1.03]"
+                loading="eager"
+              />
             </div>
           </div>
 
