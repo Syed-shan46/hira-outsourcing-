@@ -31,36 +31,34 @@ export const ProcessSection: React.FC = () => {
         {/* Compact Black Container Card */}
         <div className="relative rounded-2xl bg-[#141416] text-white px-4 py-3.5 sm:px-6 sm:py-5 overflow-hidden shadow-xs">
           
-          {/* Top Half: Headline on Left + Pure Container Image on Right */}
-          <div className="relative flex items-center justify-between gap-3 mb-2.5 sm:mb-3.5">
-            
-            {/* Headline & Subtitle */}
-            <div className="max-w-[60%] sm:max-w-[62%] z-10">
-              <h2 className="text-[15px] sm:text-xl font-bold tracking-tight text-white leading-tight">
-                From China to<br />
-                your Business
-              </h2>
-              <p className="text-[9.5px] sm:text-xs text-[#A0A0A0] mt-0.5 leading-snug">
-                A simple, reliable import process built for Indian businesses.
-              </p>
-            </div>
+          {/* Full-Height Background Container Graphic on Right Half (Matching Mockup) */}
+          <div className="absolute top-0 right-0 bottom-0 w-[58%] sm:w-[50%] pointer-events-none z-0 overflow-hidden">
+            <img
+              src="/images/mockup_container_only.png"
+              alt="Hira Outsourcing branded shipping container"
+              className="w-full h-full object-cover object-right"
+              loading="lazy"
+            />
+            {/* Soft left gradient fade into black card background */}
+            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#141416] to-transparent pointer-events-none" />
+          </div>
 
-            {/* Clean Container Wall Graphic on Right (Without Duplicate Text) */}
-            <div className="w-[36%] max-w-[140px] sm:max-w-[180px] pointer-events-none flex items-center justify-end shrink-0">
-              <img
-                src="/images/mockup_container_only.png"
-                alt="Hira Outsourcing branded shipping container"
-                className="w-full h-auto object-contain rounded-tr-lg"
-              />
-            </div>
-
+          {/* Top Half: Headline & Subtitle on Left */}
+          <div className="relative z-10 max-w-[58%] sm:max-w-[60%] mb-3 sm:mb-4">
+            <h2 className="text-[15px] sm:text-xl font-bold tracking-tight text-white leading-tight">
+              From China to<br />
+              your Business
+            </h2>
+            <p className="text-[9.5px] sm:text-xs text-[#A0A0A0] mt-1 leading-snug">
+              A simple, reliable import process built for Indian businesses.
+            </p>
           </div>
 
           {/* Bottom Half: 4 Connected Steps with Progress Line (Compact Height) */}
-          <div className="relative pt-1 sm:pt-2">
+          <div className="relative z-10 pt-1 sm:pt-2">
             
             {/* Connecting Horizontal Line passing through node centers */}
-            <div className="absolute top-[9px] sm:top-[12px] left-[10%] right-[10%] h-[1px] bg-white/35 z-0"></div>
+            <div className="absolute top-[8px] sm:top-[10px] left-[10%] right-[10%] h-[1px] bg-white/35 z-0"></div>
 
             {/* 4 Step Nodes */}
             <div className="grid grid-cols-4 gap-1 relative z-10">
