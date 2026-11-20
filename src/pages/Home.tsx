@@ -7,7 +7,6 @@ import { CustomerTestimonials } from '../components/CustomerTestimonials';
 import { RealOperationsSection } from '../components/RealOperationsSection';
 import { FAQ } from '../components/FAQ';
 import { FinalCta } from '../components/FinalCta';
-import { MobileQuickBar } from '../components/MobileQuickBar';
 
 export const Home: React.FC = () => {
   useEffect(() => {
@@ -16,7 +15,7 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col bg-white min-h-screen pb-16 md:pb-0">
+    <div className="flex flex-col bg-white min-h-screen">
       {/* 1. Hero Section (Source Globally, Grow Locally) */}
       <Hero />
 
@@ -40,9 +39,6 @@ export const Home: React.FC = () => {
 
       {/* 8. Final Conversion Section */}
       <FinalCta />
-
-      {/* Fixed Bottom WhatsApp & Quote Action Bar on Mobile */}
-      <MobileQuickBar />
     </div>
   );
 };

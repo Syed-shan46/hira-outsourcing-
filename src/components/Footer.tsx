@@ -29,12 +29,14 @@ export const Footer: React.FC = () => {
           
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <Link to="/" className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-md">
-              <img 
-                src="/images/hira_logo_white_to_black_precise.png" 
-                alt="Hira Outsourcing Services Pvt Ltd" 
-                className="h-9 sm:h-10 w-auto object-contain transition-opacity hover:opacity-90"
-              />
+            <Link to="/" className="inline-flex items-center gap-2.5 focus:outline-none rounded-md py-1">
+              <div className="font-black italic text-2xl tracking-tighter text-[#111111] leading-none">
+                H
+              </div>
+              <div className="flex flex-col text-left leading-none">
+                <span className="font-bold text-base tracking-tight text-[#111111]">Hira</span>
+                <span className="text-[11px] font-normal tracking-tight text-[#555555] mt-0.5">Outsourcing</span>
+              </div>
             </Link>
 
             <p className="text-xs text-[#666666] leading-relaxed max-w-sm">
