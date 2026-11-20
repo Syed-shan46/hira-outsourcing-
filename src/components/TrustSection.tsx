@@ -5,25 +5,25 @@ export const TrustSection: React.FC = () => {
   const stats = [
     {
       icon: Users,
-      value: "100+",
+      value: "2,000+",
       line1: "Businesses",
       line2: "Served"
     },
     {
       icon: Package,
-      value: "500+",
-      line1: "Products",
-      line2: "Sourced"
+      value: "1,600+",
+      line1: "Product",
+      line2: "Catalogs"
     },
     {
       icon: Globe,
-      value: "10+",
-      line1: "Product",
-      line2: "Categories"
+      value: "15+",
+      line1: "Global",
+      line2: "Reach"
     },
     {
       icon: ShieldCheck,
-      value: "98%",
+      value: "98.5%",
       line1: "Client",
       line2: "Satisfaction"
     }

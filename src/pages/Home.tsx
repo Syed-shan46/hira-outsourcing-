@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
       {/* 3. Import Process (From China to your Business - Black Container Card) */}
       <ProcessSection />
 
-      {/* 4. Trust and Statistics (100+ | 500+ | 10+ | 98%) */}
+      {/* 4. Trust and Statistics (2,000+ | 1,600+ | 15+ | 98.5%) */}
       <TrustSection />
 
       {/* 5. Customer Testimonials & Warehouse Video Aisle */}
