@@ -8,7 +8,7 @@ export const Hero: React.FC = () => {
       {/* 1. Full-Width Background: Plain White on Left, Highlight Vessel/Flight on Right */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <img
-          src="/images/hero_seamless_banner.png"
+          src="/images/hero_original.png"
           alt="China to India maritime logistics and air freight"
           className="w-full h-full object-cover object-right"
           loading="eager"
