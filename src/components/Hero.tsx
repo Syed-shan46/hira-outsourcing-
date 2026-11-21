@@ -114,7 +114,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* 6. Reassurance Checklist: Positioned IN the bottom of the image area with good padding */}
-        <div className="w-full pt-6 sm:pt-8 pb-3 sm:pb-4 flex items-center justify-between sm:justify-start gap-2 sm:gap-6 text-[9.5px] sm:text-[11px] text-[#111111] font-semibold">
+        <div className="w-full pt-6 sm:pt-8 pb-0 flex items-center justify-between sm:justify-start gap-2 sm:gap-6 text-[9.5px] sm:text-[11px] text-[#111111] font-semibold">
           <div className="flex items-center gap-1 shrink-0">
             <span className="text-[#111111] font-bold">✓</span>
             <span>Verified Suppliers</span>

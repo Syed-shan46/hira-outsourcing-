@@ -26,7 +26,7 @@ export const ProcessSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-4 sm:py-6 bg-white" id="process">
+    <section className="pt-0 pb-6 sm:pb-8 bg-white" id="process">
       <div className="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8">
 
         {/* Compact Black Container Card */}
