@@ -14,10 +14,6 @@ export const FAQ: React.FC = () => {
       answer: "Yes. We perform multi-tier verification before any funds are released. This includes checking official Chinese government enterprise credit records, verifying legal business licenses, validating corporate bank accounts, and conducting on-site physical factory inspections when requested."
     },
     {
-      question: "Can you source from 1688?",
-      answer: "Yes, we actively source from 1688.com (China's premier domestic wholesale marketplace). We communicate directly with domestic Chinese sellers in Mandarin, negotiate domestic wholesale pricing, consolidate packages in our Yiwu/Shenzhen warehouses, and manage export documentation."
-    },
-    {
       question: "How much does importing cost?",
       answer: "We provide 100% transparent landed cost breakdowns. Costs comprise: 1) Factory unit purchase cost (EXW/FOB), 2) Sea or air freight forwarding based on CBM or gross weight, 3) Indian customs duty & GST based on the product's official HS Code, and 4) Clear, agreed coordination fees. There are zero hidden surcharges."
     },
@@ -48,7 +44,7 @@ export const FAQ: React.FC = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-base text-[#666666] mt-4 leading-relaxed">
-            Essential facts about bilateral sourcing, factory verification, 1688 procurement, and customs clearance into India.
+            Essential facts about bilateral sourcing, factory verification, and customs clearance into India.
           </p>
         </div>
 

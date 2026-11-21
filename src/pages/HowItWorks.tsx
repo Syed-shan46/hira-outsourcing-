@@ -306,10 +306,6 @@ export const HowItWorks: React.FC = () => {
       a: "Our sourcing process follows four clear stages: First, you share your product idea or specifications. Second, our bilingual ground team in China identifies verified direct manufacturers and coordinates physical sample evaluation. Third, we manage packaging, container loading, and international ocean or air freight. Finally, your cargo completes Indian customs clearance and is delivered directly to your commercial warehouse."
     },
     {
-      q: "Can Hira help find products on 1688?",
-      a: "Yes. 1688.com is China's largest domestic B2B platform where primary manufacturers quote domestic factory pricing. Because 1688 operates strictly in Mandarin and requires domestic Chinese accounts and payment rails, our on-the-ground team communicates directly with 1688 suppliers, negotiates commercial terms, evaluates factory credentials, and organizes physical consolidation."
-    },
-    {
       q: "Can I share an existing product link?",
       a: "Absolutely. You can share links from 1688, Alibaba, Taobao, Made-in-China, Amazon, or direct factory websites. Our team analyzes the specifications, contacts the underlying manufacturer, and benchmarks the pricing against verified tier-1 factories producing identical or higher-grade quality."
     },
