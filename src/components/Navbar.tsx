@@ -53,24 +53,17 @@ export const Navbar: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
             
-            {/* Hira Outsourcing Logo: Official hira_logo + Stacked Hira Outsourcing */}
+            {/* Hira Outsourcing Official Logo */}
             <Link 
               to="/" 
-              className="flex items-center gap-2 sm:gap-2.5 focus:outline-none rounded-md py-1"
+              className="flex items-center focus:outline-none rounded-md py-1"
+              aria-label="Hira Outsourcing Home"
             >
               <img 
-                src="/images/hira_logo.png" 
-                alt="Hira Outsourcing Logo" 
+                src="/images/hira_logo_white_to_black_precise.png" 
+                alt="Hira Outsourcing" 
                 className="h-7 sm:h-8 w-auto object-contain shrink-0" 
               />
-              <div className="flex flex-col text-left leading-none">
-                <span className="font-bold text-sm sm:text-base tracking-tight text-[#111111]">
-                  Hira
-                </span>
-                <span className="text-[10px] sm:text-[11px] font-normal tracking-tight text-[#444444] mt-0.5">
-                  Outsourcing
-                </span>
-              </div>
             </Link>
 
             {/* Desktop Navigation Links */}

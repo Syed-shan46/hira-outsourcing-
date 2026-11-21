@@ -436,12 +436,8 @@ export const GetAQuotePage: React.FC = () => {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAEAEA]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 sm:gap-2.5 focus:outline-none" aria-label="Hira Outsourcing Home">
-            <img src="/images/hira_logo.png" alt="Hira Logo" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
-            <div className="flex flex-col text-left leading-none">
-              <span className="font-bold text-sm sm:text-base tracking-tight text-[#111111]">Hira</span>
-              <span className="text-[10px] sm:text-[11px] font-normal tracking-tight text-[#444444] mt-0.5">Outsourcing</span>
-            </div>
+          <Link to="/" className="flex items-center focus:outline-none" aria-label="Hira Outsourcing Home">
+            <img src="/images/hira_logo_white_to_black_precise.png" alt="Hira Outsourcing" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
           </Link>
 
           {/* Right Header Navigation: Back to Home + Direct WhatsApp */}
