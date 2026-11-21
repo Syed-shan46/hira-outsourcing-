@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Package, ShieldCheck, Ship, Star, Users } from 'lucide-react';
 
 export const ServicesSection: React.FC = () => {
@@ -7,26 +8,31 @@ export const ServicesSection: React.FC = () => {
       titleLine1: "Product",
       titleLine2: "Sourcing",
       icon: Package,
+      href: "/how-it-works"
     },
     {
       titleLine1: "Supplier",
       titleLine2: "Verification",
       icon: ShieldCheck,
+      href: "/how-it-works"
     },
     {
       titleLine1: "Import &",
       titleLine2: "Logistics",
       icon: Ship,
+      href: "/how-it-works"
     },
     {
       titleLine1: "Customs &",
       titleLine2: "Compliance",
       icon: Star,
+      href: "/services"
     },
     {
       titleLine1: "Business",
       titleLine2: "Support",
       icon: Users,
+      href: "/services"
     }
   ];
 
@@ -39,8 +45,9 @@ export const ServicesSection: React.FC = () => {
           {services.map((srv, idx) => {
             const Icon = srv.icon;
             return (
-              <div 
+              <Link 
                 key={idx}
+                to={srv.href}
                 className="py-2 px-1 sm:py-2.5 sm:px-2 rounded-xl bg-[#F6F6F8] hover:bg-[#EFEFF1] border border-transparent hover:border-[#EAEAEA] transition-all duration-150 flex flex-col items-center justify-center text-center cursor-pointer group"
               >
                 <div className="mb-1 sm:mb-1.5 text-[#111111]">
@@ -52,7 +59,7 @@ export const ServicesSection: React.FC = () => {
                   <br />
                   <span>{srv.titleLine2}</span>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

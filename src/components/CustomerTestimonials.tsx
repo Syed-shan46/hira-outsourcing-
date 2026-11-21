@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
 
 export const CustomerTestimonials: React.FC = () => {
@@ -33,8 +34,12 @@ export const CustomerTestimonials: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Card: Real Warehouse Video Thumbnail with Play Button */}
-          <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-[#EAEAEA] bg-[#111111] min-h-[85px] sm:min-h-[115px] group cursor-pointer">
+          {/* Right Card: Real Warehouse Video Thumbnail with Play Button -> Links to dedicated /how-it-works */}
+          <Link
+            to="/how-it-works"
+            className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-[#EAEAEA] bg-[#111111] min-h-[85px] sm:min-h-[115px] group cursor-pointer block"
+            aria-label="Watch How It Works Video"
+          >
             <img
               src="/images/mockup_warehouse_video.png"
               alt="Hira Outsourcing China Warehouse Operations"
@@ -42,12 +47,12 @@ export const CustomerTestimonials: React.FC = () => {
             />
             
             {/* Center Play Button Overlay */}
-            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors flex items-center justify-center">
               <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-sm text-[#111111] flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
                 <Play className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current translate-x-[0.5px]" />
               </div>
             </div>
-          </div>
+          </Link>
 
         </div>
 

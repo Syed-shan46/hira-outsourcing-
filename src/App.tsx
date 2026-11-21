@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams, Navigate, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -14,11 +14,23 @@ import { Terms } from './pages/Terms';
 import CustomerTrackingPage from './pages/CustomerTrackingPage';
 import { GetAQuotePage } from './pages/GetAQuotePage';
 
+// Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
+
 // Helper component that forwards the URL param directly as orderId
 function DirectOrderTrackingRoute() {
   const { orderId } = useParams<{ orderId: string }>();
   const staticRoutes = new Set([
-    'services', 'how-it-works', 'products', 'about', 'contact', 'privacy-policy', 'terms', 'tracking', 'quote', 'get-a-quote'
+    'services', 'how-it-works', 'howitworks', 'how_it_works', 'how-it-work', 'process',
+    'products', 'about', 'contact', 'privacy-policy', 'terms', 'tracking', 'quote', 'get-a-quote'
   ]);
 
   if (!orderId || staticRoutes.has(orderId.toLowerCase())) {
@@ -34,6 +46,8 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-[#111111] font-sans antialiased selection:bg-[#111111] selection:text-white">
+      <ScrollToTop />
+
       {/* Minimalist Corporate Navigation (Hidden on dedicated quote page which has its own focused header) */}
       {!isDedicatedQuotePage && <Navbar />}
 
@@ -43,6 +57,10 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/howitworks" element={<HowItWorks />} />
+          <Route path="/how_it_works" element={<HowItWorks />} />
+          <Route path="/how-it-work" element={<HowItWorks />} />
+          <Route path="/process" element={<HowItWorks />} />
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

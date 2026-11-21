@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const ProcessSection: React.FC = () => {
   const steps = [
@@ -54,6 +55,13 @@ export const ProcessSection: React.FC = () => {
             <p className="text-[8.5px] sm:text-[11px] text-[#A0A0A0] mt-1 leading-snug">
               A simple, reliable import process built for Indian businesses.
             </p>
+            <Link
+              to="/how-it-works"
+              className="inline-flex items-center gap-1 mt-2 text-[8px] sm:text-[10.5px] font-medium text-white/85 hover:text-white transition-colors"
+            >
+              <span>Explore How It Works &amp; Video</span>
+              <span>&rarr;</span>
+            </Link>
           </div>
 
           {/* Bottom Half: 4 Connected Steps with Progress Line (Compact Height) */}
