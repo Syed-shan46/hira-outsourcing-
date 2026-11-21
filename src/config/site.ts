@@ -19,9 +19,9 @@ export const siteConfig = {
   contact: {
     email: "enquiry@hiraoutsourcing.com",
     supportEmail: "support@hiraoutsourcing.com",
-    addressIndia: "Operational Office: Mumbai & New Delhi Logistics Hub, India",
+    addressIndia: "Operational Hub: Palakkad, Kerala, India",
     addressChina: "Sourcing & Coordination Hub: Yiwu & Shenzhen, China",
-    businessHours: "Monday to Saturday: 9:30 AM – 6:30 PM IST",
+    businessHours: "Monday to Saturday: 6:00 AM – 11:00 PM IST",
   },
 
   // API endpoint for lead capture (if configured or local fallback)

@@ -292,7 +292,7 @@ export const HowItWorks: React.FC = () => {
     {
       id: "op-6",
       title: "Doorstep Warehouse Commercial Handover",
-      location: "Indian Commercial Hubs (Mumbai / Delhi NCR)",
+      location: "India Hub (Palakkad, Kerala & Pan-India)",
       desc: "Customs release, bonded inland transport, and physical product handover directly to your Indian facility.",
       image: "/images/gallery_doorstep_handover.jpg",
       tag: "Doorstep Delivery"
