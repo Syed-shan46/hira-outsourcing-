@@ -15,7 +15,6 @@ import {
   Factory,
   Truck,
   ChevronDown,
-  ChevronUp,
   MessageSquare,
   X,
   Building2,
@@ -492,23 +491,23 @@ export const HowItWorks: React.FC = () => {
       {/* ═══════════════════════════════════════════════════════════════════════
           2. CINEMATIC VIDEO SECTION — The centrepiece
       ═══════════════════════════════════════════════════════════════════════ */}
-      <section id="video-section" className="py-16 sm:py-24 lg:py-28 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+      <section id="video-section" className="py-14 sm:py-24 lg:py-28 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Section Header */}
           <div
             id="anim-video-header"
             data-animate
-            className={`text-center max-w-2xl mx-auto mb-10 sm:mb-14 transition-all duration-700 ${isVisible('anim-video-header') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            className={`text-center max-w-2xl mx-auto mb-8 sm:mb-14 transition-all duration-700 ${isVisible('anim-video-header') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5F5F5] border border-[#ECECEC] text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0066FF] mb-4">
-              <Play className="w-3 h-3 fill-[#0066FF]" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#F5F5F5] border border-[#ECECEC] text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0066FF] mb-3 sm:mb-4">
+              <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-[#0066FF]" />
               Our Process, Visually Explained
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-[-0.02em] text-[#111111] leading-tight">
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-bold tracking-[-0.02em] text-[#111111] leading-tight">
               See how your products<br className="hidden sm:block" /> make their journey.
             </h2>
-            <p className="text-sm sm:text-base text-[#777777] mt-3 leading-relaxed max-w-lg mx-auto">
+            <p className="text-xs sm:text-base text-[#777777] mt-2 sm:mt-3 leading-relaxed max-w-lg mx-auto">
               From finding the right supplier in China to receiving your products in India.
             </p>
           </div>
@@ -523,7 +522,7 @@ export const HowItWorks: React.FC = () => {
               ref={videoContainerRef}
               onMouseMove={handleMouseMove}
               onMouseLeave={() => isPlaying && setControlsVisible(false)}
-              className="relative aspect-video w-full rounded-2xl sm:rounded-3xl bg-[#0A0A0B] overflow-hidden group select-none shadow-2xl shadow-black/20 ring-1 ring-black/5"
+              className="relative aspect-video w-full rounded-xl sm:rounded-2xl lg:rounded-3xl bg-[#0A0A0B] overflow-hidden group select-none shadow-xl sm:shadow-2xl shadow-black/15 sm:shadow-black/20 ring-1 ring-black/5"
             >
               {/* HTML5 Video */}
               <video
@@ -549,97 +548,127 @@ export const HowItWorks: React.FC = () => {
                 />
               </video>
 
-              {/* Pre-play / Paused Overlay */}
-              {(!isPlaying && !hasEnded) && (
+              {/* State 1: Before Video Has Started (!hasStarted) */}
+              {!hasStarted && (
                 <div
                   onClick={togglePlay}
-                  className={`absolute inset-0 flex flex-col items-center justify-center cursor-pointer transition-all duration-500 z-10 ${
-                    hasStarted ? 'bg-black/40 backdrop-blur-[1px]' : 'bg-black/50 backdrop-blur-[2px]'
-                  }`}
+                  className="absolute inset-0 bg-black/45 backdrop-blur-[2px] flex flex-col items-center justify-center cursor-pointer transition-all duration-300 z-10 p-4"
                 >
-                  {/* Pulsating Play Button */}
+                  {/* Clean Minimalist Play Button */}
                   <div className="relative group/play">
-                    <div className="absolute inset-0 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 animate-ping" style={{ animationDuration: '2s' }} />
-                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white text-[#111111] flex items-center justify-center shadow-2xl group-hover/play:scale-110 transition-transform duration-300">
-                      <Play className="w-7 h-7 sm:w-9 sm:h-9 fill-[#111111] text-[#111111] ml-1" />
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-22 lg:h-22 rounded-full bg-white text-[#111111] flex items-center justify-center shadow-2xl group-hover/play:scale-105 transition-all duration-200">
+                      <Play className="w-6 h-6 sm:w-8 sm:h-8 fill-[#111111] text-[#111111] ml-0.5" />
                     </div>
                   </div>
-                  <div className="mt-5 text-center">
-                    <div className="text-white text-sm sm:text-base font-semibold tracking-tight">
-                      {hasStarted ? 'Resume Playing' : 'Watch the Full Process'}
-                    </div>
-                    <div className="text-white/60 text-xs mt-1 font-mono">
-                      {hasStarted ? formatTime(currentTime) + ' / ' + formatTime(duration) : '0:45 • Full HD'}
-                    </div>
+
+                  {/* Clean Non-Overlapping Label Badge */}
+                  <div className="mt-3.5 sm:mt-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-white shadow-lg pointer-events-none">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-pulse" />
+                    <span className="text-xs sm:text-sm font-semibold tracking-tight">Watch How It Works</span>
+                    <span className="text-white/40 text-[11px]">•</span>
+                    <span className="text-white/70 text-[11px] font-mono">0:45 Full HD</span>
                   </div>
                 </div>
               )}
 
-              {/* Video Ended — Replay + CTA Overlay */}
+              {/* State 2: Paused mid-way (hasStarted && !isPlaying && !hasEnded) */}
+              {hasStarted && !isPlaying && !hasEnded && (
+                <div
+                  onClick={togglePlay}
+                  className="absolute inset-0 bg-black/35 backdrop-blur-[1px] flex items-center justify-center cursor-pointer transition-all duration-200 z-10"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-xl hover:scale-105 transition-transform">
+                    <Play className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white ml-0.5" />
+                  </div>
+                </div>
+              )}
+
+              {/* State 3: Video Ended — Executive Conversion Screen */}
               {hasEnded && (
-                <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center z-10">
-                  <div className="text-center max-w-md px-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/10 border border-white/20 mb-5 cursor-pointer hover:bg-white/20 transition-colors" onClick={togglePlay}>
-                      <RotateCcw className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                <div className="absolute inset-0 bg-[#0A0A0C]/94 backdrop-blur-md flex flex-col items-center justify-center z-30 p-5 sm:p-8 text-center animate-in fade-in duration-300">
+                  <div className="max-w-md w-full">
+                    
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0066FF]/15 border border-[#0066FF]/30 text-[#0066FF] text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider mb-3 sm:mb-4">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Process Overview Complete (0:45)</span>
                     </div>
-                    <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight mb-2">
-                      Ready to get started?
+
+                    {/* Headline */}
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-white mb-2 leading-tight">
+                      Ready to bring your product to life?
                     </h3>
-                    <p className="text-white/60 text-xs sm:text-sm mb-6 leading-relaxed">
-                      You've seen the process. Let's bring your product to life.
+
+                    {/* Subtitle */}
+                    <p className="text-xs sm:text-sm text-[#A0A0A5] mb-5 sm:mb-6 leading-relaxed max-w-sm mx-auto">
+                      Submit your specifications or 1688 / Alibaba links. Our on-the-ground team in China will evaluate factories and share landed pricing.
                     </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+
+                    {/* High-Converting Action Buttons */}
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 mb-4 sm:mb-5">
                       <Link
                         to="/quote"
-                        className="inline-flex items-center gap-2 bg-white hover:bg-[#F0F0F0] text-[#111111] px-6 py-3 rounded-xl text-sm font-bold tracking-tight transition-all shadow-lg active:scale-[0.98]"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-[#F2F2F2] text-[#111111] px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold tracking-tight transition-all shadow-lg active:scale-[0.98]"
                       >
-                        <span>Get a Quote</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <span>GET A FREE QUOTE</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
-                      <button
-                        type="button"
-                        onClick={togglePlay}
-                        className="inline-flex items-center gap-2 text-white/80 hover:text-white px-5 py-3 rounded-xl text-sm font-medium transition-colors cursor-pointer"
+
+                      <a
+                        href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent("Hello Hira Outsourcing, I watched your process video and would like to get a quote for sourcing my product from China.")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-colors"
                       >
-                        <RotateCcw className="w-3.5 h-3.5" />
-                        <span>Watch Again</span>
-                      </button>
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>Chat on WhatsApp</span>
+                      </a>
                     </div>
+
+                    {/* Replay Option */}
+                    <button
+                      type="button"
+                      onClick={togglePlay}
+                      className="inline-flex items-center gap-1.5 text-xs text-white/60 hover:text-white transition-colors cursor-pointer py-1"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      <span>Replay Video</span>
+                    </button>
+
                   </div>
                 </div>
               )}
 
-              {/* Active Chapter Pill (Top Left) */}
-              {(isPlaying || hasStarted) && !hasEnded && (
-                <div className={`absolute top-3 sm:top-4 left-3 sm:left-4 z-20 pointer-events-none transition-opacity duration-300 ${controlsVisible || !isPlaying ? 'opacity-100' : 'opacity-0'}`}>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-white text-[10px] sm:text-[11px] font-medium">
+              {/* Active Chapter Pill (Top Left) — Only when playing or paused */}
+              {hasStarted && !hasEnded && (
+                <div className={`absolute top-2.5 sm:top-4 left-2.5 sm:left-4 z-20 pointer-events-none transition-opacity duration-300 ${controlsVisible || !isPlaying ? 'opacity-100' : 'opacity-0'}`}>
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-white text-[10px] sm:text-[11px] font-medium shadow-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-pulse" />
                     <span>Chapter {chapters[activeChapter].number}: {chapters[activeChapter].title}</span>
                   </div>
                 </div>
               )}
 
-              {/* Bottom Control Bar */}
+              {/* Bottom Control Bar — Only active once video has started and not ended */}
               <div
                 className={`absolute inset-x-0 bottom-0 z-20 transition-opacity duration-300 ${
-                  controlsVisible || !isPlaying || hasEnded ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                  hasStarted && !hasEnded && (controlsVisible || !isPlaying)
+                    ? 'opacity-100 pointer-events-auto'
+                    : 'opacity-0 pointer-events-none'
                 }`}
               >
                 {/* Gradient scrim */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent pointer-events-none" />
 
-                <div className="relative p-3 sm:p-4 lg:p-5">
+                <div className="relative px-3 pb-2.5 pt-8 sm:px-4 sm:pb-4 sm:pt-10 lg:px-5 lg:pb-5 lg:pt-12">
                   {/* Progress Bar */}
-                  <div className="relative mb-2.5 sm:mb-3 group/seek">
-                    {/* Background track */}
-                    <div className="w-full h-1 group-hover/seek:h-1.5 bg-white/20 rounded-full overflow-hidden transition-all">
-                      {/* Filled progress */}
+                  <div className="relative mb-2 sm:mb-3 group/seek">
+                    <div className="w-full h-[3px] sm:h-1 group-hover/seek:h-1.5 bg-white/20 rounded-full overflow-hidden transition-all">
                       <div
-                        className="h-full bg-white rounded-full transition-all duration-100"
+                        className="h-full bg-white rounded-full transition-[width] duration-100"
                         style={{ width: `${progressPercent}%` }}
                       />
                     </div>
-                    {/* Hidden range input overlay */}
                     <input
                       type="range"
                       min="0"
@@ -650,100 +679,90 @@ export const HowItWorks: React.FC = () => {
                       aria-label="Seek video position"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     />
-                    {/* Chapter dividers */}
                     {chapters.slice(1).map((ch) => (
                       <div
                         key={ch.id}
                         style={{ left: `${(ch.startTime / (duration || 45)) * 100}%` }}
-                        className="absolute top-0 w-[2px] h-1 group-hover/seek:h-1.5 bg-white/50 rounded-full transition-all"
+                        className="absolute top-0 w-[2px] h-[3px] sm:h-1 group-hover/seek:h-1.5 bg-white/50 rounded-full transition-all"
                       />
                     ))}
-                    {/* Scrubber Dot */}
                     <div
-                      className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md opacity-0 group-hover/seek:opacity-100 transition-opacity pointer-events-none"
-                      style={{ left: `calc(${progressPercent}% - 6px)` }}
+                      className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-white rounded-full shadow-md opacity-0 group-hover/seek:opacity-100 transition-opacity pointer-events-none"
+                      style={{ left: `calc(${progressPercent}% - 5px)` }}
                     />
                   </div>
 
                   {/* Controls Row */}
-                  <div className="flex items-center justify-between text-white text-xs">
+                  <div className="flex items-center justify-between text-white">
                     {/* Left */}
-                    <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="flex items-center gap-1.5 sm:gap-3">
                       <button
                         type="button"
                         onClick={togglePlay}
-                        className="p-1.5 rounded-full hover:bg-white/15 transition-colors focus:outline-none cursor-pointer"
+                        className="p-1 sm:p-1.5 rounded-full hover:bg-white/15 transition-colors focus:outline-none cursor-pointer"
                         aria-label={isPlaying ? 'Pause' : 'Play'}
                       >
                         {isPlaying ? (
-                          <Pause className="w-4 h-4 sm:w-5 sm:h-5 fill-white text-white" />
+                          <Pause className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 fill-white text-white" />
                         ) : (
-                          <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-white text-white" />
+                          <Play className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 fill-white text-white" />
                         )}
                       </button>
 
-                      <button
-                        type="button"
-                        onClick={() => seekToChapter(0, 0)}
-                        className="p-1.5 rounded-full hover:bg-white/15 transition-colors hidden sm:flex focus:outline-none cursor-pointer"
-                        aria-label="Replay from start"
-                      >
-                        <RotateCcw className="w-3.5 h-3.5 text-white/80" />
-                      </button>
-
-                      <span className="font-mono text-[11px] sm:text-xs text-white/85 tabular-nums">
-                        {formatTime(currentTime)} / {formatTime(duration)}
+                      <span className="font-mono text-[10px] sm:text-xs text-white/80 tabular-nums">
+                        {formatTime(currentTime)}<span className="text-white/40 mx-0.5">/</span>{formatTime(duration)}
                       </span>
+
+                      <span className="hidden sm:inline text-[10px] text-white/40 font-mono">•</span>
+                      <span className="hidden sm:inline text-[10px] text-white/40 font-mono">Full HD</span>
                     </div>
 
                     {/* Right */}
-                    <div className="flex items-center gap-1.5 sm:gap-2.5">
-                      <div className="flex items-center gap-1.5 group/vol">
-                        <button
-                          type="button"
-                          onClick={toggleMute}
-                          className="p-1.5 rounded-full hover:bg-white/15 transition-colors focus:outline-none cursor-pointer"
-                          aria-label={isMuted ? 'Unmute' : 'Mute'}
-                        >
-                          {isMuted || volume === 0 ? (
-                            <VolumeX className="w-4 h-4 text-white" />
-                          ) : (
-                            <Volume2 className="w-4 h-4 text-white" />
-                          )}
-                        </button>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.05"
-                          value={isMuted ? 0 : volume}
-                          onChange={handleVolumeChange}
-                          aria-label="Volume"
-                          className="w-14 sm:w-16 h-1 bg-white/25 rounded-full appearance-none cursor-pointer accent-white hidden sm:block"
-                        />
-                      </div>
+                    <div className="flex items-center gap-0.5 sm:gap-2">
+                      <button
+                        type="button"
+                        onClick={toggleMute}
+                        className="p-1 sm:p-1.5 rounded-full hover:bg-white/15 transition-colors focus:outline-none cursor-pointer"
+                        aria-label={isMuted ? 'Unmute' : 'Mute'}
+                      >
+                        {isMuted || volume === 0 ? (
+                          <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                        ) : (
+                          <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                        )}
+                      </button>
+                      <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value={isMuted ? 0 : volume}
+                        onChange={handleVolumeChange}
+                        aria-label="Volume"
+                        className="w-14 sm:w-16 h-1 bg-white/25 rounded-full appearance-none cursor-pointer accent-white hidden md:block"
+                      />
 
                       <button
                         type="button"
                         onClick={toggleCaptions}
-                        className={`p-1.5 rounded-full text-xs transition-colors focus:outline-none cursor-pointer ${
-                          showCaptions ? 'bg-white text-[#111111]' : 'text-white/70 hover:bg-white/15'
+                        className={`p-1 sm:p-1.5 rounded-full text-xs transition-colors focus:outline-none cursor-pointer ${
+                          showCaptions ? 'bg-white text-[#111111]' : 'text-white/60 hover:bg-white/15'
                         }`}
                         aria-label="Toggle Captions"
                       >
-                        <Subtitles className="w-3.5 h-3.5" />
+                        <Subtitles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                       </button>
 
                       <button
                         type="button"
                         onClick={toggleFullscreen}
-                        className="p-1.5 rounded-full hover:bg-white/15 transition-colors focus:outline-none cursor-pointer"
+                        className="p-1 sm:p-1.5 rounded-full hover:bg-white/15 transition-colors focus:outline-none cursor-pointer"
                         aria-label={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
                       >
                         {isFullscreen ? (
-                          <Minimize className="w-4 h-4 text-white" />
+                          <Minimize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         ) : (
-                          <Maximize className="w-4 h-4 text-white" />
+                          <Maximize className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                         )}
                       </button>
                     </div>
@@ -753,11 +772,11 @@ export const HowItWorks: React.FC = () => {
             </div>
           </div>
 
-          {/* Chapter Cards Below Video */}
+          {/* Chapter Cards Below Video — Equal Height, Standardized 2x2 on Mobile / 4-Col on Desktop */}
           <div
             id="anim-chapters"
             data-animate
-            className={`mt-5 sm:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 transition-all duration-700 delay-300 ${isVisible('anim-chapters') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            className={`mt-4 sm:mt-6 lg:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 lg:gap-4 transition-all duration-700 delay-300 ${isVisible('anim-chapters') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           >
             {chapters.map((ch, idx) => {
               const isActive = activeChapter === idx;
@@ -766,46 +785,61 @@ export const HowItWorks: React.FC = () => {
                   key={ch.id}
                   type="button"
                   onClick={() => seekToChapter(ch.startTime, idx)}
-                  className={`text-left p-3 sm:p-4 rounded-2xl border-2 transition-all duration-200 cursor-pointer flex flex-col ${
+                  className={`group text-left rounded-xl sm:rounded-2xl border transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between h-full min-h-[195px] sm:min-h-[220px] ${
                     isActive
-                      ? 'bg-[#111111] text-white border-[#111111] shadow-lg shadow-black/10'
-                      : 'bg-white text-[#444444] border-[#F0F0F0] hover:border-[#CCCCCC] hover:shadow-sm'
+                      ? 'bg-[#111111] text-white border-[#111111] shadow-lg ring-1 ring-white/10'
+                      : 'bg-[#F8F8FA] text-[#333333] border-[#E8E8EC] hover:border-[#CCCCCC] hover:bg-white hover:shadow-sm'
                   }`}
                 >
-                  {/* Thumbnail */}
-                  {ch.thumbnail && (
-                    <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden mb-3 bg-[#F0F0F0]">
-                      <img
-                        src={ch.thumbnail}
-                        alt={ch.title}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-2 left-2 bg-black/70 backdrop-blur-sm text-white text-[9px] font-mono px-1.5 py-0.5 rounded">
-                        {formatTime(ch.startTime)}
+                  {/* Top: 16:9 Thumbnail with timestamp */}
+                  <div>
+                    {ch.thumbnail && (
+                      <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#E8E8E8]">
+                        <img
+                          src={ch.thumbnail}
+                          alt={ch.title}
+                          className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${isActive ? 'opacity-95' : 'opacity-100'}`}
+                          loading="lazy"
+                        />
+                        <div className={`absolute top-1.5 left-1.5 sm:top-2 sm:left-2 text-white text-[8px] sm:text-[9.5px] font-mono px-1.5 py-0.5 rounded font-medium ${isActive ? 'bg-[#0066FF] shadow-xs' : 'bg-black/75 backdrop-blur-xs'}`}>
+                          {formatTime(ch.startTime)}
+                        </div>
+                        {isActive && (
+                          <div className="absolute inset-0 ring-2 ring-inset ring-[#0066FF] pointer-events-none" />
+                        )}
                       </div>
-                      {isActive && (
-                        <div className="absolute inset-0 ring-2 ring-inset ring-[#0066FF] rounded-xl pointer-events-none" />
-                      )}
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between mb-1">
-                    <span className={`text-[10px] font-mono tracking-widest font-semibold ${isActive ? 'text-[#0066FF]' : 'text-[#AAAAAA]'}`}>
-                      {ch.number}
-                    </span>
-                    {isActive && (
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0066FF] opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0066FF]" />
-                      </span>
                     )}
+
+                    {/* Content */}
+                    <div className="p-2.5 sm:p-3.5">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className={`text-[9px] sm:text-[10.5px] font-mono tracking-wider font-semibold ${isActive ? 'text-[#0066FF]' : 'text-[#888888]'}`}>
+                          Chapter {ch.number}
+                        </span>
+                        {isActive && (
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0066FF] opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0066FF]" />
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Fixed 2-Line Height for Title */}
+                      <div className={`text-[11.5px] sm:text-xs lg:text-[13px] font-bold tracking-tight leading-[1.25] min-h-[2.4em] flex items-start ${isActive ? 'text-white' : 'text-[#111111]'}`}>
+                        {ch.title}
+                      </div>
+
+                      {/* Fixed 2-Line Height for Description */}
+                      <div className={`text-[9.5px] sm:text-[11px] mt-1 leading-[1.3] line-clamp-2 min-h-[2.6em] ${isActive ? 'text-white/65' : 'text-[#777777]'}`}>
+                        {ch.description}
+                      </div>
+                    </div>
                   </div>
-                  <div className={`text-xs sm:text-sm font-bold tracking-tight ${isActive ? 'text-white' : 'text-[#111111]'}`}>
-                    {ch.title}
-                  </div>
-                  <div className={`text-[10.5px] sm:text-[11px] mt-1 leading-snug line-clamp-2 ${isActive ? 'text-white/60' : 'text-[#999999]'}`}>
-                    {ch.description}
+
+                  {/* Bottom Active Status Line */}
+                  <div className={`px-2.5 sm:px-3.5 pb-2.5 pt-0 text-[8.5px] sm:text-[9.5px] font-mono font-medium flex items-center justify-between ${isActive ? 'text-[#0066FF]' : 'text-[#AAAAAA]'}`}>
+                    <span>{isActive ? '● Now Playing' : 'Click to watch'}</span>
+                    <span className="group-hover:translate-x-0.5 transition-transform">→</span>
                   </div>
                 </button>
               );

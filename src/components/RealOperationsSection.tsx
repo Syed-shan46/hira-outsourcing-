@@ -28,7 +28,7 @@ export const RealOperationsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-[#FBFBFB] border-t border-[#EAEAEA]">
+    <section className="py-20 sm:py-28 lg:py-32 bg-[#FBFBFB]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         
         {/* Header */}
