@@ -32,11 +32,9 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Services', href: '#services' },
-    { name: 'How It Works', href: '#process' },
-    { name: 'Stats', href: '#stats' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'FAQ', href: '#faq' },
+    { name: 'Our Services', href: '/services' },
+    { name: 'How It Works', href: '/how-it-works' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   const languages = [
@@ -77,19 +75,34 @@ export const Navbar: React.FC = () => {
 
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center space-x-6 lg:space-x-8" aria-label="Main Navigation">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-xs sm:text-sm font-medium text-[#555555] hover:text-[#111111] transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`text-xs sm:text-sm transition-colors relative py-1 ${
+                      isActive 
+                        ? 'text-[#111111] font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#111111] after:rounded-full' 
+                        : 'font-medium text-[#666666] hover:text-[#111111]'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </nav>
 
-            {/* Right Controls: Language Selector + Minimal Hamburger Menu */}
+            {/* Right Controls: Desktop Get a Quote + Language Selector + Minimal Hamburger Menu */}
             <div className="flex items-center gap-3 shrink-0">
+              {/* Desktop Black Get a Quote Button */}
+              <Link
+                to="/quote"
+                className="hidden md:inline-flex items-center gap-1.5 bg-[#111111] hover:bg-[#252525] text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-tight transition-colors shadow-xs"
+              >
+                <span>Get a Quote</span>
+                <ArrowRight className="w-3 h-3 text-white/80" />
+              </Link>
               {/* Language Selector */}
               <div className="relative">
                 <button
@@ -146,27 +159,34 @@ export const Navbar: React.FC = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-b border-[#EAEAEA] px-5 py-5 space-y-4 animate-in slide-in-from-top-2 duration-150">
             <div className="space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-sm font-medium text-[#111111] hover:text-[#555555]"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block py-2 text-sm transition-colors ${
+                      isActive
+                        ? 'font-bold text-[#111111]'
+                        : 'font-medium text-[#555555] hover:text-[#111111]'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="pt-4 border-t border-[#EAEAEA] space-y-2">
-              <a
-                href="#quote"
+              <Link
+                to="/quote"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full inline-flex items-center justify-center gap-2 bg-[#111111] text-white py-3 rounded-lg text-xs font-semibold"
               >
                 <span>Get a Quote</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              </Link>
               <a
                 href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
                 target="_blank"

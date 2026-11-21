@@ -26,7 +26,7 @@ export const FinalCta: React.FC = () => {
         {/* CTAs */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto sm:max-w-none">
           <Link
-            to="/contact"
+            to="/quote"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#111111] hover:bg-black text-white px-7 py-3.5 rounded-lg text-sm font-semibold tracking-tight transition-colors"
           >
             <span>Get a Free Quote</span>

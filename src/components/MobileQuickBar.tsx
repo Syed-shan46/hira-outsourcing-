@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MessageSquare, ArrowRight } from 'lucide-react';
 import { siteConfig } from '../config/site';
 
@@ -17,13 +18,13 @@ export const MobileQuickBar: React.FC = () => {
           <span>Chat on WhatsApp</span>
         </a>
 
-        <a
-          href="#quote"
+        <Link
+          to="/quote"
           className="inline-flex items-center justify-center gap-1.5 bg-[#F5F5F5] hover:bg-[#EAEAEA] text-[#111111] py-3 px-4 rounded-lg text-xs font-semibold tracking-wide transition-colors border border-[#EAEAEA]"
         >
           <span>Get Quote</span>
           <ArrowRight className="w-3.5 h-3.5" />
-        </a>
+        </Link>
       </div>
     </div>
   );

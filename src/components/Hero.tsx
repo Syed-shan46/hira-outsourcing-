@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Hero: React.FC = () => {
   const dynamicWords = useMemo(
@@ -92,13 +93,13 @@ export const Hero: React.FC = () => {
 
           {/* 5. Small, Sleek Buttons */}
           <div className="flex items-center gap-2 pt-1 pb-1">
-            <a
-              href="#quote"
+            <Link
+              to="/quote"
               className="inline-flex items-center justify-center gap-1 bg-[#111111] hover:bg-black text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[10.5px] sm:text-[11.5px] font-semibold tracking-tight transition-colors shadow-xs shrink-0"
             >
               <span>Get a Quote</span>
               <span className="text-[9px]">&rarr;</span>
-            </a>
+            </Link>
 
             <a
               href="#process"
