@@ -8,21 +8,21 @@ export const RealOperationsSection: React.FC = () => {
       title: "Warehouse & Consolidation",
       location: "Yiwu & Shenzhen Logistics Hubs",
       desc: "Direct receipt of factory pallets, dimensional weight verification, consolidated loading, and export palletization.",
-      image: "/images/promo_logistics.jpg",
+      image: "/images/gallery_warehouse_consolidation.jpg",
       tag: "Ground Facility"
     },
     {
       title: "Pre-Shipment Product Inspection",
       location: "Factory Floor & Assembly Audits",
       desc: "Physical AQL 2.5 sample checks, golden sample comparison, functional testing, and outer packaging drop checks before dispatch.",
-      image: "/images/promo_items_pure.jpg",
+      image: "/images/gallery_quality_audit.jpg",
       tag: "Quality Audit"
     },
     {
       title: "Container Port Staging & Vessel Loading",
       location: "Ningbo-Zhoushan & Yantian Terminals",
       desc: "Full container load (FCL) and consolidated (LCL) freight handoff to Tier-1 container shipping lines bound for Indian ports.",
-      image: "/images/cargo_ship_hero.jpg",
+      image: "/images/gallery_port_staging.jpg",
       tag: "Ocean & Air Freight"
     }
   ];

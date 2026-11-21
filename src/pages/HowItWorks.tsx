@@ -254,7 +254,7 @@ export const HowItWorks: React.FC = () => {
       title: "Container Port Staging & Terminal Handoff",
       location: "Ningbo-Zhoushan & Yantian Terminals",
       desc: "Vessel staging and international container terminal release for sea freight departures bound for Indian destination ports.",
-      image: "/images/cargo_ship_hero.jpg",
+      image: "/images/gallery_port_staging.jpg",
       tag: "Ocean Port Staging"
     },
     {
@@ -262,7 +262,7 @@ export const HowItWorks: React.FC = () => {
       title: "Warehouse Consolidation & Palletization",
       location: "Yiwu & Shenzhen Logistics Hubs",
       desc: "Pallet strapping, dimensional weight audits, custom inner-box packing, and export container stuffing.",
-      image: "/images/promo_logistics.jpg",
+      image: "/images/gallery_warehouse_consolidation.jpg",
       tag: "Ground Facility"
     },
     {
@@ -270,7 +270,7 @@ export const HowItWorks: React.FC = () => {
       title: "Pre-Shipment Product Quality Audit",
       location: "Guangdong & Zhejiang Factory Floors",
       desc: "Physical AQL 2.5 sample checks, golden sample verification, functional tolerance testing, and packaging drop testing.",
-      image: "/images/promo_items_pure.jpg",
+      image: "/images/gallery_quality_audit.jpg",
       tag: "On-Site Quality Audit"
     },
     {
@@ -278,7 +278,7 @@ export const HowItWorks: React.FC = () => {
       title: "Export Carton Reinforcement & Strapping",
       location: "Central Consolidation Depot",
       desc: "Edge-guard corner protection, heavy-duty shrink wrapping, and moisture barrier application prior to ocean voyage.",
-      image: "/images/mockup_warehouse_video.png",
+      image: "/images/gallery_carton_strapping.jpg",
       tag: "Export Packaging"
     },
     {
@@ -286,7 +286,7 @@ export const HowItWorks: React.FC = () => {
       title: "Full Container (FCL) Staging & Seal Integrity",
       location: "Industrial Export Terminal",
       desc: "Official container seal checks, load-balance optimization, and customs documentation matching for sealed transit.",
-      image: "/images/container_img.png",
+      image: "/images/gallery_container_seal.jpg",
       tag: "Container Operations"
     },
     {
@@ -294,7 +294,7 @@ export const HowItWorks: React.FC = () => {
       title: "Doorstep Warehouse Commercial Handover",
       location: "Indian Commercial Hubs (Mumbai / Delhi NCR)",
       desc: "Customs release, bonded inland transport, and physical product handover directly to your Indian facility.",
-      image: "/images/order_confirmed_top_bg.jpg",
+      image: "/images/gallery_doorstep_handover.jpg",
       tag: "Doorstep Delivery"
     }
   ];
