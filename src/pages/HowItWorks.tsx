@@ -181,16 +181,6 @@ export const HowItWorks: React.FC = () => {
     }
   };
 
-  const seekToChapter = (startTime: number, index: number) => {
-    if (!videoRef.current) return;
-    videoRef.current.currentTime = startTime;
-    setCurrentTime(startTime);
-    setActiveChapter(index);
-    if (hasEnded) setHasEnded(false);
-    if (!hasStarted) setHasStarted(true);
-    videoRef.current.play().catch(() => {});
-  };
-
   const toggleMute = () => {
     if (!videoRef.current) return;
     const newMuteState = !isMuted;
@@ -770,80 +760,6 @@ export const HowItWorks: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Chapter Cards Below Video — Equal Height, Standardized 2x2 on Mobile / 4-Col on Desktop */}
-          <div
-            id="anim-chapters"
-            data-animate
-            className={`mt-4 sm:mt-6 lg:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 lg:gap-4 transition-all duration-700 delay-300 ${isVisible('anim-chapters') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-          >
-            {chapters.map((ch, idx) => {
-              const isActive = activeChapter === idx;
-              return (
-                <button
-                  key={ch.id}
-                  type="button"
-                  onClick={() => seekToChapter(ch.startTime, idx)}
-                  className={`group text-left rounded-xl sm:rounded-2xl border transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between h-full min-h-[195px] sm:min-h-[220px] ${
-                    isActive
-                      ? 'bg-[#111111] text-white border-[#111111] shadow-lg ring-1 ring-white/10'
-                      : 'bg-[#F8F8FA] text-[#333333] border-[#E8E8EC] hover:border-[#CCCCCC] hover:bg-white hover:shadow-sm'
-                  }`}
-                >
-                  {/* Top: 16:9 Thumbnail with timestamp */}
-                  <div>
-                    {ch.thumbnail && (
-                      <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#E8E8E8]">
-                        <img
-                          src={ch.thumbnail}
-                          alt={ch.title}
-                          className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${isActive ? 'opacity-95' : 'opacity-100'}`}
-                          loading="lazy"
-                        />
-                        <div className={`absolute top-1.5 left-1.5 sm:top-2 sm:left-2 text-white text-[8px] sm:text-[9.5px] font-mono px-1.5 py-0.5 rounded font-medium ${isActive ? 'bg-[#0066FF] shadow-xs' : 'bg-black/75 backdrop-blur-xs'}`}>
-                          {formatTime(ch.startTime)}
-                        </div>
-                        {isActive && (
-                          <div className="absolute inset-0 ring-2 ring-inset ring-[#0066FF] pointer-events-none" />
-                        )}
-                      </div>
-                    )}
-
-                    {/* Content */}
-                    <div className="p-2.5 sm:p-3.5">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className={`text-[9px] sm:text-[10.5px] font-mono tracking-wider font-semibold ${isActive ? 'text-[#0066FF]' : 'text-[#888888]'}`}>
-                          Chapter {ch.number}
-                        </span>
-                        {isActive && (
-                          <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0066FF] opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0066FF]" />
-                          </span>
-                        )}
-                      </div>
-                      
-                      {/* Fixed 2-Line Height for Title */}
-                      <div className={`text-[11.5px] sm:text-xs lg:text-[13px] font-bold tracking-tight leading-[1.25] min-h-[2.4em] flex items-start ${isActive ? 'text-white' : 'text-[#111111]'}`}>
-                        {ch.title}
-                      </div>
-
-                      {/* Fixed 2-Line Height for Description */}
-                      <div className={`text-[9.5px] sm:text-[11px] mt-1 leading-[1.3] line-clamp-2 min-h-[2.6em] ${isActive ? 'text-white/65' : 'text-[#777777]'}`}>
-                        {ch.description}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom Active Status Line */}
-                  <div className={`px-2.5 sm:px-3.5 pb-2.5 pt-0 text-[8.5px] sm:text-[9.5px] font-mono font-medium flex items-center justify-between ${isActive ? 'text-[#0066FF]' : 'text-[#AAAAAA]'}`}>
-                    <span>{isActive ? '● Now Playing' : 'Click to watch'}</span>
-                    <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-                  </div>
-                </button>
-              );
-            })}
           </div>
 
         </div>
