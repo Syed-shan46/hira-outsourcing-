@@ -101,15 +101,15 @@ export const Hero: React.FC = () => {
               <span className="text-[9px]">&rarr;</span>
             </Link>
 
-            <a
-              href="#process"
+            <Link
+              to="/how-it-works"
               className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-[#F9F9FB] text-[#111111] border border-[#E5E5E7] hover:border-[#111111] px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-[10.5px] sm:text-[11.5px] font-medium transition-colors shrink-0"
             >
               <div className="w-3.5 h-3.5 rounded-full bg-[#111111] text-white flex items-center justify-center text-[7px] shrink-0">
                 ▶
               </div>
               <span>How It Works</span>
-            </a>
+            </Link>
           </div>
         </div>
 
