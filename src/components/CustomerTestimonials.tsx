@@ -3,7 +3,7 @@ import { Play } from 'lucide-react';
 
 export const CustomerTestimonials: React.FC = () => {
   return (
-    <section className="py-2.5 sm:py-4 bg-white border-b border-[#EAEAEA]" id="testimonials">
+    <section className="py-2.5 sm:py-4 bg-white" id="testimonials">
       <div className="max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8">
         
         {/* Exact 2-column side-by-side grid on both mobile and desktop */}
