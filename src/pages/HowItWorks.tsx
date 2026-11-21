@@ -29,6 +29,7 @@ interface Chapter {
   title: string;
   startTime: number; // in seconds
   description: string;
+  thumbnail?: string;
 }
 
 interface GalleryItem {
@@ -66,35 +67,39 @@ export const HowItWorks: React.FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Video Chapter Definitions matching hira_how_it_works.mp4
+  // Video Chapter Definitions matching how_it_works_video.mp4 (45s total duration)
   const chapters: Chapter[] = [
     {
       id: "ch-1",
       number: "01",
       title: "Share Your Requirement",
       startTime: 0,
-      description: "Submit product specifications, reference images or 1688 links."
+      description: "Submit product specifications, reference images or 1688 links.",
+      thumbnail: "/videos/thumb_ch1.jpg"
     },
     {
       id: "ch-2",
       number: "02",
       title: "Source & Verify",
-      startTime: 8,
-      description: "Factory qualification, sample dispatch and on-site AQL inspection."
+      startTime: 11,
+      description: "Factory qualification, sample dispatch and on-site AQL inspection.",
+      thumbnail: "/videos/thumb_ch2.jpg"
     },
     {
       id: "ch-3",
       number: "03",
       title: "Import & Logistics",
-      startTime: 16,
-      description: "Export consolidation, container staging and customs filing."
+      startTime: 22,
+      description: "Export consolidation, container staging and customs filing.",
+      thumbnail: "/videos/thumb_ch3.jpg"
     },
     {
       id: "ch-4",
       number: "04",
       title: "Delivery",
-      startTime: 24,
-      description: "Direct handover and commercial delivery to your warehouse."
+      startTime: 33,
+      description: "Direct handover and commercial delivery to your warehouse.",
+      thumbnail: "/videos/thumb_ch4.jpg"
     }
   ];
 
@@ -113,12 +118,12 @@ export const HowItWorks: React.FC = () => {
     const current = videoRef.current.currentTime;
     setCurrentTime(current);
 
-    // Update active chapter based on time
-    if (current >= 24) {
+    // Update active chapter based on time (0s, 11s, 22s, 33s)
+    if (current >= 33) {
       setActiveChapter(3);
-    } else if (current >= 16) {
+    } else if (current >= 22) {
       setActiveChapter(2);
-    } else if (current >= 8) {
+    } else if (current >= 11) {
       setActiveChapter(1);
     } else {
       setActiveChapter(0);
@@ -395,8 +400,8 @@ export const HowItWorks: React.FC = () => {
             {/* HTML5 Video Element */}
             <video
               ref={videoRef}
-              src="/videos/hira_how_it_works.mp4"
-              poster="/images/mockup_warehouse_video.png"
+              src="/videos/how_it_works_video.mp4"
+              poster="/videos/how_it_works_poster.jpg"
               preload="metadata"
               playsInline
               onClick={togglePlay}
@@ -408,7 +413,7 @@ export const HowItWorks: React.FC = () => {
             >
               <track
                 kind="captions"
-                src="/videos/hira_how_it_works.vtt"
+                src="/videos/how_it_works_video.vtt"
                 srcLang="en"
                 label="English"
                 default
@@ -427,7 +432,7 @@ export const HowItWorks: React.FC = () => {
                     <Play className="w-6 h-6 sm:w-8 sm:h-8 fill-[#111111] text-[#111111] ml-1" />
                   </div>
                   <div className="absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold uppercase tracking-wider text-white bg-black/70 px-3 py-1 rounded-md backdrop-blur-xs">
-                    Play Video (0:32)
+                    Play Video (0:45)
                   </div>
                 </div>
               </div>
@@ -566,7 +571,7 @@ export const HowItWorks: React.FC = () => {
           </div>
 
           {/* 4 Subtle Chapter Markers Below Video (Seekable on Click) */}
-          <div className="mt-4 sm:mt-6 grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+          <div className="mt-4 sm:mt-6 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
             {chapters.map((ch, idx) => {
               const isActive = activeChapter === idx;
               return (
@@ -574,24 +579,44 @@ export const HowItWorks: React.FC = () => {
                   key={ch.id}
                   type="button"
                   onClick={() => seekToChapter(ch.startTime, idx)}
-                  className={`text-left p-3 sm:p-3.5 rounded-xl border transition-all cursor-pointer ${
+                  className={`text-left p-3 sm:p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                     isActive
-                      ? 'bg-[#111111] text-white border-[#111111] shadow-sm'
+                      ? 'bg-[#111111] text-white border-[#111111] shadow-md ring-1 ring-white/10'
                       : 'bg-white text-[#444444] border-[#EAEAEA] hover:border-[#111111] hover:text-[#111111]'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className={`text-[10px] font-mono tracking-wider ${isActive ? 'text-[#0066FF]' : 'text-[#888888]'}`}>
-                      {ch.number} • {formatTime(ch.startTime)}
-                    </span>
-                    {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-pulse" />
+                  <div>
+                    {/* Thumbnail Preview */}
+                    {ch.thumbnail && (
+                      <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden mb-2.5 bg-[#F0F0F0]">
+                        <img
+                          src={ch.thumbnail}
+                          alt={ch.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="absolute top-1.5 left-1.5 bg-black/75 backdrop-blur-xs text-white text-[9.5px] font-mono px-1.5 py-0.5 rounded">
+                          {formatTime(ch.startTime)}
+                        </div>
+                        {isActive && (
+                          <div className="absolute inset-0 bg-[#0066FF]/20 border-2 border-[#0066FF] rounded-lg pointer-events-none" />
+                        )}
+                      </div>
                     )}
+
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-[10px] font-mono tracking-wider ${isActive ? 'text-[#0066FF]' : 'text-[#888888]'}`}>
+                        Chapter {ch.number}
+                      </span>
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-pulse" />
+                      )}
+                    </div>
+                    <div className={`text-xs sm:text-sm font-semibold tracking-tight ${isActive ? 'text-white' : 'text-[#111111]'}`}>
+                      {ch.title}
+                    </div>
                   </div>
-                  <div className={`text-xs sm:text-sm font-semibold tracking-tight ${isActive ? 'text-white' : 'text-[#111111]'}`}>
-                    {ch.title}
-                  </div>
-                  <div className={`text-[11px] mt-0.5 line-clamp-1 ${isActive ? 'text-white/70' : 'text-[#777777]'}`}>
+                  <div className={`text-[11px] mt-1.5 line-clamp-2 ${isActive ? 'text-white/70' : 'text-[#777777]'}`}>
                     {ch.description}
                   </div>
                 </button>
