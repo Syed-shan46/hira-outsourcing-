@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Play, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 export const CustomerTestimonials: React.FC = () => {
   return (
@@ -52,36 +52,32 @@ export const CustomerTestimonials: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Card: Real Warehouse Video Thumbnail with Single Centered Play Button -> Links to /how-it-works */}
+          {/* Right Card: High-Quality Real China Ground Operations Photo (No Play Button) -> Links to /how-it-works */}
           <Link
             to="/how-it-works"
             className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-[#EAEAEA] bg-[#111111] h-full min-h-[110px] sm:min-h-[135px] group cursor-pointer block"
-            aria-label="Watch How It Works Video (0:45 Full HD)"
+            aria-label="Explore Our China Operations"
           >
-            {/* Clean Warehouse Photo (Without baked-in play button) */}
+            {/* Clean, High-Definition Authentic Operations Photo */}
             <img
-              src="/images/mockup_warehouse_video.png"
-              alt="Hira Outsourcing China Warehouse Operations"
+              src="/images/gallery_warehouse_consolidation.jpg"
+              alt="Hira Outsourcing China Ground Logistics Facility"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             
-            {/* Top Badge: Process Video Duration */}
+            {/* Top Badge: Ground Facility Status */}
             <div className="absolute top-2 left-2 z-10 pointer-events-none">
-              <div className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-black/75 backdrop-blur-md text-white text-[7.5px] sm:text-[9px] font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-pulse" />
-                <span>How It Works • 0:45</span>
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-white text-[7.5px] sm:text-[9px] font-medium border border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Ground Facility</span>
               </div>
             </div>
 
-            {/* Exactly ONE Centered Crisp Play Button */}
-            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/35 transition-colors flex items-center justify-center">
-              <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white text-[#111111] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                <Play className="w-3 h-3 sm:w-4 sm:h-4 fill-current ml-0.5" />
-              </div>
-            </div>
+            {/* Subtle Gradient Overlay for Text Readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none group-hover:via-black/30 transition-colors" />
 
             {/* Bottom Caption Overlay */}
-            <div className="absolute inset-x-0 bottom-0 p-2 sm:p-2.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex items-center justify-between text-white text-[8px] sm:text-[9.5px] font-medium z-10">
+            <div className="absolute inset-x-0 bottom-0 p-2 sm:p-2.5 flex items-center justify-between text-white text-[8px] sm:text-[9.5px] font-medium z-10">
               <span className="truncate">Our China Operations</span>
               <span className="text-[9px] sm:text-xs text-white/80 group-hover:translate-x-0.5 transition-transform shrink-0 ml-1">&rarr;</span>
             </div>
