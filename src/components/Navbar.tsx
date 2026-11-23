@@ -6,7 +6,8 @@ import {
   Menu,
   X,
   ArrowRight,
-  MessageSquare
+  MessageSquare,
+  Package
 } from 'lucide-react';
 import { siteConfig } from '../config/site';
 
@@ -34,6 +35,7 @@ export const Navbar: React.FC = () => {
     { name: 'Home', href: '/' },
     { name: 'Our Services', href: '/services' },
     { name: 'How It Works', href: '/how-it-works' },
+    { name: 'Track Order', href: '/tracking' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -159,13 +161,18 @@ export const Navbar: React.FC = () => {
                     key={link.name}
                     to={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-2 text-sm transition-colors ${
+                    className={`flex items-center justify-between py-2 text-sm transition-colors ${
                       isActive
                         ? 'font-bold text-[#111111]'
                         : 'font-medium text-[#555555] hover:text-[#111111]'
                     }`}
                   >
-                    {link.name}
+                    <span>{link.name}</span>
+                    {link.href === '/tracking' && (
+                      <span className="text-[10px] font-semibold bg-[#111111]/5 text-[#111111] px-2 py-0.5 rounded-full border border-[#EAEAEA]">
+                        Live
+                      </span>
+                    )}
                   </Link>
                 );
               })}
@@ -180,15 +187,25 @@ export const Navbar: React.FC = () => {
                 <span>Get a Quote</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-              <a
-                href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#F5F5F5] text-[#111111] py-2.5 rounded-lg text-xs font-medium border border-[#EAEAEA]"
-              >
-                <MessageSquare className="w-3.5 h-3.5 text-[#111111]" />
-                <span>Chat on WhatsApp</span>
-              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  to="/tracking"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-[#F5F5F5] text-[#111111] py-2.5 rounded-lg text-xs font-semibold border border-[#EAEAEA] transition-colors"
+                >
+                  <Package className="w-3.5 h-3.5 text-[#111111]" />
+                  <span>Track Order</span>
+                </Link>
+                <a
+                  href={`https://wa.me/${siteConfig.whatsapp.number}?text=${encodeURIComponent(siteConfig.whatsapp.defaultMessage)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 bg-[#F5F5F5] hover:bg-[#EAEAEA] text-[#111111] py-2.5 rounded-lg text-xs font-medium border border-[#EAEAEA] transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-[#111111]" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
             </div>
           </div>
         )}
