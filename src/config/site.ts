@@ -17,8 +17,8 @@ export const siteConfig = {
 
   // Contact Details
   contact: {
-    email: "enquiry@hiraoutsourcing.com",
-    supportEmail: "support@hiraoutsourcing.com",
+    email: "hiraoutsourcing@gmail.com",
+    supportEmail: "hiraoutsourcing@gmail.com",
     addressIndia: "Operational Hub: Palakkad, Kerala, India",
     addressChina: "Sourcing & Coordination Hub: Yiwu & Shenzhen, China",
     businessHours: "Monday to Saturday: 6:00 AM – 11:00 PM IST",

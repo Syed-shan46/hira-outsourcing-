@@ -140,7 +140,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
     } catch (err: any) {
       setStatus('error');
       setErrorMessage(
-        err.message || 'Submission failed. Please reach our desk directly at enquiry@hiraoutsourcing.com'
+        err.message || `Submission failed. Please reach our desk directly at ${siteConfig.contact.email}`
       );
     }
   };
